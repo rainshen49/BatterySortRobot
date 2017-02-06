@@ -1,12 +1,12 @@
-Microchip MPLAB XC8 Compiler V1.40 ()
+Microchip MPLAB XC8 Compiler V1.41 ()
 
 Linker command line:
 
--W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.40\dat\en_msgs.txt -cs \
-  -h+dist/default/production\HelloPIC.production.sym \
-  --cmf=dist/default/production\HelloPIC.production.cmf -z -Q18F4620 \
-  -oC:\Users\RainS\AppData\Local\Temp\s9hc.2 \
-  -Mdist/default/production/HelloPIC.production.map -E1 -ver=XC8 \
+-W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.41\dat\en_msgs.txt -cs \
+  -h+dist/default/production\BatterySortRobot.production.sym \
+  --cmf=dist/default/production\BatterySortRobot.production.cmf -z \
+  -Q18F4620 -oC:\Users\RainS\AppData\Local\Temp\spo.2 \
+  -Mdist/default/production/BatterySortRobot.production.map -E1 -ver=XC8 \
   -ASTACK=0B2h-0f7fh -pstack=STACK -ACODE=00h-0FFFFh -ACONST=00h-0FFFFh \
   -ASMALLCONST=01000h-010FFhx240 -AMEDIUMCONST=01000h-0FFFFh \
   -ACOMRAM=01h-07Fh -AABS1=00h-0F7Fh -ABIGRAM=01h-0F7Fh \
@@ -25,8 +25,8 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\RainS\AppData\Local\Temp\s9hc.obj \
-  dist/default/production\HelloPIC.production.obj 
+  C:\Users\RainS\AppData\Local\Temp\spo.obj \
+  dist/default/production\BatterySortRobot.production.obj 
 
 Object code version is 3.11
 
@@ -38,35 +38,35 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\RainS\AppData\Local\Temp\s9hc.obj
+C:\Users\RainS\AppData\Local\Temp\spo.obj
                 init                                  E        E        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
                 config                           300000   300000        E   300000       0
-dist/default/production\HelloPIC.production.obj
+dist/default/production\BatterySortRobot.production.obj
                 intcode                               8        8        6        4       0
                 temp                                 70       70        1        1       1
                 smallconst                         1000     1000       D2      800       0
-                intcode_body                       13AA     13AA       84      869       0
-                text12                             151A     151A       56      869       0
-                text11                             16B2     16B2        C      B2F       0
-                text10                             15B8     15B8       46      869       0
-                text9                              165E     165E       1E      B2F       0
-                text8                              1694     1694       12      B2F       0
-                text7                              167C     167C       18      B2F       0
-                text6                              16A6     16A6        C      B2F       0
-                text5                              1202     1202       DC      869       0
-                text4                              142E     142E       7E      869       0
-                text3                              10D2     10D2      130      869       0
-                text2                              14AC     14AC       6E      869       0
-                text1                              12DE     12DE       CC      869       0
-                text0                              1570     1570       48      869       0
+                intcode_body                       13C0     13C0       84      869       0
+                text12                             1524     1524       56      869       0
+                text11                             16BC     16BC        C      B34       0
+                text10                             15C2     15C2       46      869       0
+                text9                              1668     1668       1E      B34       0
+                text8                              169E     169E       12      B34       0
+                text7                              1686     1686       18      B34       0
+                text6                              16B0     16B0        C      B34       0
+                text5                              1218     1218       DC      869       0
+                text4                              1444     1444       7E      869       0
+                text3                              10D2     10D2      146      869       0
+                text2                              14C2     14C2       62      869       0
+                text1                              12F4     12F4       CC      869       0
+                text0                              157A     157A       48      869       0
                 cstackCOMRAM                          1        1       67        1       1
                 cstackBANK0                          A9       A9        9       80       1
                 dataBANK0                            80       80       29       80       1
                 bssCOMRAM                            68       68        8        1       1
-                cinit                              15FE     15FE       36      869       0
-                idataBANK0                         1634     1634       29      869       0
+                cinit                              1608     1608       36      869       0
+                idataBANK0                         163E     163E       29      869       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
@@ -75,22 +75,22 @@ TOTAL           Name                               Link     Load   Length     Sp
                 intcode                               8        8        6         0
                 init                                  E        E        4         0
                 reset_vec                             0        0        4         0
-                intcode_body                       13AA     13AA       84         0
-                text12                             151A     151A       56         0
-                text11                             16B2     16B2        C         0
-                text10                             15B8     15B8       46         0
-                text9                              165E     165E       1E         0
-                text8                              1694     1694       12         0
-                text7                              167C     167C       18         0
-                text6                              16A6     16A6        C         0
-                text5                              1202     1202       DC         0
-                text4                              142E     142E       7E         0
-                text3                              10D2     10D2      130         0
-                text2                              14AC     14AC       6E         0
-                text1                              12DE     12DE       CC         0
-                text0                              1570     1570       48         0
-                cinit                              15FE     15FE       36         0
-                idataBANK0                         1634     1634       29         0
+                intcode_body                       13C0     13C0       84         0
+                text12                             1524     1524       56         0
+                text11                             16BC     16BC        C         0
+                text10                             15C2     15C2       46         0
+                text9                              1668     1668       1E         0
+                text8                              169E     169E       12         0
+                text7                              1686     1686       18         0
+                text6                              16B0     16B0        C         0
+                text5                              1218     1218       DC         0
+                text4                              1444     1444       7E         0
+                text3                              10D2     10D2      146         0
+                text2                              14C2     14C2       62         0
+                text1                              12F4     12F4       CC         0
+                text0                              157A     157A       48         0
+                cinit                              1608     1608       36         0
+                idataBANK0                         163E     163E       29         0
 
         CLASS   CONST          
 
@@ -165,8 +165,8 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 intcode                        000008  00000A  000012         4       0  CODE    
                 dataBANK0                      000080  000032  0000B2        80       1  BANK0   
                 smallconst                     001000  0000D2  0010D2       800       0  SMALLCON
-                text3                          0010D2  00058B  00165D       869       0  CODE    
-                text9                          00165E  000060  0016BE       B2F       0  CODE    
+                text3                          0010D2  000595  001667       869       0  CODE    
+                text9                          001668  000060  0016C8       B34       0  CODE    
                 idloc                          200000  000008  200008    200000       0  IDLOC   
                 config                         300000  00000E  30000E    300000       0  CONFIG  
 
@@ -194,20 +194,20 @@ UNUSED ADDRESS RANGES
                          0000B2-000F7F              ECE
         CODE             000004-000007                4
                          000012-000FFF              FEE
-                         00165D-00165D                1
-                         0016BE-00FFFF             E942
+                         001667-001667                1
+                         0016C8-00FFFF             E938
         COMRAM           000071-00007F                F
         CONST            000004-000007                4
                          000012-000FFF              FEE
-                         00165D-00165D                1
-                         0016BE-00FFFF             E942
+                         001667-001667                1
+                         0016C8-00FFFF             E938
         EEDATA           F00000-F003FF              400
-        MEDIUMCONST      00165D-00165D                1
-                         0016BE-00FFFF             E942
+        MEDIUMCONST      001667-001667                1
+                         0016C8-00FFFF             E938
         RAM              0000B2-000F7F              100
         SFR              000F80-000FFF               80
-        SMALLCONST       00165D-00165D                1
-                         0016BE-00FFFF              100
+        SMALLCONST       001667-001667                1
+                         0016C8-00FFFF              100
         STACK            0000B2-000F7F              ECE
 
                                   Symbol Table
@@ -437,45 +437,45 @@ ___rparam_used           (abs)        000001
 ___sp                    stack        000000
 __accesstop              (abs)        000080
 __activetblptr           (abs)        000003
-__end_of__initialization cinit        00162A
-__end_of_captureKeypad   text7        001694
-__end_of_getTime         text8        0016A6
-__end_of_initLCD         text10       0015FE
-__end_of_initialize      text9        00167C
-__end_of_keypressed      intcode_body 00142E
-__end_of_lcdInst         text11       0016BE
-__end_of_lcdNibble       text12       001570
-__end_of_main            text0        0015B8
-__end_of_mainloop        text1        0013AA
-__end_of_printf          text5        0012DE
-__end_of_println         text4        0014AC
-__end_of_putch           text6        0016B2
-__end_of_showInfo        text3        001202
-__end_of_simulateSort    text2        00151A
-__initialization         cinit        0015FE
+__end_of__initialization cinit        001634
+__end_of_captureKeypad   text7        00169E
+__end_of_getTime         text8        0016B0
+__end_of_initLCD         text10       001608
+__end_of_initialize      text9        001686
+__end_of_keypressed      intcode_body 001444
+__end_of_lcdInst         text11       0016C8
+__end_of_lcdNibble       text12       00157A
+__end_of_main            text0        0015C2
+__end_of_mainloop        text1        0013C0
+__end_of_printf          text5        0012F4
+__end_of_println         text4        0014C2
+__end_of_putch           text6        0016BC
+__end_of_showInfo        text3        001218
+__end_of_simulateSort    text2        001524
+__initialization         cinit        001608
 __mediumconst            mediumconst  000000
 __pbssCOMRAM             bssCOMRAM    000068
-__pcinit                 cinit        0015FE
+__pcinit                 cinit        001608
 __pcstackBANK0           cstackBANK0  0000A9
 __pcstackCOMRAM          cstackCOMRAM 000001
 __pdataBANK0             dataBANK0    000080
-__pidataBANK0            idataBANK0   001634
+__pidataBANK0            idataBANK0   00163E
 __pintcode               intcode      000008
-__pintcode_body          intcode_body 0013AA
+__pintcode_body          intcode_body 0013C0
 __psmallconst            smallconst   001000
-__ptext0                 text0        001570
-__ptext1                 text1        0012DE
-__ptext10                text10       0015B8
-__ptext11                text11       0016B2
-__ptext12                text12       00151A
-__ptext2                 text2        0014AC
+__ptext0                 text0        00157A
+__ptext1                 text1        0012F4
+__ptext10                text10       0015C2
+__ptext11                text11       0016BC
+__ptext12                text12       001524
+__ptext2                 text2        0014C2
 __ptext3                 text3        0010D2
-__ptext4                 text4        00142E
-__ptext5                 text5        001202
-__ptext6                 text6        0016A6
-__ptext7                 text7        00167C
-__ptext8                 text8        001694
-__ptext9                 text9        00165E
+__ptext4                 text4        001444
+__ptext5                 text5        001218
+__ptext6                 text6        0016B0
+__ptext7                 text7        001686
+__ptext8                 text8        00169E
+__ptext9                 text9        001668
 __ramtop                 ramtop       001000
 __size_of_captureKeypad  (abs)        000000
 __size_of_getTime        (abs)        000000
@@ -492,26 +492,26 @@ __size_of_putch          (abs)        000000
 __size_of_showInfo       (abs)        000000
 __size_of_simulateSort   (abs)        000000
 __smallconst             smallconst   001000
-_captureKeypad           text7        00167C
-_getTime                 text8        001694
-_initLCD                 text10       0015B8
-_initialize              text9        00165E
+_captureKeypad           text7        001686
+_getTime                 text8        00169E
+_initLCD                 text10       0015C2
+_initialize              text9        001668
 _keypressed              intcode      000008
-_lcdInst                 text11       0016B2
-_lcdNibble               text12       00151A
-_main                    text0        001570
-_mainloop                text1        0012DE
-_printf                  text5        001202
-_println                 text4        00142E
-_putch                   text6        0016A6
+_lcdInst                 text11       0016BC
+_lcdNibble               text12       001524
+_main                    text0        00157A
+_mainloop                text1        0012F4
+_printf                  text5        001218
+_println                 text4        001444
+_putch                   text6        0016B0
 _showInfo                text3        0010D2
-_simulateSort            text2        0014AC
+_simulateSort            text2        0014C2
 btemp                    temp         000070
 captureKeypad@keypress   cstackCOMRAM 000012
-end_of_initialization    cinit        00162A
+end_of_initialization    cinit        001634
 getTime@time             cstackCOMRAM 000012
 int$flags                temp         000070
-int_func                 intcode_body 0013AA
+int_func                 intcode_body 0013C0
 intlevel0                text         000000
 intlevel1                text         000000
 intlevel2                text         000000
@@ -535,7 +535,7 @@ printf@c                 cstackCOMRAM 00001A
 printf@cp                cstackCOMRAM 00001B
 printf@f                 cstackCOMRAM 000013
 printf@flag              cstackCOMRAM 000017
-println@F2951            dataBANK0    000080
+println@F3037            dataBANK0    000080
 println@data             cstackCOMRAM 00001D
 println@i                cstackCOMRAM 00004A
 println@output           cstackCOMRAM 000021
@@ -546,14 +546,14 @@ simulateSort@stop        cstackCOMRAM 00004C
 stackhi                  (abs)        000F7F
 stacklo                  (abs)        0000B2
 start                    init         00000E
-start_initialization     cinit        0015FE
+start_initialization     cinit        001608
 
 
 FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 88 in file "main.c"
+		line 90 in file "main.c"
  Parameters:    Size  Location     Type
   argc            2    0[BANK0 ] int 
   argv            3    2[BANK0 ] PTR PTR unsigned char 
@@ -587,7 +587,7 @@ Total ram usage:        9 bytes
 
  *************** function _mainloop *****************
  Defined at:
-		line 53 in file "main.c"
+		line 55 in file "main.c"
  Parameters:    Size  Location     Type
   bigNose         2   81[COMRAM] PTR int 
 		 -> main@bigNose(2), 
@@ -659,7 +659,7 @@ Total ram usage:        6 bytes
 
  *************** function _showInfo *****************
  Defined at:
-		line 32 in file "modules.c"
+		line 36 in file "modules.c"
  Parameters:    Size  Location     Type
   type            2   75[COMRAM] unsigned int 
  Auto vars:     Size  Location     Type
@@ -690,7 +690,7 @@ Total ram usage:        4 bytes
 
  *************** function _println *****************
  Defined at:
-		line 6 in file "modules.c"
+		line 10 in file "modules.c"
  Parameters:    Size  Location     Type
   data            2   28[COMRAM] PTR unsigned char 
 		 -> STR_23(7), STR_22(10), STR_21(2), STR_20(11), 
@@ -731,7 +731,7 @@ Total ram usage:       47 bytes
 
  *************** function _printf *****************
  Defined at:
-		line 464 in file "C:\Program Files (x86)\Microchip\xc8\v1.40\sources\common\doprnt.c"
+		line 464 in file "C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c"
  Parameters:    Size  Location     Type
   f               2   18[COMRAM] PTR const unsigned char 
 		 -> STR_5(3), 
@@ -801,7 +801,7 @@ Total ram usage:        1 bytes
 
  *************** function _captureKeypad *****************
  Defined at:
-		line 15 in file "modules.c"
+		line 19 in file "modules.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -834,7 +834,7 @@ Total ram usage:        3 bytes
 
  *************** function _getTime *****************
  Defined at:
-		line 77 in file "modules.c"
+		line 81 in file "modules.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -986,7 +986,7 @@ Total ram usage:        2 bytes
 
  *************** function _keypressed *****************
  Defined at:
-		line 22 in file "modules.c"
+		line 26 in file "modules.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1017,38 +1017,38 @@ Total ram usage:       15 bytes
 MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
-C:\Program Files (x86)\Microchip\xc8\v1.40\sources\common\doprnt.c
-		_printf        		CODE           	1202	0000	221
+C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
+		_printf        		CODE           	1218	0000	221
 
-C:\Program Files (x86)\Microchip\xc8\v1.40\sources\common\doprnt.c estimated size: 221
+C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c estimated size: 221
 
 modules.c
-		_showInfo      		CODE           	10D2	0000	305
-		_println       		CODE           	142E	0000	127
-		_getTime       		CODE           	1694	0000	19
+		_showInfo      		CODE           	10D2	0000	327
+		_println       		CODE           	1444	0000	127
+		_getTime       		CODE           	169E	0000	19
 		_keypressed    		CODE           	0008	0000	139
-		_captureKeypad 		CODE           	167C	0000	25
+		_captureKeypad 		CODE           	1686	0000	25
 
-modules.c estimated size: 615
+modules.c estimated size: 637
 
 shared
-		__initialization		CODE           	15FE	0000	45
+		__initialization		CODE           	1608	0000	45
 
 shared estimated size: 45
 
 lcd.c
-		_putch         		CODE           	16A6	0000	13
-		_lcdInst       		CODE           	16B2	0000	13
-		_lcdNibble     		CODE           	151A	0000	87
-		_initLCD       		CODE           	15B8	0000	71
+		_putch         		CODE           	16B0	0000	13
+		_lcdInst       		CODE           	16BC	0000	13
+		_lcdNibble     		CODE           	1524	0000	87
+		_initLCD       		CODE           	15C2	0000	71
 
 lcd.c estimated size: 184
 
 main.c
-		_simulateSort  		CODE           	14AC	0000	111
-		_main          		CODE           	1570	0000	73
-		_mainloop      		CODE           	12DE	0000	205
-		_initialize    		CODE           	165E	0000	31
+		_simulateSort  		CODE           	14C2	0000	99
+		_main          		CODE           	157A	0000	73
+		_mainloop      		CODE           	12F4	0000	205
+		_initialize    		CODE           	1668	0000	31
 
-main.c estimated size: 420
+main.c estimated size: 408
 

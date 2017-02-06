@@ -1,9 +1,13 @@
 #include <xc.h>
-//#include "configBits.h"
+#include "configBits.h"
 //#include "constants.h"
 #include <stdio.h>
 
-void println(unsigned char* data) {
+int AD(int pin){
+    // detect the voltage on a pin and return the value if charged or uncharged
+}
+
+void println(char* data) {
     int i = 0;
     char output[] = "                                        ";
     while (data[i] != '\0') {
@@ -36,7 +40,7 @@ void showInfo(unsigned int type) {
             case(-1):
                 println("Sorting Complete");
                 println(" ");
-                //                __delay_ms(1000);
+                __delay_ms(1000);
                 println("Press a number");
                 println("For more info");
                 break;
@@ -106,6 +110,7 @@ void stopMoving() {
 }
 
 void checkAA() {
+//    int charged = AD(0);
     //    if (charged) {
     //        return 1;
     //    }
@@ -113,6 +118,8 @@ void checkAA() {
 }
 
 void checkC9V() {
+//    int Ccharged = AD(1);
+//    int 9Vcharged = AD(2);    
     //    if (Ccharged) {
     //        return 1;
     //    } else if (9Vcharged) {

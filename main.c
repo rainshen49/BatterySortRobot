@@ -39,6 +39,8 @@ void simulateSort(int * stop) {
             println("Emergency! All");
             LATC = 0;
             println("Motors Stop");
+            LATC = 0;
+            pause();
             *stop = 1;
             break;
         case(11):
@@ -96,7 +98,8 @@ int main(int argc, char** argv) {
         //    moveSmallNose(&smallNose,0);
 
         // once D is pressed enter mainloop();
-        if (captureKeypad() == 15)mainloop(&bigNose, &smallNose);
+        if (captureKeypad() == 15)
+            mainloop(&bigNose, &smallNose);
     }
     return (EXIT_SUCCESS);
 }

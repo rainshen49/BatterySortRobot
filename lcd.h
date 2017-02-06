@@ -11,8 +11,7 @@
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void println(unsigned char* data);
-void showInfo(unsigned int type);
+
 
 #endif	/* LCD_H */
 
