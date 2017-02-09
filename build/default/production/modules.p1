@@ -22,10 +22,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 "6898
 [v _INT1IF `Vb ~T0 @X0 0 e@32640 ]
-[v F2878 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
-[v __delay `JF2878 ~T0 @X0 0 e ]
-[p i __delay ]
+"7 modules.h
+[v _stopMoving `(v ~T0 @X0 0 ef ]
 "6272 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [s S258 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S258 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -40,8 +38,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S257 . . . . ]
 "6298
 [v _INTCONbits `VS257 ~T0 @X0 0 e@4082 ]
-"1094
-[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+[v F2878 `(v ~T0 @X0 1 tf1`ul ]
+"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+[v __delay `JF2878 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2845,30 +2845,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-"6 modules.c
+[; ;modules.h: 7: void stopMoving();
+[; ;modules.h: 8: void println(char* data);
+[; ;modules.h: 9: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 10: void stopMoving();
+[; ;modules.h: 11: void moveBigNose(int * prev, int next);
+[; ;modules.h: 12: void moveSmallNose(int * prev, int next);
+"7 modules.c
 [v _AD `(i ~T0 @X0 1 ef1`i ]
 {
-[; ;modules.c: 6: int AD(int pin){
+[; ;modules.c: 7: int AD(int pin) {
 [e :U _AD ]
 [v _pin `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;modules.c: 8: }
-"8
+[; ;modules.c: 9: }
+"9
 [e :UE 266 ]
 }
-"10
+"11
 [v _println `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;modules.c: 10: void println(char* data) {
+[; ;modules.c: 11: void println(char* data) {
 [e :U _println ]
 [v _data `*uc ~T0 @X0 1 r1 ]
 [f ]
-"11
+"12
 [v _i `i ~T0 @X0 1 a ]
-[; ;modules.c: 11: int i = 0;
+[; ;modules.c: 12: int i = 0;
 [e = _i -> 0 `i ]
-[v F3037 `uc ~T0 @X0 -> 0 `x s ]
-[i F3037
+[v F3048 `uc ~T0 @X0 -> 0 `x s ]
+[i F3048
 :U ..
 -> 32 `c
 -> 32 `c
@@ -2913,377 +2919,462 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-"12
-[v _output `uc ~T0 @X0 41  a ]
-[; ;modules.c: 12: char output[] = "                                        ";
-[e = _output F3037 ]
-[; ;modules.c: 13: while (data[i] != '\0') {
 "13
+[v _output `uc ~T0 @X0 41  a ]
+[; ;modules.c: 13: char output[] = "                                        ";
+[e = _output F3048 ]
+[; ;modules.c: 14: while (data[i] != '\0') {
+"14
 [e $U 268  ]
 [e :U 269 ]
 {
-[; ;modules.c: 14: output[i] = data[i++];
-"14
-[e = *U + &U _output * -> -> _i `ui `ux -> -> # *U &U _output `ui `ux *U + _data * -> ++ _i -> 1 `i `x -> -> # *U _data `i `x ]
+[; ;modules.c: 15: output[i] = data[i++];
 "15
+[e = *U + &U _output * -> -> _i `ui `ux -> -> # *U &U _output `ui `ux *U + _data * -> ++ _i -> 1 `i `x -> -> # *U _data `i `x ]
+"16
 }
 [e :U 268 ]
-"13
+"14
 [e $ != -> *U + _data * -> _i `x -> -> # *U _data `i `x `ui -> 0 `ui 269  ]
 [e :U 270 ]
-[; ;modules.c: 15: }
-[; ;modules.c: 16: printf("%s", output);
-"16
-[e ( _printf , (. :s 1C -> &U _output `*Cuc ]
-[; ;modules.c: 17: }
+[; ;modules.c: 16: }
+[; ;modules.c: 17: printf("%s", output);
 "17
+[e ( _printf , (. :s 1C -> &U _output `*Cuc ]
+[; ;modules.c: 18: }
+"18
 [e :UE 267 ]
 }
-"19
+"20
 [v _captureKeypad `(ui ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 19: unsigned int captureKeypad() {
+[; ;modules.c: 20: unsigned int captureKeypad() {
 [e :U _captureKeypad ]
 [f ]
-[; ;modules.c: 20: while (!PORTBbits.RB1);
-"20
+[; ;modules.c: 21: while (!PORTBbits.RB1);
+"21
 [e $U 272  ]
 [e :U 273 ]
 [e :U 272 ]
 [e $ ! != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 273  ]
 [e :U 274 ]
-"21
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 21: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 22: while (PORTBbits.RB1);
 "22
+[v _keypress `uc ~T0 @X0 1 a ]
+[; ;modules.c: 22: unsigned char keypress = (PORTB & 0xF0) >> 4;
+[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
+[; ;modules.c: 23: while (PORTBbits.RB1);
+"23
 [e $U 275  ]
 [e :U 276 ]
 [e :U 275 ]
 [e $ != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 276  ]
 [e :U 277 ]
-[; ;modules.c: 23: return keypress;
-"23
+[; ;modules.c: 24: return keypress;
+"24
 [e ) -> _keypress `ui ]
 [e $UE 271  ]
-[; ;modules.c: 24: }
-"24
+[; ;modules.c: 25: }
+"25
 [e :UE 271 ]
 }
-[v F3042 `(v ~T0 @X0 1 tf ]
-"26
-[v _keypressed `IF3042 ~T0 @X0 1 e ]
+[v F3053 `(v ~T0 @X0 1 tf ]
+"27
+[v _keypressed `IF3053 ~T0 @X0 1 e ]
 {
-[; ;modules.c: 26: void interrupt keypressed(void) {
+[; ;modules.c: 27: void interrupt keypressed(void) {
 [e :U _keypressed ]
 [f ]
-[; ;modules.c: 27: if (INT1IF) {
-"27
+[; ;modules.c: 28: if (INT1IF) {
+"28
 [e $ ! _INT1IF 279  ]
 {
-"28
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 28: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 29: INT1IF = 0;
 "29
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 30: if (keypress == 15) {
+[v _keypress `uc ~T0 @X0 1 a ]
+[; ;modules.c: 29: unsigned char keypress = (PORTB & 0xF0) >> 4;
+[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
+[; ;modules.c: 30: INT1IF = 0;
 "30
-[e $ ! == -> _keypress `i -> 15 `i 280  ]
-{
+[e = _INT1IF -> -> 0 `i `b ]
+[; ;modules.c: 31: stopMoving();
+"31
+[e ( _stopMoving ..  ]
 "32
-}
-[e :U 280 ]
-"33
 }
 [e :U 279 ]
 [; ;modules.c: 32: }
 [; ;modules.c: 33: }
-[; ;modules.c: 34: }
-"34
+"33
 [e :UE 278 ]
 }
-"36
-[v _showInfo `(v ~T0 @X0 1 ef1`ui ]
+"35
+[v _showInfo `(v ~T0 @X0 1 ef2`ui`*ui ]
 {
-[; ;modules.c: 36: void showInfo(unsigned int type) {
+[; ;modules.c: 35: void showInfo(unsigned int time, unsigned int * sorted) {
 [e :U _showInfo ]
-[v _type `ui ~T0 @X0 1 r1 ]
+[v _time `ui ~T0 @X0 1 r1 ]
+[v _sorted `*ui ~T0 @X0 1 r2 ]
 [f ]
-[; ;modules.c: 38: while (1) {
-"38
-[e :U 283 ]
-{
-[; ;modules.c: 39: switch (type) {
-"39
-[e $U 286  ]
-{
-[; ;modules.c: 40: case(-1):
-"40
-[e :U 287 ]
-[; ;modules.c: 41: println("Sorting Complete");
-"41
+[; ;modules.c: 36: (INTCONbits.GIE = 0);
+"36
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;modules.c: 37: println("Sorting Complete");
+"37
 [e ( _println (1 -> :s 2C `*uc ]
-[; ;modules.c: 42: println(" ");
-"42
-[e ( _println (1 -> :s 3C `*uc ]
-[; ;modules.c: 43: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"43
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;modules.c: 44: println("Press a number");
-"44
-[e ( _println (1 -> :s 4C `*uc ]
-[; ;modules.c: 45: println("For more info");
-"45
-[e ( _println (1 -> :s 5C `*uc ]
-[; ;modules.c: 46: break;
-"46
-[e $U 285  ]
-[; ;modules.c: 47: case(0):
-"47
-[e :U 288 ]
-[; ;modules.c: 48: println("Time Elapsed:");
-"48
-[e ( _println (1 -> :s 6C `*uc ]
-[; ;modules.c: 49: println("15.62s");
-"49
-[e ( _println (1 -> :s 7C `*uc ]
-[; ;modules.c: 50: break;
-"50
-[e $U 285  ]
-[; ;modules.c: 51: case(1):
-"51
-[e :U 289 ]
-[; ;modules.c: 52: println("Total Sorted:");
-"52
-[e ( _println (1 -> :s 8C `*uc ]
-[; ;modules.c: 53: println("15");
-"53
-[e ( _println (1 -> :s 9C `*uc ]
-[; ;modules.c: 54: break;
-"54
-[e $U 285  ]
-[; ;modules.c: 55: case(2):
-"55
-[e :U 290 ]
-[; ;modules.c: 56: println("AA Sorted:");
-"56
-[e ( _println (1 -> :s 10C `*uc ]
-[; ;modules.c: 57: println("5");
-"57
-[e ( _println (1 -> :s 11C `*uc ]
-[; ;modules.c: 58: break;
-"58
-[e $U 285  ]
-[; ;modules.c: 59: case(3):
-"59
-[e :U 291 ]
-[; ;modules.c: 60: println("C Sorted:");
-"60
-[e ( _println (1 -> :s 12C `*uc ]
-[; ;modules.c: 61: println("5");
-"61
-[e ( _println (1 -> :s 13C `*uc ]
-[; ;modules.c: 62: break;
-"62
-[e $U 285  ]
-[; ;modules.c: 63: case(4):
-"63
-[e :U 292 ]
-[; ;modules.c: 64: println("9V Sorted:");
-"64
-[e ( _println (1 -> :s 14C `*uc ]
-[; ;modules.c: 65: println("5");
-"65
-[e ( _println (1 -> :s 15C `*uc ]
-[; ;modules.c: 66: break;
-"66
-[e $U 285  ]
-[; ;modules.c: 67: case(5):
-"67
-[e :U 293 ]
-[; ;modules.c: 68: println("Uncharged:");
-"68
-[e ( _println (1 -> :s 16C `*uc ]
-[; ;modules.c: 69: println("0");
-"69
-[e ( _println (1 -> :s 17C `*uc ]
-[; ;modules.c: 70: break;
-"70
-[e $U 285  ]
-[; ;modules.c: 71: case(15):
-"71
-[e :U 294 ]
-[; ;modules.c: 72: asm("reset");
-"72
-[; <" reset ;# ">
-[; ;modules.c: 73: default:
-"73
-[e :U 295 ]
-[; ;modules.c: 74: break;
-"74
-[e $U 285  ]
-"75
-}
-[; ;modules.c: 75: }
-[e $U 285  ]
-"39
-[e :U 286 ]
-[e [\ _type , $ -> -U -> 1 `i `ui 287
- , $ -> -> 0 `i `ui 288
- , $ -> -> 1 `i `ui 289
- , $ -> -> 2 `i `ui 290
- , $ -> -> 3 `i `ui 291
- , $ -> -> 4 `i `ui 292
- , $ -> -> 5 `i `ui 293
- , $ -> -> 15 `i `ui 294
- 295 ]
-"75
-[e :U 285 ]
-[; ;modules.c: 76: type = captureKeypad();
-"76
-[e = _type ( _captureKeypad ..  ]
-"77
-}
-[e :U 282 ]
+[; ;modules.c: 38: println(" ");
 "38
-[e $U 283  ]
-[e :U 284 ]
-[; ;modules.c: 77: }
-[; ;modules.c: 79: }
-"79
-[e :UE 281 ]
+[e ( _println (1 -> :s 3C `*uc ]
+[; ;modules.c: 39: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"39
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;modules.c: 40: println("Press a number");
+"40
+[e ( _println (1 -> :s 4C `*uc ]
+[; ;modules.c: 41: println("For more info");
+"41
+[e ( _println (1 -> :s 5C `*uc ]
+"42
+[v _type `i ~T0 @X0 1 a ]
+[; ;modules.c: 42: int type = 0;
+[e = _type -> 0 `i ]
+[; ;modules.c: 43: while (1) {
+"43
+[e :U 282 ]
+{
+[; ;modules.c: 44: type = captureKeypad;
+"44
+[e = _type -> &U _captureKeypad `i ]
+[; ;modules.c: 45: switch (type) {
+"45
+[e $U 285  ]
+{
+[; ;modules.c: 46: case(0):
+"46
+[e :U 286 ]
+[; ;modules.c: 47: println("Time Elapsed:");
+"47
+[e ( _println (1 -> :s 6C `*uc ]
+[; ;modules.c: 48: printf("%d seconds",time);
+"48
+[e ( _printf , (. :s 7C _time ]
+[; ;modules.c: 49: break;
+"49
+[e $U 284  ]
+[; ;modules.c: 50: case(1):
+"50
+[e :U 287 ]
+[; ;modules.c: 51: println("Total Sorted:");
+"51
+[e ( _println (1 -> :s 8C `*uc ]
+[; ;modules.c: 52: printf("%d batteries",sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+"52
+[e ( _printf , (. :s 9C + + + *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 53: break;
+"53
+[e $U 284  ]
+[; ;modules.c: 54: case(2):
+"54
+[e :U 288 ]
+[; ;modules.c: 55: println("AA Sorted:");
+"55
+[e ( _println (1 -> :s 10C `*uc ]
+[; ;modules.c: 56: printf("%d",sorted[0]);
+"56
+[e ( _printf , (. :s 11C *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 57: break;
+"57
+[e $U 284  ]
+[; ;modules.c: 58: case(3):
+"58
+[e :U 289 ]
+[; ;modules.c: 59: println("C Sorted:");
+"59
+[e ( _println (1 -> :s 12C `*uc ]
+[; ;modules.c: 60: printf("%d",sorted[1]);
+"60
+[e ( _printf , (. :s 13C *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 61: break;
+"61
+[e $U 284  ]
+[; ;modules.c: 62: case(4):
+"62
+[e :U 290 ]
+[; ;modules.c: 63: println("9V Sorted:");
+"63
+[e ( _println (1 -> :s 14C `*uc ]
+[; ;modules.c: 64: printf("%d",sorted[2]);
+"64
+[e ( _printf , (. :s 15C *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 65: break;
+"65
+[e $U 284  ]
+[; ;modules.c: 66: case(5):
+"66
+[e :U 291 ]
+[; ;modules.c: 67: println("Uncharged:");
+"67
+[e ( _println (1 -> :s 16C `*uc ]
+[; ;modules.c: 68: printf("%d",sorted[3]);
+"68
+[e ( _printf , (. :s 17C *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 69: break;
+"69
+[e $U 284  ]
+[; ;modules.c: 70: case(15):
+"70
+[e :U 292 ]
+[; ;modules.c: 71: asm("reset");
+"71
+[; <" reset ;# ">
+[; ;modules.c: 72: default:
+"72
+[e :U 293 ]
+[; ;modules.c: 73: break;
+"73
+[e $U 284  ]
+"74
 }
-"81
+[; ;modules.c: 74: }
+[e $U 284  ]
+"45
+[e :U 285 ]
+[e [\ _type , $ -> 0 `i 286
+ , $ -> 1 `i 287
+ , $ -> 2 `i 288
+ , $ -> 3 `i 289
+ , $ -> 4 `i 290
+ , $ -> 5 `i 291
+ , $ -> 15 `i 292
+ 293 ]
+"74
+[e :U 284 ]
+"75
+}
+[e :U 281 ]
+"43
+[e $U 282  ]
+[e :U 283 ]
+[; ;modules.c: 75: }
+[; ;modules.c: 76: (INTCONbits.GIE = 1);
+"76
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;modules.c: 77: }
+"77
+[e :UE 280 ]
+}
+"79
 [v _getTime `(i ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 81: int getTime() {
+[; ;modules.c: 79: int getTime() {
 [e :U _getTime ]
 [f ]
-"83
+"81
 [v _time `i ~T0 @X0 1 a ]
-[; ;modules.c: 83: int time = 0;
+[; ;modules.c: 81: int time = 0;
 [e = _time -> 0 `i ]
-[; ;modules.c: 84: return time;
-"84
+[; ;modules.c: 82: return time;
+"82
 [e ) _time ]
-[e $UE 296  ]
-[; ;modules.c: 85: }
+[e $UE 294  ]
+[; ;modules.c: 83: }
+"83
+[e :UE 294 ]
+}
 "85
-[e :UE 296 ]
-}
-"87
-[v _moveXMotors `(v ~T0 @X0 1 ef1`i ]
+[v _moveXMotors `(v ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 87: void moveXMotors(int which) {
+[; ;modules.c: 85: void moveXMotors() {
 [e :U _moveXMotors ]
-[v _which `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;modules.c: 89: }
-"89
-[e :UE 297 ]
+[; ;modules.c: 87: }
+"87
+[e :UE 295 ]
 }
-"91
+"89
 [v _moveBigNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;modules.c: 91: void moveBigNose(int * prev, int next) {
+[; ;modules.c: 89: void moveBigNose(int * prev, int next) {
 [e :U _moveBigNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;modules.c: 94: *prev = next;
-"94
-[e = *U _prev _next ]
-[; ;modules.c: 95: }
+[; ;modules.c: 92: if (*prev == next)return;
+"92
+[e $ ! == *U _prev _next 297  ]
+[e $UE 296  ]
+[e :U 297 ]
+[; ;modules.c: 93: while (*prev < next) {
+"93
+[e $U 298  ]
+[e :U 299 ]
+{
+[; ;modules.c: 95: *prev++;
 "95
-[e :UE 298 ]
+[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"96
 }
+[e :U 298 ]
+"93
+[e $ < *U _prev _next 299  ]
+[e :U 300 ]
+[; ;modules.c: 96: }
+[; ;modules.c: 97: while (*prev > next) {
 "97
+[e $U 301  ]
+[e :U 302 ]
+{
+[; ;modules.c: 99: *prev--;
+"99
+[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"100
+}
+[e :U 301 ]
+"97
+[e $ > *U _prev _next 302  ]
+[e :U 303 ]
+[; ;modules.c: 100: }
+[; ;modules.c: 101: }
+"101
+[e :UE 296 ]
+}
+"103
 [v _moveSmallNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;modules.c: 97: void moveSmallNose(int * prev, int next) {
+[; ;modules.c: 103: void moveSmallNose(int * prev, int next) {
 [e :U _moveSmallNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;modules.c: 100: *prev = next;
-"100
-[e = *U _prev _next ]
-[; ;modules.c: 101: }
-"101
-[e :UE 299 ]
-}
-"103
-[v _stopMoving `(v ~T0 @X0 1 ef ]
-{
-[; ;modules.c: 103: void stopMoving() {
-[e :U _stopMoving ]
-[f ]
-[; ;modules.c: 104: (INTCONbits.GIE = 0);
-"104
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;modules.c: 105: println("Emergency");
-"105
-[e ( _println (1 -> :s 18C `*uc ]
-[; ;modules.c: 106: LATC = 0;
+[; ;modules.c: 106: if (*prev == next)return;
 "106
-[e = _LATC -> -> 0 `i `uc ]
-[; ;modules.c: 107: while (captureKeypad() != 15);
+[e $ ! == *U _prev _next 305  ]
+[e $UE 304  ]
+[e :U 305 ]
+[; ;modules.c: 107: while (*prev < next) {
 "107
-[e $U 301  ]
-[e :U 302 ]
-[e :U 301 ]
-[e $ != ( _captureKeypad ..  -> -> 15 `i `ui 302  ]
-[e :U 303 ]
-[; ;modules.c: 108: println("Resume");
-"108
-[e ( _println (1 -> :s 19C `*uc ]
-[; ;modules.c: 109: (INTCONbits.GIE = 1);
-"109
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;modules.c: 110: }
-"110
-[e :UE 300 ]
-}
-"112
-[v _checkAA `(v ~T0 @X0 1 ef ]
+[e $U 306  ]
+[e :U 307 ]
 {
-[; ;modules.c: 112: void checkAA() {
-[e :U _checkAA ]
-[f ]
-[; ;modules.c: 118: }
-"118
+[; ;modules.c: 109: *prev++;
+"109
+[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"110
+}
+[e :U 306 ]
+"107
+[e $ < *U _prev _next 307  ]
+[e :U 308 ]
+[; ;modules.c: 110: }
+[; ;modules.c: 111: while (*prev > next) {
+"111
+[e $U 309  ]
+[e :U 310 ]
+{
+[; ;modules.c: 113: *prev--;
+"113
+[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"114
+}
+[e :U 309 ]
+"111
+[e $ > *U _prev _next 310  ]
+[e :U 311 ]
+[; ;modules.c: 114: }
+[; ;modules.c: 115: }
+"115
 [e :UE 304 ]
 }
-"120
-[v _checkC9V `(v ~T0 @X0 1 ef ]
+"117
+[v _stopMoving `(v ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 120: void checkC9V() {
+[; ;modules.c: 117: void stopMoving() {
+[e :U _stopMoving ]
+[f ]
+[; ;modules.c: 118: (INTCONbits.GIE = 0);
+"118
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;modules.c: 119: println("Emergency");
+"119
+[e ( _println (1 -> :s 18C `*uc ]
+[; ;modules.c: 121: }
+"121
+[e :UE 312 ]
+}
+"123
+[v _checkAA `(i ~T0 @X0 1 ef ]
+{
+[; ;modules.c: 123: int checkAA() {
+[e :U _checkAA ]
+[f ]
+[; ;modules.c: 124: return AD(0);
+"124
+[e ) ( _AD (1 -> 0 `i ]
+[e $UE 313  ]
+[; ;modules.c: 125: }
+"125
+[e :UE 313 ]
+}
+"127
+[v _checkC9V `(i ~T0 @X0 1 ef ]
+{
+[; ;modules.c: 127: int checkC9V() {
 [e :U _checkC9V ]
 [f ]
-[; ;modules.c: 129: }
+"128
+[v _chargedC `i ~T0 @X0 1 a ]
+[; ;modules.c: 128: int chargedC = AD(1);
+[e = _chargedC ( _AD (1 -> 1 `i ]
 "129
-[e :UE 305 ]
+[v _charged9 `i ~T0 @X0 1 a ]
+[; ;modules.c: 129: int charged9 = AD(2);
+[e = _charged9 ( _AD (1 -> 2 `i ]
+[; ;modules.c: 130: if (chargedC) {
+"130
+[e $ ! != _chargedC -> 0 `i 315  ]
+{
+[; ;modules.c: 131: return 1;
+"131
+[e ) -> 1 `i ]
+[e $UE 314  ]
+"132
 }
-[p f _printf 8650752 ]
+[; ;modules.c: 132: } else if (charged9) {
+[e $U 316  ]
+[e :U 315 ]
+[e $ ! != _charged9 -> 0 `i 317  ]
+{
+[; ;modules.c: 133: return 2;
+"133
+[e ) -> 2 `i ]
+[e $UE 314  ]
+"134
+}
+[e :U 317 ]
+"135
+[e :U 316 ]
+[; ;modules.c: 134: }
+[; ;modules.c: 135: return 0;
+[e ) -> 0 `i ]
+[e $UE 314  ]
+[; ;modules.c: 136: }
+"136
+[e :UE 314 ]
+}
+[p f _printf 8650880 ]
 [a 18C 69 109 101 114 103 101 110 99 121 0 ]
-[a 7C 49 53 46 54 50 115 0 ]
+[a 9C 37 100 32 98 97 116 116 101 114 105 101 115 0 ]
+[a 7C 37 100 32 115 101 99 111 110 100 115 0 ]
 [a 1C 37 115 0 ]
 [a 4C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 0 ]
 [a 5C 70 111 114 32 109 111 114 101 32 105 110 102 111 0 ]
 [a 2C 83 111 114 116 105 110 103 32 67 111 109 112 108 101 116 101 0 ]
-[a 19C 82 101 115 117 109 101 0 ]
+[a 11C 37 100 0 ]
+[a 13C 37 100 0 ]
+[a 15C 37 100 0 ]
+[a 17C 37 100 0 ]
 [a 8C 84 111 116 97 108 32 83 111 114 116 101 100 58 0 ]
 [a 14C 57 86 32 83 111 114 116 101 100 58 0 ]
 [a 12C 67 32 83 111 114 116 101 100 58 0 ]
 [a 10C 65 65 32 83 111 114 116 101 100 58 0 ]
 [a 6C 84 105 109 101 32 69 108 97 112 115 101 100 58 0 ]
 [a 16C 85 110 99 104 97 114 103 101 100 58 0 ]
-[a 9C 49 53 0 ]
-[a 11C 53 0 ]
-[a 13C 53 0 ]
-[a 15C 53 0 ]
-[a 17C 48 0 ]
 [a 3C 32 0 ]

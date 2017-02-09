@@ -3865,56 +3865,49 @@ void initLCD(void);
 # 7 "modules.h"
 void stopMoving();
 void println(char* data);
-void showInfo(unsigned int type);
+void showInfo(unsigned int time, unsigned int * sorted);
+void stopMoving();
+void moveBigNose(int * prev, int next);
+void moveSmallNose(int * prev, int next);
 
-# 24 "main.c"
+# 18 "main.c"
 void initialize() {
 TRISC = 0x00;
 TRISD = 0x00;
 TRISB = 0xFF;
+
 LATB = 0x00;
 LATC = 0x00;
+
+
 ADCON0 = 0x00;
 ADCON1 = 0xFF;
+
 initLCD();
 }
 
-void simulateSort(int * stop) {
-unsigned int keypad = captureKeypad();
-switch (keypad) {
-case(15):
-println("Emergency! All");
-LATC = 0;
-println("Motors Stop");
-LATC = 0;
-; while(1);;
-*stop = 1;
-break;
-case(11):
-
-*stop = 1;
-break;
-default:
-break;
-}
-}
-
+# 53
 void mainloop(int * bigNose, int* smallNose) {
 println("Sorting...");
 int stop = 0;
 int sorted[] = {0, 0, 0, 0};
-int startTime = 0;
+int startTime = getTime();
 int AA = 0;
 int C9 = 0;
-
+(INTCONbits.GIE = 1);
 while (!stop) {
+moveSmallNose(smallNose, AA);
+moveBigNose(bigNose, C9);
+moveXMotors();
 
 
 
-LATC = LATC | 0b011001111;
-simulateSort(&stop);
-
-# 76
+AA = checkAA();
+C9 = checkC9V();
+sorted[0] += AA;
+sorted[1] += C9 == 1;
+sorted[2] += C9 == 2;
+sorted[3] += AA == 0 && C9 == 0;
 if (sorted[0] + sorted[1] + sorted[2] + sorted[3] == 15) {
 stop = 1;
 }
@@ -3922,10 +3915,10 @@ if (getTime() - startTime >= 180) {
 stop = 1;
 }
 }
+(INTCONbits.GIE = 0);
 
-showInfo(-1);
-
-LATC = 0;
+showInfo(getTime() - startTime, sorted);
+stopMoving();
 return;
 }
 
@@ -3933,11 +3926,12 @@ int main(int argc, char** argv) {
 while (1) {
 initialize();
 
-println((unsigned char *) "Standby...");
+println((unsigned char *) "Welcome!");
+
 
 int bigNose = 0, smallNose = 0;
-
-
+moveBigNose(&bigNose, 0);
+moveSmallNose(&smallNose, 0);
 
 
 if (captureKeypad() == 15)

@@ -2,8 +2,9 @@
 #include "configBits.h"
 //#include "constants.h"
 #include <stdio.h>
+#include "modules.h"
 
-int AD(int pin){
+int AD(int pin) {
     // detect the voltage on a pin and return the value if charged or uncharged
 }
 
@@ -27,55 +28,52 @@ void interrupt keypressed(void) {
     if (INT1IF) {
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
-        if (keypress == 15) {
-            //            stopMoving();
-        }
+        stopMoving();
     }
 }
 
-void showInfo(unsigned int type) {
-    //    di();
+void showInfo(unsigned int time, unsigned int * sorted) {
+    di();
+    println("Sorting Complete");
+    println(" ");
+    __delay_ms(1000);
+    println("Press a number");
+    println("For more info");
+    int type = 0;
     while (1) {
+        type = captureKeypad;
         switch (type) {
-            case(-1):
-                println("Sorting Complete");
-                println(" ");
-                __delay_ms(1000);
-                println("Press a number");
-                println("For more info");
-                break;
             case(0):
                 println("Time Elapsed:");
-                println("15.62s");
+                printf("%d seconds",time);
                 break;
             case(1):
                 println("Total Sorted:");
-                println("15");
+                printf("%d batteries",sorted[0] + sorted[1] + sorted[2] + sorted[3]);
                 break;
             case(2):
                 println("AA Sorted:");
-                println("5");
+                printf("%d",sorted[0]);
                 break;
             case(3):
                 println("C Sorted:");
-                println("5");
+                printf("%d",sorted[1]);
                 break;
             case(4):
                 println("9V Sorted:");
-                println("5");
+                printf("%d",sorted[2]);
                 break;
             case(5):
                 println("Uncharged:");
-                println("0");
+                printf("%d",sorted[3]);
                 break;
             case(15):
                 RESET();
             default:
                 break;
         }
-        type = captureKeypad();
     }
-    //    ei();
+    ei();
 }
 
 int getTime() {
@@ -84,46 +82,55 @@ int getTime() {
     return time;
 }
 
-void moveXMotors(int which) {
+void moveXMotors() {
     //    move the X motors by 90 degree
 }
 
 void moveBigNose(int * prev, int next) {
     //    move the big nose to the next location, 0 uncharged, 1 C, 2 9V
     //    determine how to move based on prev and next and then move the motors
-    *prev = next;
+    if (*prev == next)return;
+    while (*prev < next) {
+        //        move the motor a certain degree
+        *prev++;
+    }
+    while (*prev > next) {
+        //        move the motor a certain degree inverse
+        *prev--;
+    }
 }
 
 void moveSmallNose(int * prev, int next) {
     //    move the big nose to the next location, 0 uncharged, 1AA
     //    determine how to move based on prev and next and then move the motors
-    *prev = next;
+    if (*prev == next)return;
+    while (*prev < next) {
+        //        move the motor a certain degree
+        *prev++;
+    }
+    while (*prev > next) {
+        //        move the motor a certain degree inverse
+        *prev--;
+    }
 }
 
 void stopMoving() {
     di();
     println("Emergency");
-    LATC = 0;
-    while (captureKeypad() != 15);
-    println("Resume");
-    ei();
+    //    ei();
 }
 
-void checkAA() {
-//    int charged = AD(0);
-    //    if (charged) {
-    //        return 1;
-    //    }
-    //    return 0;
+int checkAA() {
+    return AD(0); //check AA X if charged
 }
 
-void checkC9V() {
-//    int Ccharged = AD(1);
-//    int 9Vcharged = AD(2);    
-    //    if (Ccharged) {
-    //        return 1;
-    //    } else if (9Vcharged) {
-    //        return 2;
-    //    }
-    //    return 0;
+int checkC9V() {
+    int chargedC = AD(1);
+    int charged9 = AD(2);
+    if (chargedC) {
+        return 1;
+    } else if (charged9) {
+        return 2;
+    }
+    return 0;
 }
