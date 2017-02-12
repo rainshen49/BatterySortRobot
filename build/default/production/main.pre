@@ -3869,24 +3869,33 @@ void showInfo(unsigned int time, unsigned int * sorted);
 void stopMoving();
 void moveBigNose(int * prev, int next);
 void moveSmallNose(int * prev, int next);
+int AD(char channel);
+void interrupt keypressed(void);
 
-# 18 "main.c"
+# 19 "main.c"
 void initialize() {
+TRISA = 0xFF;
+TRISB = 0xFF;
 TRISC = 0x00;
 TRISD = 0x00;
-TRISB = 0xFF;
+TRISE = 0x00;
 
+LATA = 0x00;
 LATB = 0x00;
 LATC = 0x00;
+LATD = 0x00;
+LATE = 0x00;
 
 
 ADCON0 = 0x00;
-ADCON1 = 0xFF;
+ADCON1 = 0x0D;
+CVRCON = 0x00;
+ADFM = 1;
 
 initLCD();
 }
 
-# 53
+# 61
 void mainloop(int * bigNose, int* smallNose) {
 println("Sorting...");
 int stop = 0;
@@ -3894,6 +3903,7 @@ int sorted[] = {0, 0, 0, 0};
 int startTime = getTime();
 int AA = 0;
 int C9 = 0;
+INT1IE = 1;
 (INTCONbits.GIE = 1);
 while (!stop) {
 moveSmallNose(smallNose, AA);
@@ -3923,7 +3933,6 @@ return;
 }
 
 int main(int argc, char** argv) {
-while (1) {
 initialize();
 
 println((unsigned char *) "Welcome!");
@@ -3934,9 +3943,8 @@ moveBigNose(&bigNose, 0);
 moveSmallNose(&smallNose, 0);
 
 
-if (captureKeypad() == 15)
+while (captureKeypad() != 15);
 mainloop(&bigNose, &smallNose);
-}
-return (0);
+asm("reset");
 }
 

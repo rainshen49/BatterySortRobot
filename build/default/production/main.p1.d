@@ -3,5 +3,6 @@
  main.c  \
 lcd.h  \
 modules.h  \
+macros.h  \
 constants.h  \
 configBits.h 

@@ -4,8 +4,15 @@
 #include <stdio.h>
 #include "modules.h"
 
-int AD(int pin) {
-    // detect the voltage on a pin and return the value if charged or uncharged
+int AD(char channel) {
+    // Select A2D channel to read
+    ADCON0 = ((channel << 2));
+    ADON = 1;
+    ADCON0bits.GO = 1;
+    while (ADCON0bits.GO_NOT_DONE) {
+        __delay_ms(10);
+    }
+    return (ADRESH << 8) | ADRESL;
 }
 
 void println(char* data) {
@@ -21,10 +28,12 @@ unsigned int captureKeypad() {
     while (!PORTBbits.RB1);
     unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
     while (PORTBbits.RB1);
+    INT1IF = 0; //Clear flag bit
     return keypress;
 }
 
 void interrupt keypressed(void) {
+//    printf("%d",INT1IF);
     if (INT1IF) {
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
@@ -45,27 +54,27 @@ void showInfo(unsigned int time, unsigned int * sorted) {
         switch (type) {
             case(0):
                 println("Time Elapsed:");
-                printf("%d seconds",time);
+                printf("%d seconds", time);
                 break;
             case(1):
                 println("Total Sorted:");
-                printf("%d batteries",sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+                printf("%d batteries", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
                 break;
             case(2):
                 println("AA Sorted:");
-                printf("%d",sorted[0]);
+                printf("%d", sorted[0]);
                 break;
             case(3):
                 println("C Sorted:");
-                printf("%d",sorted[1]);
+                printf("%d", sorted[1]);
                 break;
             case(4):
                 println("9V Sorted:");
-                printf("%d",sorted[2]);
+                printf("%d", sorted[2]);
                 break;
             case(5):
                 println("Uncharged:");
-                printf("%d",sorted[3]);
+                printf("%d", sorted[3]);
                 break;
             case(15):
                 RESET();
@@ -117,6 +126,7 @@ void moveSmallNose(int * prev, int next) {
 void stopMoving() {
     di();
     println("Emergency");
+    pause();
     //    ei();
 }
 

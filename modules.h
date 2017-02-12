@@ -10,5 +10,7 @@ void showInfo(unsigned int time, unsigned int * sorted);
 void stopMoving();
 void moveBigNose(int * prev, int next);
 void moveSmallNose(int * prev, int next);
+int AD(char channel);
+void interrupt keypressed(void);
 #define pause(); while(1);
 

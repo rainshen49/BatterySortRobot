@@ -12,21 +12,29 @@
 #include "constants.h"
 #include "lcd.h"
 #include "modules.h"
+#include "macros.h"
 
 //const char keys[] = "123A456B789C*0#D";
 
 void initialize() {
-    TRISC = 0x00;
-    TRISD = 0x00; //All output mode
+    TRISA = 0xFF; // Set Port A as all input
     TRISB = 0xFF; //All input mode
-//    config all ports input or output
+    TRISC = 0x00; //All output mode
+    TRISD = 0x00;
+    TRISE = 0x00;
+    //    config all ports input or output
+    LATA = 0x00;
     LATB = 0x00;
     LATC = 0x00;
-//    initialize all pins to be low
-    
+    LATD = 0x00;
+    LATE = 0x00;
+    //    initialize all pins to be low
+
     ADCON0 = 0x00; //Disable ADC
-    ADCON1 = 0xFF; //Set PORTB to be digital instead of analog default  
-//    set digital and analog
+    ADCON1 = 0x0D; //Set AN0-1 to be analog input
+    CVRCON = 0x00; // Disable CCP reference voltage output
+    ADFM = 1;
+    //    set digital and analog
     initLCD();
 }
 
@@ -57,6 +65,7 @@ void mainloop(int * bigNose, int* smallNose) {
     int startTime = getTime();
     int AA = 0;
     int C9 = 0;
+    INT1IE = 1;
     ei(); //Enable all interrupts
     while (!stop) {
         moveSmallNose(smallNose, AA);
@@ -86,20 +95,18 @@ void mainloop(int * bigNose, int* smallNose) {
 }
 
 int main(int argc, char** argv) {
-    while (1) {
-        initialize(); //Initiallize LCD and PORTs
-        // Enter Standby mode
-        println((unsigned char *) "Welcome!");
-        //        displays RTC
-        // put all noses to the uncharged bin position
-        int bigNose = 0, smallNose = 0;
-        moveBigNose(&bigNose, 0);
-        moveSmallNose(&smallNose, 0);
+    initialize(); //Initiallize LCD and PORTs
+    // Enter Standby mode
+    println((unsigned char *) "Welcome!");
+    //        displays RTC
+    // put all noses to the uncharged bin position
+    int bigNose = 0, smallNose = 0;
+    moveBigNose(&bigNose, 0);
+    moveSmallNose(&smallNose, 0);
 
-        // once D is pressed enter mainloop();
-        if (captureKeypad() == 15)
-            mainloop(&bigNose, &smallNose);
-    }
-    return (EXIT_SUCCESS);
+    // once D is pressed enter mainloop();
+    while (captureKeypad() != 15);
+    mainloop(&bigNose, &smallNose);
+    RESET();
 }
 
