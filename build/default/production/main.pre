@@ -3871,6 +3871,8 @@ void moveBigNose(int * prev, int next);
 void moveSmallNose(int * prev, int next);
 int AD(char channel);
 void interrupt keypressed(void);
+int checkAA(int* sorted);
+int checkC9V(int* sorted);
 
 # 19 "main.c"
 void initialize() {
@@ -3888,7 +3890,7 @@ LATE = 0x00;
 
 
 ADCON0 = 0x00;
-ADCON1 = 0x0D;
+ADCON1 = 0x0B;
 CVRCON = 0x00;
 ADFM = 1;
 
@@ -3911,14 +3913,11 @@ moveBigNose(bigNose, C9);
 moveXMotors();
 
 
-
-AA = checkAA();
-C9 = checkC9V();
-sorted[0] += AA;
-sorted[1] += C9 == 1;
-sorted[2] += C9 == 2;
-sorted[3] += AA == 0 && C9 == 0;
-if (sorted[0] + sorted[1] + sorted[2] + sorted[3] == 15) {
+AA = checkAA(sorted);
+AA = AA==-1?*smallNose:AA;
+C9 = checkC9V(sorted);
+C9 = C9==-1?*bigNose:C9;
+if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
 stop = 1;
 }
 if (getTime() - startTime >= 180) {
@@ -3930,6 +3929,24 @@ stop = 1;
 showInfo(getTime() - startTime, sorted);
 stopMoving();
 return;
+}
+
+void simulate(){
+
+println("Sorting...");
+int stop = 0;
+int sorted[] = {0, 0, 0, 0};
+
+while (!stop) {
+captureKeypad();
+
+checkC9V(sorted);
+if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+stop = 1;
+}
+}
+printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
+; while(1);;
 }
 
 int main(int argc, char** argv) {
@@ -3944,7 +3961,8 @@ moveSmallNose(&smallNose, 0);
 
 
 while (captureKeypad() != 15);
-mainloop(&bigNose, &smallNose);
+
+simulate();
 asm("reset");
 }
 

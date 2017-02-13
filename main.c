@@ -31,7 +31,7 @@ void initialize() {
     //    initialize all pins to be low
 
     ADCON0 = 0x00; //Disable ADC
-    ADCON1 = 0x0D; //Set AN0-1 to be analog input
+    ADCON1 = 0x0B; //Set AN0-1 to be analog input
     CVRCON = 0x00; // Disable CCP reference voltage output
     ADFM = 1;
     //    set digital and analog
@@ -73,14 +73,11 @@ void mainloop(int * bigNose, int* smallNose) {
         moveXMotors();
         //        LATC = LATC | 0b011001111; // running all X motors for demonstration purpose
         //        simulateSort(&stop);
-
-        AA = checkAA();
-        C9 = checkC9V();
-        sorted[0] += AA;
-        sorted[1] += C9 == 1;
-        sorted[2] += C9 == 2;
-        sorted[3] += AA == 0 && C9 == 0;
-        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] == 15) {
+        AA = checkAA(sorted);
+        AA = AA==-1?*smallNose:AA;
+        C9 = checkC9V(sorted);
+        C9 = C9==-1?*bigNose:C9;
+        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
             stop = 1;
         }
         if (getTime() - startTime >= 180) {
@@ -92,6 +89,24 @@ void mainloop(int * bigNose, int* smallNose) {
     showInfo(getTime() - startTime, sorted);
     stopMoving();
     return;
+}
+
+void simulate(){
+//    simulate battery detection
+    println("Sorting...");
+    int stop = 0;
+    int sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
+//    int startTime = getTime();
+    while (!stop) {
+        captureKeypad();
+//        checkAA(sorted);
+        checkC9V(sorted);
+        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+            stop = 1;
+        }
+    }
+    printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
+    pause();
 }
 
 int main(int argc, char** argv) {
@@ -106,7 +121,8 @@ int main(int argc, char** argv) {
 
     // once D is pressed enter mainloop();
     while (captureKeypad() != 15);
-    mainloop(&bigNose, &smallNose);
+//    mainloop(&bigNose, &smallNose);
+    simulate();
     RESET();
 }
 

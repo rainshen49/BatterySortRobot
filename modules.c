@@ -3,6 +3,9 @@
 //#include "constants.h"
 #include <stdio.h>
 #include "modules.h"
+#include "lcd.h"
+#include "macros.h"
+
 
 int AD(char channel) {
     // Select A2D channel to read
@@ -33,7 +36,7 @@ unsigned int captureKeypad() {
 }
 
 void interrupt keypressed(void) {
-//    printf("%d",INT1IF);
+    //    printf("%d",INT1IF);
     if (INT1IF) {
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
@@ -130,17 +133,90 @@ void stopMoving() {
     //    ei();
 }
 
-int checkAA() {
-    return AD(0); //check AA X if charged
+int checkV(int voltage, int max) {
+    //    return 0 if not exist, 1 if exist and over 85 charged, -1 if exist but uncharged
+    printf("%d received",voltage);
+    __lcd_home();
+    __delay_ms(1000);
+    if (voltage > 1023 * 4 / 5) {
+        return 0;
+    } else if (voltage > 0.85 * 1023 * max / 5) {
+        return 1;
+    } else {
+        return -1;
+    }
 }
 
-int checkC9V() {
-    int chargedC = AD(1);
-    int charged9 = AD(2);
-    if (chargedC) {
-        return 1;
-    } else if (charged9) {
-        return 2;
+int checkAA(int* sorted) {
+    //    input RA0(AN0)
+    println("AA:");
+    __delay_ms(1000);
+    switch (checkV(AD(0), 1.5)) {
+        case 1:
+            println("charged AA");
+            __delay_ms(1000);
+            sorted[0]++;
+            return 1;
+        case -1:
+            println("uncharged AA");
+            __delay_ms(1000);
+            sorted[3]++;
+            return 0;
+        case 0:
+            println("no AA");
+            return -1;
+        default:
+            return 0;
     }
-    return 0;
+    __lcd_home();
+}
+
+int checkC9V(int* sorted) {
+    //    output RE1-3 corresponds to R1,R2,R3&4
+    //    input RA1(AN1),RA2(AN2),RA3(AN3)
+    LATE = 0b1000;
+    println("V3");
+    switch (checkV(AD(3), 1.5)) {
+        case 0:
+            println("9:");
+            __delay_ms(1000);
+            //            its a 9v, not C, now checking 
+            int i = 1;
+            for (i; i < 3; i++) {
+//          first check channel 1, then check channel 2
+                printf("channel %d", i);
+                __lcd_home();
+                __delay_ms(900);
+                LATE = i == 1 ? 0 : 0b0110;
+                switch (checkV(AD(i), 3.6)) {
+                    case 1:
+                        println("charged 9V");
+                        __delay_ms(1000);
+                        sorted[2]++;
+                        return 2;
+                    case -1:
+                        println("uncharged 9V");
+                        __delay_ms(1000);
+                        sorted[3]++;
+                        return 0;
+                    default:
+                        println("no 9");
+                        continue;
+                }
+            }
+            return -1;
+        case 1:
+            //            its charged C
+            println("charged C");
+            __delay_ms(1000);
+            sorted[1]++;
+            return 1;
+        case -1:
+            println("uncharged C");
+            __delay_ms(1000);
+            sorted[3]++;
+            return 0;
+        default:
+            return -1;
+    }
 }

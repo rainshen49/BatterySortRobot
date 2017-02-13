@@ -3797,8 +3797,15 @@ void moveBigNose(int * prev, int next);
 void moveSmallNose(int * prev, int next);
 int AD(char channel);
 void interrupt keypressed(void);
+int checkAA(int* sorted);
+int checkC9V(int* sorted);
 
-# 7 "modules.c"
+# 11 "lcd.h"
+void lcdInst(char data);
+void lcdNibble(char data);
+void initLCD(void);
+
+# 10 "modules.c"
 int AD(char channel) {
 
 ADCON0 = ((channel << 2));
@@ -3925,17 +3932,90 @@ println("Emergency");
 
 }
 
-int checkAA() {
-return AD(0);
+int checkV(int voltage, int max) {
+
+printf("%d received",voltage);
+lcdInst(0b10000000);;
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+if (voltage > 1023 * 4 / 5) {
+return 0;
+} else if (voltage > 0.85 * 1023 * max / 5) {
+return 1;
+} else {
+return -1;
+}
 }
 
-int checkC9V() {
-int chargedC = AD(1);
-int charged9 = AD(2);
-if (chargedC) {
+int checkAA(int* sorted) {
+
+println("AA:");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+switch (checkV(AD(0), 1.5)) {
+case 1:
+println("charged AA");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[0]++;
 return 1;
-} else if (charged9) {
-return 2;
-}
+case -1:
+println("uncharged AA");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
 return 0;
+case 0:
+println("no AA");
+return -1;
+default:
+return 0;
+}
+lcdInst(0b10000000);;
+}
+
+int checkC9V(int* sorted) {
+
+
+LATE = 0b1000;
+println("V3");
+switch (checkV(AD(3), 1.5)) {
+case 0:
+println("9:");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+
+int i = 1;
+for (i; i < 3; i++) {
+
+printf("channel %d", i);
+lcdInst(0b10000000);;
+_delay((unsigned long)((900)*(8000000/4000.0)));
+LATE = i == 1 ? 0 : 0b0110;
+switch (checkV(AD(i), 3.6)) {
+case 1:
+println("charged 9V");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[2]++;
+return 2;
+case -1:
+println("uncharged 9V");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
+return 0;
+default:
+println("no 9");
+continue;
+}
+}
+return -1;
+case 1:
+
+println("charged C");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[1]++;
+return 1;
+case -1:
+println("uncharged C");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
+return 0;
+default:
+return -1;
+}
 }

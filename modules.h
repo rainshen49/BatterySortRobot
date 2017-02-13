@@ -12,5 +12,7 @@ void moveBigNose(int * prev, int next);
 void moveSmallNose(int * prev, int next);
 int AD(char channel);
 void interrupt keypressed(void);
+int checkAA(int* sorted);
+int checkC9V(int* sorted);
 #define pause(); while(1);
 

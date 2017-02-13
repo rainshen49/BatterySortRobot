@@ -55,17 +55,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _moveBigNose `(v ~T0 @X0 0 ef2`*i`i ]
 "73 main.c
 [v _moveXMotors `(i ~T0 @X0 0 ef ]
-"77
-[v _checkAA `(i ~T0 @X0 0 ef ]
-"78
-[v _checkC9V `(i ~T0 @X0 0 ef ]
-"9 modules.h
+"15 modules.h
+[v _checkAA `(i ~T0 @X0 0 ef1`*i ]
+"16
+[v _checkC9V `(i ~T0 @X0 0 ef1`*i ]
+"9
 [v _showInfo `(v ~T0 @X0 0 ef2`ui`*ui ]
 "7
 [v _stopMoving `(v ~T0 @X0 0 ef ]
-[p mainexit ]
-"108 main.c
+"101 main.c
 [v _captureKeypad `(i ~T0 @X0 0 ef ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+[p mainexit ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -2930,6 +2932,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 12: void moveSmallNose(int * prev, int next);
 [; ;modules.h: 13: int AD(char channel);
 [; ;modules.h: 14: void interrupt keypressed(void);
+[; ;modules.h: 15: int checkAA(int* sorted);
+[; ;modules.h: 16: int checkC9V(int* sorted);
 "19 main.c
 [v _initialize `(v ~T0 @X0 1 ef ]
 {
@@ -2969,9 +2973,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 33: ADCON0 = 0x00;
 "33
 [e = _ADCON0 -> -> 0 `i `uc ]
-[; ;main.c: 34: ADCON1 = 0x0D;
+[; ;main.c: 34: ADCON1 = 0x0B;
 "34
-[e = _ADCON1 -> -> 13 `i `uc ]
+[e = _ADCON1 -> -> 11 `i `uc ]
 [; ;main.c: 35: CVRCON = 0x00;
 "35
 [e = _CVRCON -> -> 0 `i `uc ]
@@ -3000,8 +3004,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _stop `i ~T0 @X0 1 a ]
 [; ;main.c: 63: int stop = 0;
 [e = _stop -> 0 `i ]
-[v F3179 `i ~T0 @X0 -> 0 `x s ]
-[i F3179
+[v F3183 `i ~T0 @X0 -> 0 `x s ]
+[i F3183
 :U ..
 "64
 -> 0 `i
@@ -3012,7 +3016,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _sorted `i ~T0 @X0 4  a ]
 [; ;main.c: 64: int sorted[] = {0, 0, 0, 0};
-[e = _sorted F3179 ]
+[e = _sorted F3183 ]
 "65
 [v _startTime `i ~T0 @X0 1 a ]
 [; ;main.c: 65: int startTime = getTime();
@@ -3045,111 +3049,176 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 73: moveXMotors();
 "73
 [e ( _moveXMotors ..  ]
-[; ;main.c: 77: AA = checkAA();
+[; ;main.c: 76: AA = checkAA(sorted);
+"76
+[e = _AA ( _checkAA (1 &U _sorted ]
+[; ;main.c: 77: AA = AA==-1?*smallNose:AA;
 "77
-[e = _AA ( _checkAA ..  ]
-[; ;main.c: 78: C9 = checkC9V();
+[e = _AA ? == _AA -U -> 1 `i : *U _smallNose _AA ]
+[; ;main.c: 78: C9 = checkC9V(sorted);
 "78
-[e = _C9 ( _checkC9V ..  ]
-[; ;main.c: 79: sorted[0] += AA;
+[e = _C9 ( _checkC9V (1 &U _sorted ]
+[; ;main.c: 79: C9 = C9==-1?*bigNose:C9;
 "79
-[e =+ *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux _AA ]
-[; ;main.c: 80: sorted[1] += C9 == 1;
+[e = _C9 ? == _C9 -U -> 1 `i : *U _bigNose _C9 ]
+[; ;main.c: 80: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
 "80
-[e =+ *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> == _C9 -> 1 `i `i ]
-[; ;main.c: 81: sorted[2] += C9 == 2;
+[e $ ! >= + + + *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> 15 `i 275  ]
+{
+[; ;main.c: 81: stop = 1;
 "81
-[e =+ *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> == _C9 -> 2 `i `i ]
-[; ;main.c: 82: sorted[3] += AA == 0 && C9 == 0;
+[e = _stop -> 1 `i ]
 "82
-[e =+ *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> && == _AA -> 0 `i == _C9 -> 0 `i `i ]
-[; ;main.c: 83: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] == 15) {
+}
+[e :U 275 ]
+[; ;main.c: 82: }
+[; ;main.c: 83: if (getTime() - startTime >= 180) {
 "83
-[e $ ! == + + + *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> 15 `i 275  ]
+[e $ ! >= - ( _getTime ..  _startTime -> 180 `i 276  ]
 {
 [; ;main.c: 84: stop = 1;
 "84
 [e = _stop -> 1 `i ]
 "85
 }
-[e :U 275 ]
-[; ;main.c: 85: }
-[; ;main.c: 86: if (getTime() - startTime >= 180) {
-"86
-[e $ ! >= - ( _getTime ..  _startTime -> 180 `i 276  ]
-{
-[; ;main.c: 87: stop = 1;
-"87
-[e = _stop -> 1 `i ]
-"88
-}
 [e :U 276 ]
-"89
+"86
 }
 [e :U 272 ]
 "70
 [e $ ! != _stop -> 0 `i 273  ]
 [e :U 274 ]
-[; ;main.c: 88: }
-[; ;main.c: 89: }
-[; ;main.c: 90: (INTCONbits.GIE = 0);
-"90
+[; ;main.c: 85: }
+[; ;main.c: 86: }
+[; ;main.c: 87: (INTCONbits.GIE = 0);
+"87
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;main.c: 92: showInfo(getTime() - startTime, sorted);
-"92
+[; ;main.c: 89: showInfo(getTime() - startTime, sorted);
+"89
 [e ( _showInfo (2 , -> - ( _getTime ..  _startTime `ui -> &U _sorted `*ui ]
-[; ;main.c: 93: stopMoving();
-"93
+[; ;main.c: 90: stopMoving();
+"90
 [e ( _stopMoving ..  ]
-[; ;main.c: 94: return;
-"94
+[; ;main.c: 91: return;
+"91
 [e $UE 271  ]
-[; ;main.c: 95: }
-"95
+[; ;main.c: 92: }
+"92
 [e :UE 271 ]
 }
+"94
+[v _simulate `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 94: void simulate(){
+[e :U _simulate ]
+[f ]
+[; ;main.c: 96: println("Sorting...");
+"96
+[e ( _println (1 -> :s 2C `*uc ]
 "97
+[v _stop `i ~T0 @X0 1 a ]
+[; ;main.c: 97: int stop = 0;
+[e = _stop -> 0 `i ]
+[v F3192 `i ~T0 @X0 -> 0 `x s ]
+[i F3192
+:U ..
+"98
+-> 0 `i
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _sorted `i ~T0 @X0 4  a ]
+[; ;main.c: 98: int sorted[] = {0, 0, 0, 0};
+[e = _sorted F3192 ]
+[; ;main.c: 100: while (!stop) {
+"100
+[e $U 278  ]
+[e :U 279 ]
+{
+[; ;main.c: 101: captureKeypad();
+"101
+[e ( _captureKeypad ..  ]
+[; ;main.c: 103: checkC9V(sorted);
+"103
+[e ( _checkC9V (1 &U _sorted ]
+[; ;main.c: 104: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+"104
+[e $ ! >= + + + *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> 5 `i 281  ]
+{
+[; ;main.c: 105: stop = 1;
+"105
+[e = _stop -> 1 `i ]
+"106
+}
+[e :U 281 ]
+"107
+}
+[e :U 278 ]
+"100
+[e $ ! != _stop -> 0 `i 279  ]
+[e :U 280 ]
+[; ;main.c: 106: }
+[; ;main.c: 107: }
+[; ;main.c: 108: printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
+"108
+[e ( _printf , , , , (. :s 3C *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux ]
+[; ;main.c: 109: ; while(1);;
+"109
+[e :U 283 ]
+[e :U 282 ]
+[e $U 283  ]
+[e :U 284 ]
+[; ;main.c: 110: }
+"110
+[e :UE 277 ]
+}
+"112
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
-[; ;main.c: 97: int main(int argc, char** argv) {
+[; ;main.c: 112: int main(int argc, char** argv) {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 98: initialize();
-"98
+[; ;main.c: 113: initialize();
+"113
 [e ( _initialize ..  ]
-[; ;main.c: 100: println((unsigned char *) "Welcome!");
-"100
-[e ( _println (1 -> :s 2C `*uc ]
-"103
+[; ;main.c: 115: println((unsigned char *) "Welcome!");
+"115
+[e ( _println (1 -> :s 4C `*uc ]
+"118
 [v _bigNose `i ~T0 @X0 1 a ]
-[; ;main.c: 103: int bigNose = 0, smallNose = 0;
+[; ;main.c: 118: int bigNose = 0, smallNose = 0;
 [e = _bigNose -> 0 `i ]
 [v _smallNose `i ~T0 @X0 1 a ]
 [e = _smallNose -> 0 `i ]
-[; ;main.c: 104: moveBigNose(&bigNose, 0);
-"104
+[; ;main.c: 119: moveBigNose(&bigNose, 0);
+"119
 [e ( _moveBigNose (2 , &U _bigNose -> 0 `i ]
-[; ;main.c: 105: moveSmallNose(&smallNose, 0);
-"105
+[; ;main.c: 120: moveSmallNose(&smallNose, 0);
+"120
 [e ( _moveSmallNose (2 , &U _smallNose -> 0 `i ]
-[; ;main.c: 108: while (captureKeypad() != 15);
-"108
-[e $U 278  ]
-[e :U 279 ]
-[e :U 278 ]
-[e $ != ( _captureKeypad ..  -> 15 `i 279  ]
-[e :U 280 ]
-[; ;main.c: 109: mainloop(&bigNose, &smallNose);
-"109
-[e ( _mainloop (2 , &U _bigNose &U _smallNose ]
-[; ;main.c: 110: asm("reset");
-"110
+[; ;main.c: 123: while (captureKeypad() != 15);
+"123
+[e $U 286  ]
+[e :U 287 ]
+[e :U 286 ]
+[e $ != ( _captureKeypad ..  -> 15 `i 287  ]
+[e :U 288 ]
+[; ;main.c: 125: simulate();
+"125
+[e ( _simulate ..  ]
+[; ;main.c: 126: asm("reset");
+"126
 [; <" reset ;# ">
-[; ;main.c: 111: }
-"111
-[e :UE 277 ]
+[; ;main.c: 127: }
+"127
+[e :UE 285 ]
 }
+[p f _printf 8388736 ]
+[a 3C 115 111 114 116 101 100 32 37 100 44 37 100 44 37 100 44 37 100 0 ]
 [a 1C 83 111 114 116 105 110 103 46 46 46 0 ]
-[a 2C 87 101 108 99 111 109 101 33 0 ]
+[a 2C 83 111 114 116 105 110 103 46 46 46 0 ]
+[a 4C 87 101 108 99 111 109 101 33 0 ]
