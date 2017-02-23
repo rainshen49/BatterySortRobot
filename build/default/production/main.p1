@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1367 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"1367 pic18f4620.h
 [v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
 "1588
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
@@ -29,11 +29,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ADFM `Vb ~T0 @X0 0 e@32263 ]
 "13 lcd.h
 [v _initLCD `(v ~T0 @X0 0 ef ]
-"8 modules.h
-[v _println `(v ~T0 @X0 0 ef1`*uc ]
-"65 main.c
+"11
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"22 modules.h
 [v _getTime `(i ~T0 @X0 0 ef ]
-"6896 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"6896 pic18f4620.h
 [v _INT1IE `Vb ~T0 @X0 0 e@32643 ]
 "6272
 [s S263 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -49,25 +51,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S262 . . . . ]
 "6298
 [v _INTCONbits `VS262 ~T0 @X0 0 e@4082 ]
-"12 modules.h
+"3 motors.h
 [v _moveSmallNose `(v ~T0 @X0 0 ef2`*i`i ]
-"11
+"2
 [v _moveBigNose `(v ~T0 @X0 0 ef2`*i`i ]
-"73 main.c
-[v _moveXMotors `(i ~T0 @X0 0 ef ]
-"15 modules.h
+"4
+[v _moveXMotors `(v ~T0 @X0 0 ef ]
+"3 sensors.h
 [v _checkAA `(i ~T0 @X0 0 ef1`*i ]
-"16
+"4
 [v _checkC9V `(i ~T0 @X0 0 ef1`*i ]
-"9
+"19 modules.h
 [v _showInfo `(v ~T0 @X0 0 ef2`ui`*ui ]
-"7
+"1 motors.h
 [v _stopMoving `(v ~T0 @X0 0 ef ]
-"101 main.c
-[v _captureKeypad `(i ~T0 @X0 0 ef ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"21 modules.h
+[v _captureKeypad `(ui ~T0 @X0 0 ef ]
 [p mainexit ]
+[v F3059 `(v ~T0 @X0 1 tf1`ul ]
+"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+[v __delay `JF3059 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -149,10 +153,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
 [; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
 [; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
-[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
-[; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;pic18f4620.h: 49: extern volatile unsigned char PORTA @ 0xF80;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"51 pic18f4620.h
 [; ;pic18f4620.h: 51: asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
 [; ;pic18f4620.h: 54: typedef union {
@@ -2820,15 +2822,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f4620.h: 7786: extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 [; ;pic18f4620.h: 7788: extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 [; ;pic18f4620.h: 7790: extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
-[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2895,6 +2888,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "61
 [p x EBTRB=OFF ]
+[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
+[; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+[; ;pic18.h: 43: extern void __nop(void);
+[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -2924,90 +2928,108 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;modules.h: 7: void stopMoving();
-[; ;modules.h: 8: void println(char* data);
-[; ;modules.h: 9: void showInfo(unsigned int time, unsigned int * sorted);
-[; ;modules.h: 10: void stopMoving();
-[; ;modules.h: 11: void moveBigNose(int * prev, int next);
-[; ;modules.h: 12: void moveSmallNose(int * prev, int next);
-[; ;modules.h: 13: int AD(char channel);
-[; ;modules.h: 14: void interrupt keypressed(void);
-[; ;modules.h: 15: int checkAA(int* sorted);
-[; ;modules.h: 16: int checkC9V(int* sorted);
-"19 main.c
+[; ;motors.h: 1: void stopMoving();
+[; ;motors.h: 2: void moveBigNose(int * prev, int next);
+[; ;motors.h: 3: void moveSmallNose(int * prev, int next);
+[; ;motors.h: 4: void moveXMotors();
+[; ;motors.h: 6: int set_PWM_freq(long fre);
+[; ;motors.h: 7: void PWM1_Start();
+[; ;motors.h: 8: void PWM1_Stop();
+[; ;motors.h: 9: void runPWM1(unsigned int duty, long freq);
+[; ;motors.h: 10: void set_PWM1_duty(unsigned int duty, int Max_Duty);
+[; ;motors.h: 11: void PWM2_Start();
+[; ;motors.h: 12: void PWM2_Stop();
+[; ;motors.h: 13: void runPWM2(unsigned int duty, long freq);
+[; ;motors.h: 14: void set_PWM2_duty(unsigned int duty, int Max_Duty);
+[; ;motors.h: 16: void step(int wait);
+[; ;sensors.h: 1: int AD(char channel);
+[; ;sensors.h: 2: int checkV(int voltage, float max);
+[; ;sensors.h: 3: int checkAA(int* sorted);
+[; ;sensors.h: 4: int checkC9V(int* sorted);
+[; ;modules.h: 19: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 20: void interrupt keypressed(void);
+[; ;modules.h: 21: unsigned int captureKeypad();
+[; ;modules.h: 22: int getTime();
+"14 main.c
 [v _initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 19: void initialize() {
+[; ;main.c: 14: void initialize() {
 [e :U _initialize ]
 [f ]
-[; ;main.c: 20: TRISA = 0xFF;
-"20
+[; ;main.c: 15: TRISA = 0xFF;
+"15
 [e = _TRISA -> -> 255 `i `uc ]
-[; ;main.c: 21: TRISB = 0xFF;
-"21
+[; ;main.c: 16: TRISB = 0xFF;
+"16
 [e = _TRISB -> -> 255 `i `uc ]
-[; ;main.c: 22: TRISC = 0x00;
-"22
+[; ;main.c: 17: TRISC = 0x00;
+"17
 [e = _TRISC -> -> 0 `i `uc ]
-[; ;main.c: 23: TRISD = 0x00;
-"23
+[; ;main.c: 18: TRISD = 0x00;
+"18
 [e = _TRISD -> -> 0 `i `uc ]
-[; ;main.c: 24: TRISE = 0x00;
-"24
+[; ;main.c: 19: TRISE = 0x00;
+"19
 [e = _TRISE -> -> 0 `i `uc ]
-[; ;main.c: 26: LATA = 0x00;
-"26
+[; ;main.c: 21: LATA = 0x00;
+"21
 [e = _LATA -> -> 0 `i `uc ]
-[; ;main.c: 27: LATB = 0x00;
-"27
+[; ;main.c: 22: LATB = 0x00;
+"22
 [e = _LATB -> -> 0 `i `uc ]
-[; ;main.c: 28: LATC = 0x00;
-"28
+[; ;main.c: 23: LATC = 0x00;
+"23
 [e = _LATC -> -> 0 `i `uc ]
-[; ;main.c: 29: LATD = 0x00;
-"29
+[; ;main.c: 24: LATD = 0x00;
+"24
 [e = _LATD -> -> 0 `i `uc ]
-[; ;main.c: 30: LATE = 0x00;
-"30
+[; ;main.c: 25: LATE = 0x00;
+"25
 [e = _LATE -> -> 0 `i `uc ]
-[; ;main.c: 33: ADCON0 = 0x00;
-"33
+[; ;main.c: 28: ADCON0 = 0x00;
+"28
 [e = _ADCON0 -> -> 0 `i `uc ]
-[; ;main.c: 34: ADCON1 = 0x0B;
-"34
+[; ;main.c: 29: ADCON1 = 0x0B;
+"29
 [e = _ADCON1 -> -> 11 `i `uc ]
-[; ;main.c: 35: CVRCON = 0x00;
-"35
+[; ;main.c: 30: CVRCON = 0x00;
+"30
 [e = _CVRCON -> -> 0 `i `uc ]
-[; ;main.c: 36: ADFM = 1;
-"36
+[; ;main.c: 31: ADFM = 1;
+"31
 [e = _ADFM -> -> 1 `i `b ]
-[; ;main.c: 38: initLCD();
-"38
+[; ;main.c: 33: initLCD();
+"33
 [e ( _initLCD ..  ]
-[; ;main.c: 39: }
-"39
+[; ;main.c: 34: lcdInst(0x01);;
+"34
+[e ( _lcdInst (1 -> -> 1 `i `uc ]
+[; ;main.c: 35: }
+"35
 [e :UE 270 ]
 }
-"61
+"37
 [v _mainloop `(v ~T0 @X0 1 ef2`*i`*i ]
 {
-[; ;main.c: 61: void mainloop(int * bigNose, int* smallNose) {
+[; ;main.c: 37: void mainloop(int * bigNose, int* smallNose) {
 [e :U _mainloop ]
 [v _bigNose `*i ~T0 @X0 1 r1 ]
 [v _smallNose `*i ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 62: println("Sorting...");
-"62
-[e ( _println (1 -> :s 1C `*uc ]
-"63
+[; ;main.c: 38: lcdInst(0b11000000);;
+"38
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;main.c: 39: printf("Sorting...");
+"39
+[e ( _printf :s 1C ]
+"40
 [v _stop `i ~T0 @X0 1 a ]
-[; ;main.c: 63: int stop = 0;
+[; ;main.c: 40: int stop = 0;
 [e = _stop -> 0 `i ]
-[v F3183 `i ~T0 @X0 -> 0 `x s ]
-[i F3183
+[v F3207 `i ~T0 @X0 -> 0 `x s ]
+[i F3207
 :U ..
-"64
+"41
 -> 0 `i
 -> 0 `i
 -> 0 `i
@@ -3015,114 +3037,119 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _sorted `i ~T0 @X0 4  a ]
-[; ;main.c: 64: int sorted[] = {0, 0, 0, 0};
-[e = _sorted F3183 ]
-"65
+[; ;main.c: 41: int sorted[] = {0, 0, 0, 0};
+[e = _sorted F3207 ]
+"42
 [v _startTime `i ~T0 @X0 1 a ]
-[; ;main.c: 65: int startTime = getTime();
+[; ;main.c: 42: int startTime = getTime();
 [e = _startTime ( _getTime ..  ]
-"66
+"43
 [v _AA `i ~T0 @X0 1 a ]
-[; ;main.c: 66: int AA = 0;
+[; ;main.c: 43: int AA = 0;
 [e = _AA -> 0 `i ]
-"67
+"44
 [v _C9 `i ~T0 @X0 1 a ]
-[; ;main.c: 67: int C9 = 0;
+[; ;main.c: 44: int C9 = 0;
 [e = _C9 -> 0 `i ]
-[; ;main.c: 68: INT1IE = 1;
-"68
+[; ;main.c: 45: INT1IE = 1;
+"45
 [e = _INT1IE -> -> 1 `i `b ]
-[; ;main.c: 69: (INTCONbits.GIE = 1);
-"69
+[; ;main.c: 46: (INTCONbits.GIE = 1);
+"46
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;main.c: 70: while (!stop) {
-"70
+[; ;main.c: 47: while (!stop) {
+"47
 [e $U 272  ]
 [e :U 273 ]
 {
-[; ;main.c: 71: moveSmallNose(smallNose, AA);
-"71
+[; ;main.c: 48: moveSmallNose(smallNose, AA);
+"48
 [e ( _moveSmallNose (2 , _smallNose _AA ]
-[; ;main.c: 72: moveBigNose(bigNose, C9);
-"72
+[; ;main.c: 49: moveBigNose(bigNose, C9);
+"49
 [e ( _moveBigNose (2 , _bigNose _C9 ]
-[; ;main.c: 73: moveXMotors();
-"73
+[; ;main.c: 50: moveXMotors();
+"50
 [e ( _moveXMotors ..  ]
-[; ;main.c: 76: AA = checkAA(sorted);
-"76
+[; ;main.c: 53: AA = checkAA(sorted);
+"53
 [e = _AA ( _checkAA (1 &U _sorted ]
-[; ;main.c: 77: AA = AA==-1?*smallNose:AA;
-"77
+[; ;main.c: 54: AA = (AA == -1) ? *smallNose : AA;
+"54
 [e = _AA ? == _AA -U -> 1 `i : *U _smallNose _AA ]
-[; ;main.c: 78: C9 = checkC9V(sorted);
-"78
+[; ;main.c: 55: C9 = checkC9V(sorted);
+"55
 [e = _C9 ( _checkC9V (1 &U _sorted ]
-[; ;main.c: 79: C9 = C9==-1?*bigNose:C9;
-"79
+[; ;main.c: 56: C9 = (C9 == -1) ? *bigNose : C9;
+"56
 [e = _C9 ? == _C9 -U -> 1 `i : *U _bigNose _C9 ]
-[; ;main.c: 80: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
-"80
+[; ;main.c: 57: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
+"57
 [e $ ! >= + + + *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> 15 `i 275  ]
 {
-[; ;main.c: 81: stop = 1;
-"81
+[; ;main.c: 58: stop = 1;
+"58
 [e = _stop -> 1 `i ]
-"82
+"59
 }
 [e :U 275 ]
-[; ;main.c: 82: }
-[; ;main.c: 83: if (getTime() - startTime >= 180) {
-"83
+[; ;main.c: 59: }
+[; ;main.c: 60: if (getTime() - startTime >= 180) {
+"60
 [e $ ! >= - ( _getTime ..  _startTime -> 180 `i 276  ]
 {
-[; ;main.c: 84: stop = 1;
-"84
+[; ;main.c: 61: stop = 1;
+"61
 [e = _stop -> 1 `i ]
-"85
+"62
 }
 [e :U 276 ]
-"86
+"63
 }
 [e :U 272 ]
-"70
+"47
 [e $ ! != _stop -> 0 `i 273  ]
 [e :U 274 ]
-[; ;main.c: 85: }
-[; ;main.c: 86: }
-[; ;main.c: 87: (INTCONbits.GIE = 0);
-"87
+[; ;main.c: 62: }
+[; ;main.c: 63: }
+[; ;main.c: 64: (INTCONbits.GIE = 0);
+"64
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;main.c: 89: showInfo(getTime() - startTime, sorted);
-"89
+[; ;main.c: 66: showInfo(getTime() - startTime, sorted);
+"66
 [e ( _showInfo (2 , -> - ( _getTime ..  _startTime `ui -> &U _sorted `*ui ]
-[; ;main.c: 90: stopMoving();
-"90
+[; ;main.c: 67: stopMoving();
+"67
 [e ( _stopMoving ..  ]
-[; ;main.c: 91: return;
-"91
+[; ;main.c: 68: return;
+"68
 [e $UE 271  ]
-[; ;main.c: 92: }
-"92
+[; ;main.c: 69: }
+"69
 [e :UE 271 ]
 }
-"94
-[v _simulate `(v ~T0 @X0 1 ef ]
+"71
+[v _simulate `(v ~T0 @X0 1 ef2`*i`*i ]
 {
-[; ;main.c: 94: void simulate(){
+[; ;main.c: 71: void simulate(int * bigNose, int* smallNose) {
 [e :U _simulate ]
+[v _bigNose `*i ~T0 @X0 1 r1 ]
+[v _smallNose `*i ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 96: println("Sorting...");
-"96
-[e ( _println (1 -> :s 2C `*uc ]
-"97
+[; ;main.c: 111: lcdInst(0b11000000);;
+"111
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;main.c: 112: printf("Sorting...");
+"112
+[e ( _printf :s 2C ]
+"113
 [v _stop `i ~T0 @X0 1 a ]
-[; ;main.c: 97: int stop = 0;
+[; ;main.c: 113: int stop = 0;
 [e = _stop -> 0 `i ]
-[v F3192 `i ~T0 @X0 -> 0 `x s ]
-[i F3192
+[v F3216 `i ~T0 @X0 -> 0 `x s ]
+[i F3216
 :U ..
-"98
+"114
 -> 0 `i
 -> 0 `i
 -> 0 `i
@@ -3130,95 +3157,194 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _sorted `i ~T0 @X0 4  a ]
-[; ;main.c: 98: int sorted[] = {0, 0, 0, 0};
-[e = _sorted F3192 ]
-[; ;main.c: 100: while (!stop) {
-"100
+[; ;main.c: 114: int sorted[] = {0, 0, 0, 0};
+[e = _sorted F3216 ]
+"115
+[v _startTime `i ~T0 @X0 1 a ]
+[; ;main.c: 115: int startTime = getTime();
+[e = _startTime ( _getTime ..  ]
+"116
+[v _AA `i ~T0 @X0 1 a ]
+[; ;main.c: 116: int AA = 0;
+[e = _AA -> 0 `i ]
+"117
+[v _C9 `i ~T0 @X0 1 a ]
+[; ;main.c: 117: int C9 = 0;
+[e = _C9 -> 0 `i ]
+[; ;main.c: 118: INT1IE = 1;
+"118
+[e = _INT1IE -> -> 1 `i `b ]
+[; ;main.c: 120: while (!stop) {
+"120
 [e $U 278  ]
 [e :U 279 ]
 {
-[; ;main.c: 101: captureKeypad();
-"101
+[; ;main.c: 121: captureKeypad();
+"121
 [e ( _captureKeypad ..  ]
-[; ;main.c: 103: checkC9V(sorted);
-"103
-[e ( _checkC9V (1 &U _sorted ]
-[; ;main.c: 104: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
-"104
+[; ;main.c: 122: moveSmallNose(smallNose, AA);
+"122
+[e ( _moveSmallNose (2 , _smallNose _AA ]
+[; ;main.c: 123: moveBigNose(bigNose, C9);
+"123
+[e ( _moveBigNose (2 , _bigNose _C9 ]
+[; ;main.c: 124: moveXMotors();
+"124
+[e ( _moveXMotors ..  ]
+[; ;main.c: 127: AA = checkAA(sorted);
+"127
+[e = _AA ( _checkAA (1 &U _sorted ]
+[; ;main.c: 128: AA = (AA == -1) ? *smallNose : AA;
+"128
+[e = _AA ? == _AA -U -> 1 `i : *U _smallNose _AA ]
+[; ;main.c: 129: C9 = checkC9V(sorted);
+"129
+[e = _C9 ( _checkC9V (1 &U _sorted ]
+[; ;main.c: 130: C9 = (C9 == -1) ? *bigNose : C9;
+"130
+[e = _C9 ? == _C9 -U -> 1 `i : *U _bigNose _C9 ]
+[; ;main.c: 131: if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+"131
 [e $ ! >= + + + *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux -> 5 `i 281  ]
 {
-[; ;main.c: 105: stop = 1;
-"105
+[; ;main.c: 132: stop = 1;
+"132
 [e = _stop -> 1 `i ]
-"106
+"133
 }
 [e :U 281 ]
-"107
+"134
 }
 [e :U 278 ]
-"100
+"120
 [e $ ! != _stop -> 0 `i 279  ]
 [e :U 280 ]
-[; ;main.c: 106: }
-[; ;main.c: 107: }
-[; ;main.c: 108: printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
-"108
-[e ( _printf , , , , (. :s 3C *U + &U _sorted * -> -> -> 0 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 1 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 2 `i `ui `ux -> -> # *U &U _sorted `ui `ux *U + &U _sorted * -> -> -> 3 `i `ui `ux -> -> # *U &U _sorted `ui `ux ]
-[; ;main.c: 109: ; while(1);;
-"109
-[e :U 283 ]
-[e :U 282 ]
-[e $U 283  ]
-[e :U 284 ]
-[; ;main.c: 110: }
-"110
+[; ;main.c: 133: }
+[; ;main.c: 134: }
+[; ;main.c: 137: showInfo(179, sorted);
+"137
+[e ( _showInfo (2 , -> -> 179 `i `ui -> &U _sorted `*ui ]
+[; ;main.c: 138: stopMoving();
+"138
+[e ( _stopMoving ..  ]
+[; ;main.c: 139: return;
+"139
+[e $UE 277  ]
+[; ;main.c: 140: }
+"140
 [e :UE 277 ]
 }
-"112
+"142
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
-[; ;main.c: 112: int main(int argc, char** argv) {
+[; ;main.c: 142: int main(int argc, char** argv) {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 113: initialize();
-"113
+[; ;main.c: 143: initialize();
+"143
 [e ( _initialize ..  ]
-[; ;main.c: 115: println((unsigned char *) "Welcome!");
-"115
-[e ( _println (1 -> :s 4C `*uc ]
-"118
+[; ;main.c: 145: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+"145
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 283  ]
+[e $U 284  ]
+[e :U 283 ]
+{
+[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 283  ]
+[e :U 284 ]
+}
+[; ;main.c: 146: printf((unsigned char *) "Welcome!   ");
+"146
+[e ( _printf -> -> :s 3C `*uc `*Cuc ]
+[; ;main.c: 147: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+"147
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 286  ]
+[e $U 287  ]
+[e :U 286 ]
+{
+[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 286  ]
+[e :U 287 ]
+}
+"150
 [v _bigNose `i ~T0 @X0 1 a ]
-[; ;main.c: 118: int bigNose = 0, smallNose = 0;
+[; ;main.c: 150: int bigNose = 0, smallNose = 0;
 [e = _bigNose -> 0 `i ]
 [v _smallNose `i ~T0 @X0 1 a ]
 [e = _smallNose -> 0 `i ]
-[; ;main.c: 119: moveBigNose(&bigNose, 0);
-"119
+[; ;main.c: 151: moveBigNose(&bigNose, 0);
+"151
 [e ( _moveBigNose (2 , &U _bigNose -> 0 `i ]
-[; ;main.c: 120: moveSmallNose(&smallNose, 0);
-"120
-[e ( _moveSmallNose (2 , &U _smallNose -> 0 `i ]
-[; ;main.c: 123: while (captureKeypad() != 15);
-"123
-[e $U 286  ]
-[e :U 287 ]
-[e :U 286 ]
-[e $ != ( _captureKeypad ..  -> 15 `i 287  ]
-[e :U 288 ]
-[; ;main.c: 125: simulate();
-"125
-[e ( _simulate ..  ]
-[; ;main.c: 126: asm("reset");
-"126
-[; <" reset ;# ">
-[; ;main.c: 127: }
-"127
-[e :UE 285 ]
+[; ;main.c: 152: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+"152
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 289  ]
+[e $U 290  ]
+[e :U 289 ]
+{
+[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 }
-[p f _printf 8388736 ]
-[a 3C 115 111 114 116 101 100 32 37 100 44 37 100 44 37 100 44 37 100 0 ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 289  ]
+[e :U 290 ]
+}
+[; ;main.c: 153: moveSmallNose(&smallNose, 0);
+"153
+[e ( _moveSmallNose (2 , &U _smallNose -> 0 `i ]
+[; ;main.c: 154: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+"154
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 292  ]
+[e $U 293  ]
+[e :U 292 ]
+{
+[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 292  ]
+[e :U 293 ]
+}
+[; ;main.c: 155: lcdInst(0b11000000);;
+"155
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;main.c: 156: printf("Press Start");
+"156
+[e ( _printf :s 4C ]
+[; ;main.c: 158: while (captureKeypad() != 15);
+"158
+[e $U 295  ]
+[e :U 296 ]
+[e :U 295 ]
+[e $ != ( _captureKeypad ..  -> -> 15 `i `ui 296  ]
+[e :U 297 ]
+[; ;main.c: 160: simulate(&bigNose, &smallNose);
+"160
+[e ( _simulate (2 , &U _bigNose &U _smallNose ]
+[; ;main.c: 161: asm("reset");
+"161
+[; <" reset ;# ">
+[; ;main.c: 162: }
+"162
+[e :UE 282 ]
+}
+[p f _printf 9437696 ]
+[a 4C 80 114 101 115 115 32 83 116 97 114 116 0 ]
 [a 1C 83 111 114 116 105 110 103 46 46 46 0 ]
 [a 2C 83 111 114 116 105 110 103 46 46 46 0 ]
-[a 4C 87 101 108 99 111 109 101 33 0 ]
+[a 3C 87 101 108 99 111 109 101 33 32 32 32 0 ]

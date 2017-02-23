@@ -1,5 +1,5 @@
 
-# 1 "lcd.c"
+# 1 "sensors.c"
 
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
 typedef unsigned size_t;
@@ -3892,47 +3892,116 @@ void interrupt keypressed(void);
 unsigned int captureKeypad();
 int getTime();
 
-# 10 "lcd.c"
-void initLCD(void) {
-_delay((unsigned long)((15)*(8000000/4000.0)));
-lcdInst(0b00110011);
-lcdInst(0b00110010);
-lcdInst(0b00101000);
-lcdInst(0b00001111);
-lcdInst(0b00000110);
-lcdInst(0b00000001);
-_delay((unsigned long)((15)*(8000000/4000.0)));
+# 3 "sensors.c"
+int AD(char channel) {
+
+ADCON0 = ((channel << 2));
+ADON = 1;
+ADCON0bits.GO = 1;
+while (ADCON0bits.GO_NOT_DONE) {
+
+_delay((unsigned long)((10)*(8000000/4000.0)));
+}
+return (ADRESH << 8) | ADRESL;
 }
 
-void lcdInst(char data) {
-LATDbits.LATD2 = 0;
-lcdNibble(data);
+int checkV(int voltage, float max) {
+
+lcdInst(0b11000000);;
+printf("%d received    ", voltage);
+for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+if (voltage > 1023 * 4 / 5) {
+return 0;
+} else if (voltage > 0.85 * 1023 * max / 5) {
+return 1;
+} else {
+
+return -1;
+}
 }
 
-void putch(char data) {
-LATDbits.LATD2 = 1;
-lcdNibble(data);
+int checkAA(int* sorted) {
+
+lcdInst(0b10000000);;
+printf("AA:     ");
+lcdInst(0b11000000);;
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+switch (checkV(AD(0), 1.5)) {
+case 1:
+lcdInst(0b10000000);;
+printf("charged AA    ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[0]++;
+return 1;
+case -1:
+lcdInst(0b11000000);;
+printf("uncharged AA     ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
+return 0;
+case 0:
+lcdInst(0b10000000);;
+printf("no AA     ");
+return -1;
+default:
+return 0;
+}
 }
 
-void lcdNibble(char data) {
+int checkC9V(int* sorted) {
 
-char temp = data & 0xF0;
-LATD = LATD & 0x0F;
-LATD = temp | LATD;
 
-LATDbits.LATD3 = 0;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
-LATDbits.LATD3 = 1;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
+LATE = 0b1000;
+lcdInst(0b10000000);;
+printf("V3");
+switch (checkV(AD(3), 1.5)) {
+case 0:
+lcdInst(0b10000000);;
+printf("9:");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
 
-data = data << 4;
+int i = 1;
+for (i; i < 3; i++) {
 
-temp = data & 0xF0;
-LATD = LATD & 0x0F;
-LATD = temp | LATD;
+lcdInst(0b11000000);;
+printf("channel %d   ", i);
+lcdInst(0b10000000);;
+_delay((unsigned long)((900)*(8000000/4000.0)));
+LATE = i == 1 ? 0 : 0b0110;
+switch (checkV(AD(i), 3.6)) {
+case 1:
+lcdInst(0b10000000);;
+printf("charged 9V  ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[2]++;
+return 2;
+case -1:
+lcdInst(0b11000000);;
+printf("uncharged 9V   ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
+return 0;
+default:
+lcdInst(0b10000000);;
+printf("no 9    ");
+continue;
+}
+}
+return -1;
+case 1:
 
-LATDbits.LATD3 = 0;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
-LATDbits.LATD3 = 1;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
+lcdInst(0b10000000);;
+printf("charged C    ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[1]++;
+return 1;
+case -1:
+lcdInst(0b11000000);;
+printf("uncharged C    ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+sorted[3]++;
+return 0;
+default:
+return -1;
+}
 }

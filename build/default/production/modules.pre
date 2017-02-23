@@ -1,17 +1,144 @@
 
 # 1 "modules.c"
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
-extern const char __xc8_OPTIM_SPEED;
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
+typedef unsigned size_t;
 
-extern double __fpnormalize(double);
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdlib.h"
+typedef unsigned short wchar_t;
+
+# 15
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
+
+# 53
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
 
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h"
+# 86 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdlib.h"
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+
+# 49 "pic18f4620.h"
 extern volatile unsigned char PORTA @ 0xF80;
 
 asm("PORTA equ 0F80h");
@@ -3614,29 +3741,6 @@ extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 
 extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 
-# 18 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h"
-__attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-__attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-
-
-# 42
-#pragma intrinsic(__nop)
-extern void __nop(void);
-
-# 135
-__attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-__attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-__attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-
-
-# 160
-#pragma intrinsic(_delay)
-extern __nonreentrant void _delay(unsigned long);
-#pragma intrinsic(_delaywdt)
-extern __nonreentrant void _delaywdt(unsigned long);
-#pragma intrinsic(_delay3)
-extern __nonreentrant void _delay3(unsigned char);
-
 
 # 9 "configBits.h"
 #pragma config OSC = HS
@@ -3693,8 +3797,33 @@ extern __nonreentrant void _delay3(unsigned char);
 
 #pragma config EBTRB = OFF
 
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
-typedef unsigned size_t;
+# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
+
+# 18 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h"
+__attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+__attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+
+
+# 42
+#pragma intrinsic(__nop)
+extern void __nop(void);
+
+# 135
+__attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+__attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+__attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+
+
+# 160
+#pragma intrinsic(_delay)
+extern __nonreentrant void _delay(unsigned long);
+#pragma intrinsic(_delaywdt)
+extern __nonreentrant void _delaywdt(unsigned long);
+#pragma intrinsic(_delay3)
+extern __nonreentrant void _delay3(unsigned char);
 
 # 14 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
@@ -3728,158 +3857,113 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\errno.h"
-extern int errno;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 7 "modules.h"
-void stopMoving();
-void println(char* data);
-void showInfo(unsigned int time, unsigned int * sorted);
-void stopMoving();
-void moveBigNose(int * prev, int next);
-void moveSmallNose(int * prev, int next);
-int AD(char channel);
-void interrupt keypressed(void);
-int checkAA(int* sorted);
-int checkC9V(int* sorted);
-
 # 11 "lcd.h"
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
 
-# 10 "modules.c"
-int AD(char channel) {
+# 1 "motors.h"
+void stopMoving();
+void moveBigNose(int * prev, int next);
+void moveSmallNose(int * prev, int next);
+void moveXMotors();
 
-ADCON0 = ((channel << 2));
-ADON = 1;
-ADCON0bits.GO = 1;
-while (ADCON0bits.GO_NOT_DONE) {
-_delay((unsigned long)((10)*(8000000/4000.0)));
-}
-return (ADRESH << 8) | ADRESL;
-}
+int set_PWM_freq(long fre);
+void PWM1_Start();
+void PWM1_Stop();
+void runPWM1(unsigned int duty, long freq);
+void set_PWM1_duty(unsigned int duty, int Max_Duty);
+void PWM2_Start();
+void PWM2_Stop();
+void runPWM2(unsigned int duty, long freq);
+void set_PWM2_duty(unsigned int duty, int Max_Duty);
 
-void println(char* data) {
-int i = 0;
-char output[] = "                                        ";
-while (data[i] != '\0') {
-output[i] = data[i++];
-}
-printf("%s", output);
-}
+void step(int wait);
 
+# 1 "sensors.h"
+int AD(char channel);
+int checkV(int voltage, float max);
+int checkAA(int* sorted);
+int checkC9V(int* sorted);
+
+# 19 "modules.h"
+void showInfo(unsigned int time, unsigned int * sorted);
+void interrupt keypressed(void);
+unsigned int captureKeypad();
+int getTime();
+
+# 3 "modules.c"
 unsigned int captureKeypad() {
 while (!PORTBbits.RB1);
 unsigned char keypress = (PORTB & 0xF0) >> 4;
 while (PORTBbits.RB1);
 INT1IF = 0;
+
 return keypress;
 }
 
 void interrupt keypressed(void) {
 
 if (INT1IF) {
+
 unsigned char keypress = (PORTB & 0xF0) >> 4;
 INT1IF = 0;
+lcdInst(0b11000000);;
 stopMoving();
 }
 }
 
 void showInfo(unsigned int time, unsigned int * sorted) {
 (INTCONbits.GIE = 0);
-println("Sorting Complete");
-println(" ");
+lcdInst(0b10000000);;
+printf("Sorting Complete");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
-println("Press a number");
-println("For more info");
+lcdInst(0b10000000);;
+printf("Press a number");
+lcdInst(0b11000000);;
+printf("For more info");
 int type = 0;
 while (1) {
-type = captureKeypad;
+type = captureKeypad();
 switch (type) {
 case(0):
-println("Time Elapsed:");
+lcdInst(0b10000000);;
+printf("Time Elapsed:");
+lcdInst(0b11000000);;
 printf("%d seconds", time);
 break;
 case(1):
-println("Total Sorted:");
+lcdInst(0b10000000);;
+printf("Total Sorted:");
 printf("%d batteries", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
 break;
 case(2):
-println("AA Sorted:");
+lcdInst(0b10000000);;
+printf("AA Sorted:");
+lcdInst(0b11000000);;
 printf("%d", sorted[0]);
 break;
 case(3):
-println("C Sorted:");
+lcdInst(0b10000000);;
+printf("C Sorted:");
+lcdInst(0b11000000);;
 printf("%d", sorted[1]);
 break;
 case(4):
-println("9V Sorted:");
+lcdInst(0b10000000);;
+printf("9V Sorted:");
+lcdInst(0b11000000);;
 printf("%d", sorted[2]);
 break;
 case(5):
-println("Uncharged:");
+lcdInst(0b10000000);;
+printf("Uncharged:");
+lcdInst(0b11000000);;
 printf("%d", sorted[3]);
 break;
 case(15):
 asm("reset");
+
 default:
 break;
 }
@@ -3890,132 +3974,7 @@ break;
 int getTime() {
 
 int time = 0;
+
 return time;
 }
 
-void moveXMotors() {
-
-}
-
-void moveBigNose(int * prev, int next) {
-
-
-if (*prev == next)return;
-while (*prev < next) {
-
-*prev++;
-}
-while (*prev > next) {
-
-*prev--;
-}
-}
-
-void moveSmallNose(int * prev, int next) {
-
-
-if (*prev == next)return;
-while (*prev < next) {
-
-*prev++;
-}
-while (*prev > next) {
-
-*prev--;
-}
-}
-
-void stopMoving() {
-(INTCONbits.GIE = 0);
-println("Emergency");
-; while(1);;
-
-}
-
-int checkV(int voltage, int max) {
-
-printf("%d received",voltage);
-lcdInst(0b10000000);;
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-if (voltage > 1023 * 4 / 5) {
-return 0;
-} else if (voltage > 0.85 * 1023 * max / 5) {
-return 1;
-} else {
-return -1;
-}
-}
-
-int checkAA(int* sorted) {
-
-println("AA:");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-switch (checkV(AD(0), 1.5)) {
-case 1:
-println("charged AA");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[0]++;
-return 1;
-case -1:
-println("uncharged AA");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[3]++;
-return 0;
-case 0:
-println("no AA");
-return -1;
-default:
-return 0;
-}
-lcdInst(0b10000000);;
-}
-
-int checkC9V(int* sorted) {
-
-
-LATE = 0b1000;
-println("V3");
-switch (checkV(AD(3), 1.5)) {
-case 0:
-println("9:");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-
-int i = 1;
-for (i; i < 3; i++) {
-
-printf("channel %d", i);
-lcdInst(0b10000000);;
-_delay((unsigned long)((900)*(8000000/4000.0)));
-LATE = i == 1 ? 0 : 0b0110;
-switch (checkV(AD(i), 3.6)) {
-case 1:
-println("charged 9V");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[2]++;
-return 2;
-case -1:
-println("uncharged 9V");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[3]++;
-return 0;
-default:
-println("no 9");
-continue;
-}
-}
-return -1;
-case 1:
-
-println("charged C");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[1]++;
-return 1;
-case -1:
-println("uncharged C");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
-sorted[3]++;
-return 0;
-default:
-return -1;
-}
-}

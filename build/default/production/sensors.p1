@@ -1,49 +1,51 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"191 pic18f4620.h
-[s S16 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S16 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"201
-[s S17 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S17 . INT0 INT1 INT2 CCP2 KBI0 KBI1 KBI2 KBI3 ]
-"211
-[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S18 . AN12 AN10 AN8 AN9 AN11 PGM PGC PGD ]
-"221
-[s S19 :3 `uc 1 :1 `uc 1 ]
-[n S19 . . CCP2_PA2 ]
-"190
-[u S15 `S16 1 `S17 1 `S18 1 `S19 1 ]
-[n S15 . . . . . ]
-"226
-[v _PORTBbits `VS15 ~T0 @X0 0 e@3969 ]
-"185
-[v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
-"6898
-[v _INT1IF `Vb ~T0 @X0 0 e@32640 ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
-"1 motors.h
-[v _stopMoving `(v ~T0 @X0 0 ef ]
-"6272 pic18f4620.h
-[s S263 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S263 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"6282
-[s S264 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S264 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"6292
-[s S265 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S265 . . GIEL GIEH ]
-"6271
-[u S262 `S263 1 `S264 1 `S265 1 ]
-[n S262 . . . . ]
-"6298
-[v _INTCONbits `VS262 ~T0 @X0 0 e@4082 ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"4474 pic18f4620.h
+[v _ADCON0 `Vuc ~T0 @X0 0 e@4034 ]
+"6634
+[v _ADON `Vb ~T0 @X0 0 e@32272 ]
+"4480
+[s S179 :1 `uc 1 :1 `uc 1 ]
+[n S179 . . GO_NOT_DONE ]
+"4484
+[s S180 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S180 . ADON GO_nDONE CHS ]
+"4489
+[s S181 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S181 . . GO CHS0 CHS1 CHS2 CHS3 ]
+"4497
+[s S182 :1 `uc 1 :1 `uc 1 ]
+[n S182 . . DONE ]
+"4501
+[s S183 :1 `uc 1 :1 `uc 1 ]
+[n S183 . . NOT_DONE ]
+"4505
+[s S184 :1 `uc 1 :1 `uc 1 ]
+[n S184 . . nDONE ]
+"4509
+[s S185 :1 `uc 1 :1 `uc 1 ]
+[n S185 . . GO_DONE ]
+"4513
+[s S186 :1 `uc 1 :1 `uc 1 ]
+[n S186 . . GODONE ]
+"4479
+[u S178 `S179 1 `S180 1 `S181 1 `S182 1 `S183 1 `S184 1 `S185 1 `S186 1 ]
+[n S178 . . . . . . . . . ]
+"4518
+[v _ADCON0bits `VS178 ~T0 @X0 0 e@4034 ]
 [v F3059 `(v ~T0 @X0 1 tf1`ul ]
 "161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
 [v __delay `JF3059 ~T0 @X0 0 e ]
 [p i __delay ]
+"4604 pic18f4620.h
+[v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
+"4598
+[v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
+"11 lcd.h
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"1316 pic18f4620.h
+[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -2922,298 +2924,419 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 20: void interrupt keypressed(void);
 [; ;modules.h: 21: unsigned int captureKeypad();
 [; ;modules.h: 22: int getTime();
-"3 modules.c
-[v _captureKeypad `(ui ~T0 @X0 1 ef ]
+"3 sensors.c
+[v _AD `(i ~T0 @X0 1 ef1`uc ]
 {
-[; ;modules.c: 3: unsigned int captureKeypad() {
-[e :U _captureKeypad ]
+[; ;sensors.c: 3: int AD(char channel) {
+[e :U _AD ]
+[v _channel `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;modules.c: 4: while (!PORTBbits.RB1);
-"4
+[; ;sensors.c: 5: ADCON0 = ((channel << 2));
+"5
+[e = _ADCON0 -> << -> _channel `i -> 2 `i `uc ]
+[; ;sensors.c: 6: ADON = 1;
+"6
+[e = _ADON -> -> 1 `i `b ]
+[; ;sensors.c: 7: ADCON0bits.GO = 1;
+"7
+[e = . . _ADCON0bits 2 1 -> -> 1 `i `uc ]
+[; ;sensors.c: 8: while (ADCON0bits.GO_NOT_DONE) {
+"8
 [e $U 271  ]
 [e :U 272 ]
-[e :U 271 ]
-[e $ ! != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 272  ]
-[e :U 273 ]
-"5
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 5: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 6: while (PORTBbits.RB1);
-"6
-[e $U 274  ]
-[e :U 275 ]
-[e :U 274 ]
-[e $ != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 275  ]
-[e :U 276 ]
-[; ;modules.c: 7: INT1IF = 0;
-"7
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 9: return keypress;
-"9
-[e ) -> _keypress `ui ]
-[e $UE 270  ]
-[; ;modules.c: 10: }
+{
+[; ;sensors.c: 10: _delay((unsigned long)((10)*(8000000/4000.0)));
 "10
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+"11
+}
+[e :U 271 ]
+"8
+[e $ != -> . . _ADCON0bits 0 1 `i -> -> -> 0 `i `Vuc `i 272  ]
+[e :U 273 ]
+[; ;sensors.c: 11: }
+[; ;sensors.c: 12: return (ADRESH << 8) | ADRESL;
+"12
+[e ) | << -> _ADRESH `i -> 8 `i -> _ADRESL `i ]
+[e $UE 270  ]
+[; ;sensors.c: 13: }
+"13
 [e :UE 270 ]
 }
-[v F3198 `(v ~T0 @X0 1 tf ]
-"12
-[v _keypressed `IF3198 ~T0 @X0 1 e ]
+"15
+[v _checkV `(i ~T0 @X0 1 ef2`i`f ]
 {
-[; ;modules.c: 12: void interrupt keypressed(void) {
-[e :U _keypressed ]
+[; ;sensors.c: 15: int checkV(int voltage, float max) {
+[e :U _checkV ]
+[v _voltage `i ~T0 @X0 1 r1 ]
+[v _max `f ~T0 @X0 1 r2 ]
 [f ]
-[; ;modules.c: 14: if (INT1IF) {
-"14
-[e $ ! _INT1IF 278  ]
-{
-"16
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 16: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 17: INT1IF = 0;
+[; ;sensors.c: 17: lcdInst(0b11000000);;
 "17
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 18: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;sensors.c: 18: printf("%d received    ", voltage);
 "18
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 19: stopMoving();
+[e ( _printf , (. :s 1C _voltage ]
+[; ;sensors.c: 19: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
 "19
-[e ( _stopMoving ..  ]
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 275  ]
+[e $U 276  ]
+[e :U 275 ]
+{
+[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 275  ]
+[e :U 276 ]
+}
+[; ;sensors.c: 20: if (voltage > 1023 * 4 / 5) {
 "20
-}
-[e :U 278 ]
-[; ;modules.c: 20: }
-[; ;modules.c: 21: }
+[e $ ! > _voltage / * -> 1023 `i -> 4 `i -> 5 `i 278  ]
+{
+[; ;sensors.c: 21: return 0;
 "21
-[e :UE 277 ]
+[e ) -> 0 `i ]
+[e $UE 274  ]
+"22
 }
+[; ;sensors.c: 22: } else if (voltage > 0.85 * 1023 * max / 5) {
+[e $U 279  ]
+[e :U 278 ]
+[e $ ! > -> _voltage `d / * * .0.85 -> -> 1023 `i `d -> _max `d -> -> 5 `i `d 280  ]
+{
+[; ;sensors.c: 23: return 1;
 "23
-[v _showInfo `(v ~T0 @X0 1 ef2`ui`*ui ]
-{
-[; ;modules.c: 23: void showInfo(unsigned int time, unsigned int * sorted) {
-[e :U _showInfo ]
-[v _time `ui ~T0 @X0 1 r1 ]
-[v _sorted `*ui ~T0 @X0 1 r2 ]
-[f ]
-[; ;modules.c: 24: (INTCONbits.GIE = 0);
+[e ) -> 1 `i ]
+[e $UE 274  ]
 "24
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;modules.c: 25: lcdInst(0b10000000);;
-"25
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 26: printf("Sorting Complete");
-"26
-[e ( _printf :s 1C ]
-[; ;modules.c: 27: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"27
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;modules.c: 28: lcdInst(0b10000000);;
-"28
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 29: printf("Press a number");
-"29
-[e ( _printf :s 2C ]
-[; ;modules.c: 30: lcdInst(0b11000000);;
-"30
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 31: printf("For more info");
-"31
-[e ( _printf :s 3C ]
-"32
-[v _type `i ~T0 @X0 1 a ]
-[; ;modules.c: 32: int type = 0;
-[e = _type -> 0 `i ]
-[; ;modules.c: 33: while (1) {
-"33
-[e :U 281 ]
+}
+[; ;sensors.c: 24: } else {
+[e $U 281  ]
+[e :U 280 ]
 {
-[; ;modules.c: 34: type = captureKeypad();
+[; ;sensors.c: 26: return -1;
+"26
+[e ) -U -> 1 `i ]
+[e $UE 274  ]
+"27
+}
+[e :U 281 ]
+[e :U 279 ]
+[; ;sensors.c: 27: }
+[; ;sensors.c: 28: }
+"28
+[e :UE 274 ]
+}
+"30
+[v _checkAA `(i ~T0 @X0 1 ef1`*i ]
+{
+[; ;sensors.c: 30: int checkAA(int* sorted) {
+[e :U _checkAA ]
+[v _sorted `*i ~T0 @X0 1 r1 ]
+[f ]
+[; ;sensors.c: 32: lcdInst(0b10000000);;
+"32
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 33: printf("AA:     ");
+"33
+[e ( _printf :s 2C ]
+[; ;sensors.c: 34: lcdInst(0b11000000);;
 "34
-[e = _type -> ( _captureKeypad ..  `i ]
-[; ;modules.c: 35: switch (type) {
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;sensors.c: 35: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "35
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 36: switch (checkV(AD(0), 1.5)) {
+"36
 [e $U 284  ]
 {
-[; ;modules.c: 36: case(0):
-"36
-[e :U 285 ]
-[; ;modules.c: 37: lcdInst(0b10000000);;
+[; ;sensors.c: 37: case 1:
 "37
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 38: printf("Time Elapsed:");
+[e :U 285 ]
+[; ;sensors.c: 38: lcdInst(0b10000000);;
 "38
-[e ( _printf :s 4C ]
-[; ;modules.c: 39: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 39: printf("charged AA    ");
 "39
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 40: printf("%d seconds", time);
+[e ( _printf :s 3C ]
+[; ;sensors.c: 40: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "40
-[e ( _printf , (. :s 5C _time ]
-[; ;modules.c: 41: break;
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 41: sorted[0]++;
 "41
-[e $U 283  ]
-[; ;modules.c: 42: case(1):
+[e ++ *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 42: return 1;
 "42
-[e :U 286 ]
-[; ;modules.c: 43: lcdInst(0b10000000);;
+[e ) -> 1 `i ]
+[e $UE 282  ]
+[; ;sensors.c: 43: case -1:
 "43
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 44: printf("Total Sorted:");
+[e :U 286 ]
+[; ;sensors.c: 44: lcdInst(0b11000000);;
 "44
-[e ( _printf :s 6C ]
-[; ;modules.c: 45: printf("%d batteries", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
-"45
-[e ( _printf , (. :s 7C + + + *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 46: break;
-"46
-[e $U 283  ]
-[; ;modules.c: 47: case(2):
-"47
-[e :U 287 ]
-[; ;modules.c: 48: lcdInst(0b10000000);;
-"48
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 49: printf("AA Sorted:");
-"49
-[e ( _printf :s 8C ]
-[; ;modules.c: 50: lcdInst(0b11000000);;
-"50
 [e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 51: printf("%d", sorted[0]);
+[; ;sensors.c: 45: printf("uncharged AA     ");
+"45
+[e ( _printf :s 4C ]
+[; ;sensors.c: 46: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"46
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 47: sorted[3]++;
+"47
+[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 48: return 0;
+"48
+[e ) -> 0 `i ]
+[e $UE 282  ]
+[; ;sensors.c: 49: case 0:
+"49
+[e :U 287 ]
+[; ;sensors.c: 50: lcdInst(0b10000000);;
+"50
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 51: printf("no AA     ");
 "51
-[e ( _printf , (. :s 9C *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 52: break;
+[e ( _printf :s 5C ]
+[; ;sensors.c: 52: return -1;
 "52
-[e $U 283  ]
-[; ;modules.c: 53: case(3):
+[e ) -U -> 1 `i ]
+[e $UE 282  ]
+[; ;sensors.c: 53: default:
 "53
 [e :U 288 ]
-[; ;modules.c: 54: lcdInst(0b10000000);;
+[; ;sensors.c: 54: return 0;
 "54
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 55: printf("C Sorted:");
+[e ) -> 0 `i ]
+[e $UE 282  ]
 "55
-[e ( _printf :s 10C ]
-[; ;modules.c: 56: lcdInst(0b11000000);;
+}
+[; ;sensors.c: 55: }
+[e $U 283  ]
+"36
+[e :U 284 ]
+[e [\ ( _checkV (2 , ( _AD (1 -> -> 0 `i `uc -> .1.5 `f , $ -> 1 `i 285
+ , $ -U -> 1 `i 286
+ , $ -> 0 `i 287
+ 288 ]
+"55
+[e :U 283 ]
+[; ;sensors.c: 56: }
 "56
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 57: printf("%d", sorted[1]);
-"57
-[e ( _printf , (. :s 11C *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 58: break;
+[e :UE 282 ]
+}
 "58
-[e $U 283  ]
-[; ;modules.c: 59: case(4):
-"59
-[e :U 289 ]
-[; ;modules.c: 60: lcdInst(0b10000000);;
-"60
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 61: printf("9V Sorted:");
+[v _checkC9V `(i ~T0 @X0 1 ef1`*i ]
+{
+[; ;sensors.c: 58: int checkC9V(int* sorted) {
+[e :U _checkC9V ]
+[v _sorted `*i ~T0 @X0 1 r1 ]
+[f ]
+[; ;sensors.c: 61: LATE = 0b1000;
 "61
-[e ( _printf :s 12C ]
-[; ;modules.c: 62: lcdInst(0b11000000);;
+[e = _LATE -> -> 8 `i `uc ]
+[; ;sensors.c: 62: lcdInst(0b10000000);;
 "62
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 63: printf("%d", sorted[2]);
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 63: printf("V3");
 "63
-[e ( _printf , (. :s 13C *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 64: break;
+[e ( _printf :s 6C ]
+[; ;sensors.c: 64: switch (checkV(AD(3), 1.5)) {
 "64
-[e $U 283  ]
-[; ;modules.c: 65: case(5):
+[e $U 291  ]
+{
+[; ;sensors.c: 65: case 0:
 "65
-[e :U 290 ]
-[; ;modules.c: 66: lcdInst(0b10000000);;
+[e :U 292 ]
+[; ;sensors.c: 66: lcdInst(0b10000000);;
 "66
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 67: printf("Uncharged:");
+[; ;sensors.c: 67: printf("9:");
 "67
-[e ( _printf :s 14C ]
-[; ;modules.c: 68: lcdInst(0b11000000);;
+[e ( _printf :s 7C ]
+[; ;sensors.c: 68: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "68
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 69: printf("%d", sorted[3]);
-"69
-[e ( _printf , (. :s 15C *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 70: break;
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 "70
-[e $U 283  ]
-[; ;modules.c: 71: case(15):
+[v _i `i ~T0 @X0 1 a ]
+[; ;sensors.c: 70: int i = 1;
+[e = _i -> 1 `i ]
+[; ;sensors.c: 71: for (i; i < 3; i++) {
 "71
-[e :U 291 ]
-[; ;modules.c: 72: asm("reset");
-"72
-[; <" reset ;# ">
-[; ;modules.c: 74: default:
-"74
-[e :U 292 ]
-[; ;modules.c: 75: break;
-"75
-[e $U 283  ]
-"76
-}
-[; ;modules.c: 76: }
-[e $U 283  ]
-"35
-[e :U 284 ]
-[e [\ _type , $ -> 0 `i 285
- , $ -> 1 `i 286
- , $ -> 2 `i 287
- , $ -> 3 `i 288
- , $ -> 4 `i 289
- , $ -> 5 `i 290
- , $ -> 15 `i 291
- 292 ]
-"76
-[e :U 283 ]
-"77
-}
-[e :U 280 ]
-"33
-[e $U 281  ]
-[e :U 282 ]
-[; ;modules.c: 77: }
-[; ;modules.c: 78: (INTCONbits.GIE = 1);
-"78
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;modules.c: 79: }
-"79
-[e :UE 279 ]
-}
-"81
-[v _getTime `(i ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 81: int getTime() {
-[e :U _getTime ]
-[f ]
+[e _i ]
+[e $ < _i -> 3 `i 293  ]
+[e $U 294  ]
+[e :U 293 ]
+{
+[; ;sensors.c: 73: lcdInst(0b11000000);;
+"73
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;sensors.c: 74: printf("channel %d   ", i);
+"74
+[e ( _printf , (. :s 8C _i ]
+[; ;sensors.c: 75: lcdInst(0b10000000);;
+"75
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 76: _delay((unsigned long)((900)*(8000000/4000.0)));
+"76
+[e ( __delay (1 -> * -> -> 900 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 77: LATE = i == 1 ? 0 : 0b0110;
+"77
+[e = _LATE -> ? == _i -> 1 `i : -> 0 `i -> 6 `i `uc ]
+[; ;sensors.c: 78: switch (checkV(AD(i), 3.6)) {
+"78
+[e $U 297  ]
+{
+[; ;sensors.c: 79: case 1:
+"79
+[e :U 298 ]
+[; ;sensors.c: 80: lcdInst(0b10000000);;
+"80
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 81: printf("charged 9V  ");
+"81
+[e ( _printf :s 9C ]
+[; ;sensors.c: 82: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"82
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 83: sorted[2]++;
 "83
-[v _time `i ~T0 @X0 1 a ]
-[; ;modules.c: 83: int time = 0;
-[e = _time -> 0 `i ]
-[; ;modules.c: 85: return time;
+[e ++ *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 84: return 2;
+"84
+[e ) -> 2 `i ]
+[e $UE 289  ]
+[; ;sensors.c: 85: case -1:
 "85
-[e ) _time ]
-[e $UE 293  ]
-[; ;modules.c: 86: }
+[e :U 299 ]
+[; ;sensors.c: 86: lcdInst(0b11000000);;
 "86
-[e :UE 293 ]
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;sensors.c: 87: printf("uncharged 9V   ");
+"87
+[e ( _printf :s 10C ]
+[; ;sensors.c: 88: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"88
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 89: sorted[3]++;
+"89
+[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 90: return 0;
+"90
+[e ) -> 0 `i ]
+[e $UE 289  ]
+[; ;sensors.c: 91: default:
+"91
+[e :U 300 ]
+[; ;sensors.c: 92: lcdInst(0b10000000);;
+"92
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 93: printf("no 9    ");
+"93
+[e ( _printf :s 11C ]
+[; ;sensors.c: 94: continue;
+"94
+[e $U 295  ]
+"95
+}
+[; ;sensors.c: 95: }
+[e $U 296  ]
+"78
+[e :U 297 ]
+[e [\ ( _checkV (2 , ( _AD (1 -> _i `uc -> .3.6 `f , $ -> 1 `i 298
+ , $ -U -> 1 `i 299
+ 300 ]
+"95
+[e :U 296 ]
+"96
+}
+"71
+[e :U 295 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 3 `i 293  ]
+[e :U 294 ]
+"96
+}
+[; ;sensors.c: 96: }
+[; ;sensors.c: 97: return -1;
+"97
+[e ) -U -> 1 `i ]
+[e $UE 289  ]
+[; ;sensors.c: 98: case 1:
+"98
+[e :U 301 ]
+[; ;sensors.c: 100: lcdInst(0b10000000);;
+"100
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;sensors.c: 101: printf("charged C    ");
+"101
+[e ( _printf :s 12C ]
+[; ;sensors.c: 102: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"102
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 103: sorted[1]++;
+"103
+[e ++ *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 104: return 1;
+"104
+[e ) -> 1 `i ]
+[e $UE 289  ]
+[; ;sensors.c: 105: case -1:
+"105
+[e :U 302 ]
+[; ;sensors.c: 106: lcdInst(0b11000000);;
+"106
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;sensors.c: 107: printf("uncharged C    ");
+"107
+[e ( _printf :s 13C ]
+[; ;sensors.c: 108: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"108
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;sensors.c: 109: sorted[3]++;
+"109
+[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
+[; ;sensors.c: 110: return 0;
+"110
+[e ) -> 0 `i ]
+[e $UE 289  ]
+[; ;sensors.c: 111: default:
+"111
+[e :U 303 ]
+[; ;sensors.c: 112: return -1;
+"112
+[e ) -U -> 1 `i ]
+[e $UE 289  ]
+"113
+}
+[; ;sensors.c: 113: }
+[e $U 290  ]
+"64
+[e :U 291 ]
+[e [\ ( _checkV (2 , ( _AD (1 -> -> 3 `i `uc -> .1.5 `f , $ -> 0 `i 292
+ , $ -> 1 `i 301
+ , $ -U -> 1 `i 302
+ 303 ]
+"113
+[e :U 290 ]
+[; ;sensors.c: 114: }
+"114
+[e :UE 289 ]
 }
 [p f _printf 8388736 ]
-[a 7C 37 100 32 98 97 116 116 101 114 105 101 115 0 ]
-[a 5C 37 100 32 115 101 99 111 110 100 115 0 ]
-[a 2C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 0 ]
-[a 3C 70 111 114 32 109 111 114 101 32 105 110 102 111 0 ]
-[a 1C 83 111 114 116 105 110 103 32 67 111 109 112 108 101 116 101 0 ]
-[a 9C 37 100 0 ]
-[a 11C 37 100 0 ]
-[a 13C 37 100 0 ]
-[a 15C 37 100 0 ]
-[a 6C 84 111 116 97 108 32 83 111 114 116 101 100 58 0 ]
-[a 12C 57 86 32 83 111 114 116 101 100 58 0 ]
-[a 10C 67 32 83 111 114 116 101 100 58 0 ]
-[a 8C 65 65 32 83 111 114 116 101 100 58 0 ]
-[a 4C 84 105 109 101 32 69 108 97 112 115 101 100 58 0 ]
-[a 14C 85 110 99 104 97 114 103 101 100 58 0 ]
+[a 7C 57 58 0 ]
+[a 6C 86 51 0 ]
+[a 9C 99 104 97 114 103 101 100 32 57 86 32 32 0 ]
+[a 8C 99 104 97 110 110 101 108 32 37 100 32 32 32 0 ]
+[a 10C 117 110 99 104 97 114 103 101 100 32 57 86 32 32 32 0 ]
+[a 1C 37 100 32 114 101 99 101 105 118 101 100 32 32 32 32 0 ]
+[a 13C 117 110 99 104 97 114 103 101 100 32 67 32 32 32 32 0 ]
+[a 12C 99 104 97 114 103 101 100 32 67 32 32 32 32 0 ]
+[a 3C 99 104 97 114 103 101 100 32 65 65 32 32 32 32 0 ]
+[a 11C 110 111 32 57 32 32 32 32 0 ]
+[a 5C 110 111 32 65 65 32 32 32 32 32 0 ]
+[a 4C 117 110 99 104 97 114 103 101 100 32 65 65 32 32 32 32 32 0 ]
+[a 2C 65 65 58 32 32 32 32 32 0 ]

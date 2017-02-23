@@ -5,12 +5,7 @@
  * Created on July 18, 2016, 12:11 PM
  */
 
-#include <xc.h>
-#include "configBits.h"
-#include <stdio.h>
-#include "lcd.h"
-#include "constants.h"
-
+#include "modules.h"
 
 void initLCD(void) {
     __delay_ms(15);

@@ -1,6 +1,6 @@
- build/default/production/main.d  \
- build/default/production/main.p1:  \
- main.c  \
+ build/default/production/sensors.d  \
+ build/default/production/sensors.p1:  \
+ sensors.c  \
 pic18f4620.h  \
 motors.h  \
 lcd.h  \

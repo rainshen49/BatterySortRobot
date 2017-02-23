@@ -4,15 +4,21 @@
  *
  * Created on February 3, 2017, 4:52 PM
  */
-void stopMoving();
-void println(char* data);
+
+#include <stdio.h>
+#include <stdlib.h>
+//#include <xc.h>
+#include "pic18f4620.h"
+#include "configBits.h"
+#include "constants.h"
+#include "lcd.h"
+#include "macros.h"
+#include "motors.h"
+#include "sensors.h"
+
 void showInfo(unsigned int time, unsigned int * sorted);
-void stopMoving();
-void moveBigNose(int * prev, int next);
-void moveSmallNose(int * prev, int next);
-int AD(char channel);
 void interrupt keypressed(void);
-int checkAA(int* sorted);
-int checkC9V(int* sorted);
+unsigned int captureKeypad();
+int getTime();
 #define pause(); while(1);
 

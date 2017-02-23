@@ -4,17 +4,12 @@
  *
  * Created on February 3, 2017, 12:23 AM
  */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <xc.h>
-#include "configBits.h"
-#include "constants.h"
-#include "lcd.h"
+//Meeting Goal
+//see if PWM drives servo
+//see if step() drives step
+//figure out how to position steppers
+//figure out how to position servos
 #include "modules.h"
-#include "macros.h"
-
-//const char keys[] = "123A456B789C*0#D";
 
 void initialize() {
     TRISA = 0xFF; // Set Port A as all input
@@ -36,30 +31,12 @@ void initialize() {
     ADFM = 1;
     //    set digital and analog
     initLCD();
+    __lcd_clear();
 }
 
-//void simulateSort(int * stop) {
-//    unsigned int keypad = captureKeypad(); // for demonstration purpse use the keypad to control the flow
-//    switch (keypad) {
-//        case(15):
-//            println("Emergency! All");
-//            LATC = 0;
-//            println("Motors Stop");
-//            LATC = 0;
-//            pause();
-//            *stop = 1;
-//            break;
-//        case(11):
-//            //            Normal exit
-//            *stop = 1;
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
 void mainloop(int * bigNose, int* smallNose) {
-    println("Sorting...");
+    __lcd_newline();
+    printf("Sorting...          ");
     int stop = 0;
     int sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
     int startTime = getTime();
@@ -74,9 +51,9 @@ void mainloop(int * bigNose, int* smallNose) {
         //        LATC = LATC | 0b011001111; // running all X motors for demonstration purpose
         //        simulateSort(&stop);
         AA = checkAA(sorted);
-        AA = AA==-1?*smallNose:AA;
+        AA = (AA == -1) ? *smallNose : AA;
         C9 = checkC9V(sorted);
-        C9 = C9==-1?*bigNose:C9;
+        C9 = (C9 == -1) ? *bigNose : C9;
         if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
             stop = 1;
         }
@@ -91,38 +68,96 @@ void mainloop(int * bigNose, int* smallNose) {
     return;
 }
 
-void simulate(){
-//    simulate battery detection
-    println("Sorting...");
+void simulate(int * bigNose, int* smallNose) {
+    //    simulate battery detection
+    //    println("Sorting...          ");
+    //    int stop = 0;
+    //    int sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
+    ////    int startTime = getTime();
+    //    while (!stop) {
+    //        captureKeypad();
+    ////        checkAA(sorted);
+    //        checkC9V(sorted);
+    //        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+    //            stop = 1;
+    //        }
+    //    }
+    //    printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
+    //    pause();
+
+    //    simulate PWM
+
+    //    PWM1_Start();
+    //    while (1) {
+    //        int freq = 0.1;
+    //        for (freq; freq < 6000; freq = freq * 2) {
+    //            captureKeypad();
+    //            int max_duty = set_PWM_freq(freq); //Hz
+    //            set_PWM1_duty(256, max_duty);
+    //            __lcd_home();
+    //            printf("fre: %d    ", freq);
+    //        }
+    //    }
+    //    while (1) {
+    //        captureKeypad();
+    //        runPWM1(256, 3100);
+    //        captureKeypad();
+    //        PWM1_Stop();
+    //    }
+    //    while (1) {
+    //        step(50);
+    ////        captureKeypad();
+    //    }
+    __lcd_newline();
+    printf("Sorting...          ");
     int stop = 0;
     int sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
-//    int startTime = getTime();
+    int startTime = getTime();
+    int AA = 0;
+    int C9 = 0;
+    INT1IE = 1;
+    //    ei(); //Enable all interrupts
     while (!stop) {
         captureKeypad();
-//        checkAA(sorted);
-        checkC9V(sorted);
+        moveSmallNose(smallNose, AA);
+        moveBigNose(bigNose, C9);
+        moveXMotors();
+        //        LATC = LATC | 0b011001111; // running all X motors for demonstration purpose
+        //        simulateSort(&stop);
+        AA = checkAA(sorted);
+        AA = (AA == -1) ? *smallNose : AA;
+        C9 = checkC9V(sorted);
+        C9 = (C9 == -1) ? *bigNose : C9;
         if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
             stop = 1;
         }
     }
-    printf("sorted %d,%d,%d,%d",sorted[0],sorted[1],sorted[2],sorted[3]);
-    pause();
+    //    di(); //disable all interrupts
+    //    interfacing with EEPROM
+    showInfo(179, sorted);
+    stopMoving();
+    return;
 }
 
 int main(int argc, char** argv) {
     initialize(); //Initiallize LCD and PORTs
     // Enter Standby mode
-    println((unsigned char *) "Welcome!");
+    __delay_1s();
+    printf((unsigned char *) "Welcome!          ");
+    __delay_1s();
     //        displays RTC
     // put all noses to the uncharged bin position
     int bigNose = 0, smallNose = 0;
     moveBigNose(&bigNose, 0);
+    __delay_1s();
     moveSmallNose(&smallNose, 0);
-
+    __delay_1s();
+    __lcd_newline();
+    printf("Press Start          ");
     // once D is pressed enter mainloop();
     while (captureKeypad() != 15);
-//    mainloop(&bigNose, &smallNose);
-    simulate();
+    //    mainloop(&bigNose, &smallNose);
+    simulate(&bigNose, &smallNose);
     RESET();
 }
 

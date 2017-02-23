@@ -1,5 +1,5 @@
 
-# 1 "lcd.c"
+# 1 "motors.c"
 
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
 typedef unsigned size_t;
@@ -3892,47 +3892,199 @@ void interrupt keypressed(void);
 unsigned int captureKeypad();
 int getTime();
 
-# 10 "lcd.c"
-void initLCD(void) {
-_delay((unsigned long)((15)*(8000000/4000.0)));
-lcdInst(0b00110011);
-lcdInst(0b00110010);
-lcdInst(0b00101000);
-lcdInst(0b00001111);
-lcdInst(0b00000110);
-lcdInst(0b00000001);
-_delay((unsigned long)((15)*(8000000/4000.0)));
+# 5 "motors.c"
+int set_PWM_freq(long fre) {
+
+PR2 = (8000000 / (fre * 4 * 16)) - 1;
+
+return (8000000 / (fre * 16));
 }
 
-void lcdInst(char data) {
-LATDbits.LATD2 = 0;
-lcdNibble(data);
+void PWM1_Start() {
+
+
+P1M1 = 0;
+P1M0 = 0;
+CCP1M3 = 1;
+CCP1M2 = 1;
+CCP1M1 = 0;
+CCP1M0 = 0;
+
+# 35
+TMR2ON = 1;
+
+
+
 }
 
-void putch(char data) {
-LATDbits.LATD2 = 1;
-lcdNibble(data);
+void PWM2_Start() {
+
+
+CCP1M3 = 1;
+CCP1M2 = 1;
+
+# 60
+TMR2ON = 1;
+
+
+TRISCbits.TRISC1 = 0;
 }
 
-void lcdNibble(char data) {
+void set_PWM1_duty(unsigned int duty, int Max_Duty) {
+if (duty < 1024) {
 
-char temp = data & 0xF0;
-LATD = LATD & 0x0F;
-LATD = temp | LATD;
+duty = ((float) duty / 1023) * Max_Duty;
+CCP1X = duty & 2;
+CCP1Y = duty & 1;
+CCPR1L = duty >> 2;
+}
+}
 
-LATDbits.LATD3 = 0;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
-LATDbits.LATD3 = 1;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
+void set_PWM2_duty(unsigned int duty, int Max_Duty) {
+if (duty < 1024) {
 
-data = data << 4;
+duty = ((float) duty / 1023) * Max_Duty;
+CCP2X = duty & 2;
+CCP2Y = duty & 1;
+CCPR2L = duty >> 2;
+}
+}
 
-temp = data & 0xF0;
-LATD = LATD & 0x0F;
-LATD = temp | LATD;
+void PWM1_Stop() {
 
-LATDbits.LATD3 = 0;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
-LATDbits.LATD3 = 1;
-_delay((unsigned long)((25)*(8000000/4000000.0)));
+CCP1M3 = 0;
+CCP1M2 = 0;
+CCP1M1 = 0;
+CCP1M0 = 0;
+}
+
+void PWM2_Stop() {
+
+CCP2M3 = 0;
+CCP2M2 = 0;
+CCP2M1 = 0;
+CCP2M0 = 0;
+}
+
+void runPWM1(unsigned int duty, long freq) {
+PWM1_Start();
+int max_duty = set_PWM_freq(freq);
+set_PWM1_duty(duty, max_duty);
+}
+
+void runPWM2(unsigned int duty, long freq) {
+PWM2_Start();
+int max_duty = set_PWM_freq(freq);
+set_PWM2_duty(duty, max_duty);
+}
+
+
+
+
+void step(int wait) {
+
+
+switch (PORTC & 0x0F) {
+case(1):
+LATC0 = 0;
+LATC1 = 1;
+break;
+case(2):
+LATC1 = 0;
+LATC2 = 1;
+break;
+case(4):
+LATC2 = 0;
+LATC3 = 1;
+break;
+case(8):
+LATC3 = 0;
+LATC0 = 1;
+break;
+default:
+LATC0 = 1;
+LATC1 = 0;
+LATC2 = 0;
+LATC3 = 0;
+break;
+}
+for (wait; wait > 0; wait--) {
+_delay((unsigned long)((10)*(8000000/4000.0)));
+}
+}
+
+
+void moveXMotors() {
+
+printf("Rotating Xs    ");
+runPWM1(256, 3100);
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+PWM1_Stop();
+}
+
+void moveBigNose(int * prev, int next) {
+
+
+
+lcdInst(0b10000000);;
+printf("bigNose to    ");
+lcdInst(0b11000000);;
+switch(next){
+case 0:
+printf("uncharged    ");
+break;
+case 1:
+printf("C    ");
+break;
+case 2:
+printf("9V    ");
+break;
+default:
+printf("uncharged    ");
+}
+
+if (*prev == next)return;
+while (*prev < next) {
+
+*prev++;
+}
+while (*prev > next) {
+
+
+*prev--;
+}
+}
+
+void moveSmallNose(int * prev, int next) {
+
+
+
+lcdInst(0b10000000);;
+printf("smallNose to   ");
+lcdInst(0b11000000);;
+if (next) {
+printf("AA");
+} else {
+printf("uncharged    ");
+}
+
+
+if (*prev == next)return;
+while (*prev < next) {
+
+*prev++;
+}
+while (*prev > next) {
+
+
+*prev--;
+}
+}
+
+void stopMoving() {
+(INTCONbits.GIE = 0);
+lcdInst(0b10000000);;
+printf("Stopped    ");
+; while(1);;
+
 }
