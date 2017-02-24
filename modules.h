@@ -21,5 +21,6 @@ void showInfo(unsigned int time, unsigned int * sorted);
 void interrupt keypressed(void);
 unsigned int captureKeypad();
 int getTime();
-#define pause(); while(1);
+void PWMC0(int us, int max);
+#define pause() while(1)
 

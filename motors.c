@@ -1,118 +1,18 @@
 #include "modules.h"
 
-//PWM
-
-int set_PWM_freq(long fre) {
-
-    PR2 = (_XTAL_FREQ / (fre * 4 * TMR2PRESCALE)) - 1;
-    //    freq = fre;
-    return (_XTAL_FREQ / (fre * TMR2PRESCALE));
-}
-
-void PWM1_Start() {
-    //Configure CCP1CON, single output mode, all active high
-
-    P1M1 = 0;
-    P1M0 = 0;
-    CCP1M3 = 1;
-    CCP1M2 = 1;
-    CCP1M1 = 0;
-    CCP1M0 = 0;
-
-    //Configure prescale values for Timer2, according to TMR2PRESCALAR
-#if TMR2PRESCALAR == 1
-    T2CKPS0 = 0;
-    T2CKPS1 = 0;
-#elif TMR2PRESCALAR == 4
-    T2CKPS0 = 1;
-    T2CKPS1 = 0;
-#elif TMR2PRESCALAR == 16
-    T2CKPS0 = 1;
-    T2CKPS1 = 1;
-#endif
-
-    // Enable timer 2
-    TMR2ON = 1;
-
-    // Enable PWM output pins
-    //    TRISCbits.TRISC2 = 0;
-}
-
-void PWM2_Start() {
-    //Configure CCP2CON, enter PWM mode
-
-    CCP1M3 = 1;
-    CCP1M2 = 1;
-
-    //Configure prescale values for Timer2, according to TMR2PRESCALAR
-#if TMR2PRESCALAR == 1
-    T2CKPS0 = 0;
-    T2CKPS1 = 0;
-#elif TMR2PRESCALAR == 4
-    T2CKPS0 = 1;
-    T2CKPS1 = 0;
-#elif TMR2PRESCALAR == 16
-    T2CKPS0 = 1;
-    T2CKPS1 = 1;
-#endif
-
-    // Enable timer 2
-    TMR2ON = 1;
-
-    // Enable PWM output pins
-    TRISCbits.TRISC1 = 0;
-}
-
-void set_PWM1_duty(unsigned int duty, int Max_Duty) {
-    if (duty < 1024) {
-
-        duty = ((float) duty / 1023) * Max_Duty;
-        CCP1X = duty & 2; // Set the 2 lest significant bit in CCP1CON register
-        CCP1Y = duty & 1;
-        CCPR1L = duty >> 2; // Set rest of the duty cycle bits in CCPR1L
+void PWMC0(int us,int cycle) {
+    us-=2;
+    int i = 0;
+    LATC0 = 1 ^ LATC0;
+    for (i = 0; i < us; i++) {
+//        __delay_us(1);
+    }
+    us -= 2;
+    LATC0 = 1 ^ LATC0;
+    for (i = 0; i < cycle - us; i++) {
+//        __delay_us(1);
     }
 }
-
-void set_PWM2_duty(unsigned int duty, int Max_Duty) {
-    if (duty < 1024) {
-
-        duty = ((float) duty / 1023) * Max_Duty;
-        CCP2X = duty & 2; // Set the 2 lest significant bit in CCP2CON register
-        CCP2Y = duty & 1;
-        CCPR2L = duty >> 2; // Set rest of the duty cycle bits in CCPR2L
-    }
-}
-
-void PWM1_Stop() {
-
-    CCP1M3 = 0;
-    CCP1M2 = 0;
-    CCP1M1 = 0;
-    CCP1M0 = 0;
-}
-
-void PWM2_Stop() {
-
-    CCP2M3 = 0;
-    CCP2M2 = 0;
-    CCP2M1 = 0;
-    CCP2M0 = 0;
-}
-
-void runPWM1(unsigned int duty, long freq) {
-    PWM1_Start();
-    int max_duty = set_PWM_freq(freq);
-    set_PWM1_duty(duty, max_duty);
-}
-
-void runPWM2(unsigned int duty, long freq) {
-    PWM2_Start();
-    int max_duty = set_PWM_freq(freq);
-    set_PWM2_duty(duty, max_duty);
-}
-//end PWM
-
-//Stepper Driving on RC0-3
 
 void step(int wait) {
     //    __lcd_newline();
@@ -163,7 +63,7 @@ void moveBigNose(int * prev, int next) {
     __lcd_home();
     printf("bigNose to          ");
     __lcd_newline();
-    switch(next){
+    switch (next) {
         case 0:
             printf("uncharged          ");
             break;

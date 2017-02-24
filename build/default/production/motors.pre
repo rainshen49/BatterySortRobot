@@ -3892,95 +3892,22 @@ void showInfo(unsigned int time, unsigned int * sorted);
 void interrupt keypressed(void);
 unsigned int captureKeypad();
 int getTime();
+void PWMC0(int us, int max);
 
-# 5 "motors.c"
-int set_PWM_freq(long fre) {
-
-PR2 = (8000000 / (fre * 4 * 16)) - 1;
-
-return (8000000 / (fre * 16));
-}
-
-void PWM1_Start() {
-
-
-P1M1 = 0;
-P1M0 = 0;
-CCP1M3 = 1;
-CCP1M2 = 1;
-CCP1M1 = 0;
-CCP1M0 = 0;
-
-# 35
-TMR2ON = 1;
-
-
+# 3 "motors.c"
+void PWMC0(int us,int cycle) {
+us-=2;
+int i = 0;
+LATC0 = 1 ^ LATC0;
+for (i = 0; i < us; i++) {
 
 }
+us -= 2;
+LATC0 = 1 ^ LATC0;
+for (i = 0; i < cycle - us; i++) {
 
-void PWM2_Start() {
-
-
-CCP1M3 = 1;
-CCP1M2 = 1;
-
-# 60
-TMR2ON = 1;
-
-
-TRISCbits.TRISC1 = 0;
-}
-
-void set_PWM1_duty(unsigned int duty, int Max_Duty) {
-if (duty < 1024) {
-
-duty = ((float) duty / 1023) * Max_Duty;
-CCP1X = duty & 2;
-CCP1Y = duty & 1;
-CCPR1L = duty >> 2;
 }
 }
-
-void set_PWM2_duty(unsigned int duty, int Max_Duty) {
-if (duty < 1024) {
-
-duty = ((float) duty / 1023) * Max_Duty;
-CCP2X = duty & 2;
-CCP2Y = duty & 1;
-CCPR2L = duty >> 2;
-}
-}
-
-void PWM1_Stop() {
-
-CCP1M3 = 0;
-CCP1M2 = 0;
-CCP1M1 = 0;
-CCP1M0 = 0;
-}
-
-void PWM2_Stop() {
-
-CCP2M3 = 0;
-CCP2M2 = 0;
-CCP2M1 = 0;
-CCP2M0 = 0;
-}
-
-void runPWM1(unsigned int duty, long freq) {
-PWM1_Start();
-int max_duty = set_PWM_freq(freq);
-set_PWM1_duty(duty, max_duty);
-}
-
-void runPWM2(unsigned int duty, long freq) {
-PWM2_Start();
-int max_duty = set_PWM_freq(freq);
-set_PWM2_duty(duty, max_duty);
-}
-
-
-
 
 void step(int wait) {
 
@@ -4031,7 +3958,7 @@ void moveBigNose(int * prev, int next) {
 lcdInst(0b10000000);;
 printf("bigNose to          ");
 __lcd_newline();
-switch(next){
+switch (next) {
 case 0:
 printf("uncharged          ");
 break;
@@ -4087,6 +4014,6 @@ void stopMoving() {
 (INTCONbits.GIE = 0);
 lcdInst(0b10000000);;
 printf("Stopped          ");
-; while(1);;
+while(1);
 
 }

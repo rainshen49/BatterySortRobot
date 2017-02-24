@@ -67,12 +67,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _stopMoving `(v ~T0 @X0 0 ef ]
 "22 modules.h
 [v _captureKeypad `(ui ~T0 @X0 0 ef ]
-"7000 pic18f4620.h
-[v _LATC2 `Vb ~T0 @X0 0 e@31834 ]
-[v F3059 `(v ~T0 @X0 1 tf1`ul ]
-"161 pic18.h
-[v __delay `JF3059 ~T0 @X0 0 e ]
-[p i __delay ]
+"24
+[v _PWMC0 `(v ~T0 @X0 0 ef2`i`i ]
 [p mainexit ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
@@ -2953,6 +2949,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 21: void interrupt keypressed(void);
 [; ;modules.h: 22: unsigned int captureKeypad();
 [; ;modules.h: 23: int getTime();
+[; ;modules.h: 24: void PWMC0(int us, int max);
 "15 main.c
 [v _initialize `(v ~T0 @X0 1 ef ]
 {
@@ -3029,8 +3026,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _stop `i ~T0 @X0 1 a ]
 [; ;main.c: 42: int stop = 0;
 [e = _stop -> 0 `i ]
-[v F3208 `i ~T0 @X0 -> 0 `x s ]
-[i F3208
+[v F3211 `i ~T0 @X0 -> 0 `x s ]
+[i F3211
 :U ..
 "43
 -> 0 `i
@@ -3041,7 +3038,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _sorted `i ~T0 @X0 4  a ]
 [; ;main.c: 43: int sorted[] = {0, 0, 0, 0};
-[e = _sorted F3208 ]
+[e = _sorted F3211 ]
 "44
 [v _startTime `i ~T0 @X0 1 a ]
 [; ;main.c: 44: int startTime = getTime();
@@ -3141,86 +3138,69 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 146: captureKeypad();
 "146
 [e ( _captureKeypad ..  ]
+[; ;main.c: 147: lcdInst(0b10000000);;
 "147
-[v _onus `i ~T0 @X0 1 a ]
-[; ;main.c: 147: int onus = 500;
-[e = _onus -> 500 `i ]
-[; ;main.c: 148: lcdInst(0b10000000);;
-"148
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;main.c: 149: printf("width: %d us   ", onus);
-"149
-[e ( _printf , (. :s 2C _onus ]
-[; ;main.c: 150: for (int i = 0; i < 1000; i++) {
-"150
+[; ;main.c: 148: for (int i = 1; i < 8192; i*=2) {
+"148
 {
 [v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $ < _i -> 1000 `i 281  ]
+[e = _i -> 1 `i ]
+[e $ < _i -> 8192 `i 281  ]
 [e $U 282  ]
 [e :U 281 ]
 {
-[; ;main.c: 151: LATC2 = 1 ^ LATC2;
-"151
-[e = _LATC2 -> ^ -> 1 `i -> _LATC2 `i `b ]
-[; ;main.c: 152: _delay((unsigned long)((1000)*(8000000/4000000.0)));
-"152
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-[; ;main.c: 153: LATC2 = 1 ^ LATC2;
-"153
-[e = _LATC2 -> ^ -> 1 `i -> _LATC2 `i `b ]
-[; ;main.c: 154: _delay((unsigned long)((2000)*(8000000/4000000.0)));
-"154
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"155
-}
+[; ;main.c: 150: PWMC0(i, 16384);
 "150
-[e ++ _i -> 1 `i ]
-[e $ < _i -> 1000 `i 281  ]
-[e :U 282 ]
-"155
+[e ( _PWMC0 (2 , _i -> 16384 `i ]
+"151
 }
-"156
+"148
+[e =* _i -> 2 `i ]
+[e $ < _i -> 8192 `i 281  ]
+[e :U 282 ]
+"151
+}
+"152
 }
 [e :U 278 ]
 "145
 [e $U 279  ]
 [e :U 280 ]
-[; ;main.c: 155: }
-[; ;main.c: 156: }
-[; ;main.c: 157: }
-"157
+[; ;main.c: 151: }
+[; ;main.c: 152: }
+[; ;main.c: 153: }
+"153
 [e :UE 277 ]
 }
-"159
+"155
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
-[; ;main.c: 159: int main(int argc, char** argv) {
+[; ;main.c: 155: int main(int argc, char** argv) {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 160: initialize();
-"160
+[; ;main.c: 156: initialize();
+"156
 [e ( _initialize ..  ]
-[; ;main.c: 163: printf((unsigned char *) "Welcome!          ");
-"163
-[e ( _printf -> -> :s 3C `*uc `*Cuc ]
-[; ;main.c: 173: printf("Press Start          ");
+[; ;main.c: 159: printf((unsigned char *) "Welcome!          ");
+"159
+[e ( _printf -> -> :s 2C `*uc `*Cuc ]
+[; ;main.c: 169: printf("Press Start          ");
+"169
+[e ( _printf :s 3C ]
+[; ;main.c: 173: simulate();
 "173
-[e ( _printf :s 4C ]
-[; ;main.c: 177: simulate();
-"177
 [e ( _simulate ..  ]
-[; ;main.c: 178: asm("reset");
-"178
+[; ;main.c: 174: asm("reset");
+"174
 [; <" reset ;# ">
-[; ;main.c: 179: }
-"179
+[; ;main.c: 175: }
+"175
 [e :UE 284 ]
 }
-[p f _printf 9437824 ]
-[a 2C 119 105 100 116 104 58 32 37 100 32 117 115 32 32 32 0 ]
-[a 4C 80 114 101 115 115 32 83 116 97 114 116 32 32 32 32 32 32 32 32 32 32 0 ]
+[p f _printf 9437696 ]
+[a 3C 80 114 101 115 115 32 83 116 97 114 116 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 1C 83 111 114 116 105 110 103 46 46 46 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 3C 87 101 108 99 111 109 101 33 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 2C 87 101 108 99 111 109 101 33 32 32 32 32 32 32 32 32 32 32 0 ]

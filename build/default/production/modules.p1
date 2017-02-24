@@ -2925,6 +2925,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 21: void interrupt keypressed(void);
 [; ;modules.h: 22: unsigned int captureKeypad();
 [; ;modules.h: 23: int getTime();
+[; ;modules.h: 24: void PWMC0(int us, int max);
 "3 modules.c
 [v _captureKeypad `(ui ~T0 @X0 1 ef ]
 {

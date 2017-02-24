@@ -1,52 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"5042 pic18f4620.h
-[v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"7178
-[v _P1M1 `Vb ~T0 @X0 0 e@32239 ]
-"7176
-[v _P1M0 `Vb ~T0 @X0 0 e@32238 ]
-"6698
-[v _CCP1M3 `Vb ~T0 @X0 0 e@32235 ]
-"6696
-[v _CCP1M2 `Vb ~T0 @X0 0 e@32234 ]
-"6694
-[v _CCP1M1 `Vb ~T0 @X0 0 e@32233 ]
-"6692
-[v _CCP1M0 `Vb ~T0 @X0 0 e@32232 ]
-"7586
-[v _TMR2ON `Vb ~T0 @X0 0 e@32338 ]
-"1820
-[s S70 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S70 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 TRISC6 TRISC7 ]
-"1830
-[s S71 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S71 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
-"1819
-[u S69 `S70 1 `S71 1 ]
-[n S69 . . . ]
-"1841
-[v _TRISCbits `VS69 ~T0 @X0 0 e@3988 ]
-"6700
-[v _CCP1X `Vb ~T0 @X0 0 e@32237 ]
-"6702
-[v _CCP1Y `Vb ~T0 @X0 0 e@32236 ]
-"4308
-[v _CCPR1L `Vuc ~T0 @X0 0 e@4030 ]
-"6718
-[v _CCP2X `Vb ~T0 @X0 0 e@32213 ]
-"6720
-[v _CCP2Y `Vb ~T0 @X0 0 e@32212 ]
-"4194
-[v _CCPR2L `Vuc ~T0 @X0 0 e@4027 ]
-"6716
-[v _CCP2M3 `Vb ~T0 @X0 0 e@32211 ]
-"6714
-[v _CCP2M2 `Vb ~T0 @X0 0 e@32210 ]
-"6712
-[v _CCP2M1 `Vb ~T0 @X0 0 e@32209 ]
-"6710
-[v _CCP2M0 `Vb ~T0 @X0 0 e@32208 ]
-"6996
+"6996 pic18f4620.h
 [v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
 "6998
 [v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
@@ -64,6 +17,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"9 motors.h
+[v _runPWM1 `(v ~T0 @X0 0 ef2`ui`l ]
+"8
+[v _PWM1_Stop `(v ~T0 @X0 0 ef ]
 "14 lcd.h
 [v ___lcd_newline `(v ~T0 @X0 0 ef ]
 "6272 pic18f4620.h
@@ -2959,573 +2916,413 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 21: void interrupt keypressed(void);
 [; ;modules.h: 22: unsigned int captureKeypad();
 [; ;modules.h: 23: int getTime();
-"5 motors.c
-[v _set_PWM_freq `(i ~T0 @X0 1 ef1`l ]
+[; ;modules.h: 24: void PWMC0(int us, int max);
+"3 motors.c
+[v _PWMC0 `(v ~T0 @X0 1 ef2`i`i ]
 {
-[; ;motors.c: 5: int set_PWM_freq(long fre) {
-[e :U _set_PWM_freq ]
-[v _fre `l ~T0 @X0 1 r1 ]
+[; ;motors.c: 3: void PWMC0(int us,int cycle) {
+[e :U _PWMC0 ]
+[v _us `i ~T0 @X0 1 r1 ]
+[v _cycle `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;motors.c: 7: PR2 = (8000000 / (fre * 4 * 16)) - 1;
+[; ;motors.c: 4: us-=2;
+"4
+[e =- _us -> 2 `i ]
+"5
+[v _i `i ~T0 @X0 1 a ]
+[; ;motors.c: 5: int i = 0;
+[e = _i -> 0 `i ]
+[; ;motors.c: 6: LATC0 = 1 ^ LATC0;
+"6
+[e = _LATC0 -> ^ -> 1 `i -> _LATC0 `i `b ]
+[; ;motors.c: 7: for (i = 0; i < us; i++) {
 "7
-[e = _PR2 -> - / -> 8000000 `l * * _fre -> -> 4 `i `l -> -> 16 `i `l -> -> 1 `i `l `uc ]
-[; ;motors.c: 9: return (8000000 / (fre * 16));
+{
+[e = _i -> 0 `i ]
+[e $U 274  ]
+[e :U 271 ]
+{
 "9
-[e ) -> / -> 8000000 `l * _fre -> -> 16 `i `l `i ]
-[e $UE 270  ]
-[; ;motors.c: 10: }
+}
+"7
+[e ++ _i -> 1 `i ]
+[e :U 274 ]
+[e $ < _i _us 271  ]
+[e :U 272 ]
+"9
+}
+[; ;motors.c: 9: }
+[; ;motors.c: 10: us -= 2;
 "10
-[e :UE 270 ]
+[e =- _us -> 2 `i ]
+[; ;motors.c: 11: LATC0 = 1 ^ LATC0;
+"11
+[e = _LATC0 -> ^ -> 1 `i -> _LATC0 `i `b ]
+[; ;motors.c: 12: for (i = 0; i < cycle - us; i++) {
+"12
+{
+[e = _i -> 0 `i ]
+[e $U 278  ]
+[e :U 275 ]
+{
+"14
 }
 "12
-[v _PWM1_Start `(v ~T0 @X0 1 ef ]
-{
-[; ;motors.c: 12: void PWM1_Start() {
-[e :U _PWM1_Start ]
-[f ]
-[; ;motors.c: 15: P1M1 = 0;
-"15
-[e = _P1M1 -> -> 0 `i `b ]
-[; ;motors.c: 16: P1M0 = 0;
-"16
-[e = _P1M0 -> -> 0 `i `b ]
-[; ;motors.c: 17: CCP1M3 = 1;
-"17
-[e = _CCP1M3 -> -> 1 `i `b ]
-[; ;motors.c: 18: CCP1M2 = 1;
-"18
-[e = _CCP1M2 -> -> 1 `i `b ]
-[; ;motors.c: 19: CCP1M1 = 0;
-"19
-[e = _CCP1M1 -> -> 0 `i `b ]
-[; ;motors.c: 20: CCP1M0 = 0;
-"20
-[e = _CCP1M0 -> -> 0 `i `b ]
-[; ;motors.c: 35: TMR2ON = 1;
-"35
-[e = _TMR2ON -> -> 1 `i `b ]
-[; ;motors.c: 39: }
-"39
-[e :UE 271 ]
-}
-"41
-[v _PWM2_Start `(v ~T0 @X0 1 ef ]
-{
-[; ;motors.c: 41: void PWM2_Start() {
-[e :U _PWM2_Start ]
-[f ]
-[; ;motors.c: 44: CCP1M3 = 1;
-"44
-[e = _CCP1M3 -> -> 1 `i `b ]
-[; ;motors.c: 45: CCP1M2 = 1;
-"45
-[e = _CCP1M2 -> -> 1 `i `b ]
-[; ;motors.c: 60: TMR2ON = 1;
-"60
-[e = _TMR2ON -> -> 1 `i `b ]
-[; ;motors.c: 63: TRISCbits.TRISC1 = 0;
-"63
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 64: }
-"64
-[e :UE 272 ]
-}
-"66
-[v _set_PWM1_duty `(v ~T0 @X0 1 ef2`ui`i ]
-{
-[; ;motors.c: 66: void set_PWM1_duty(unsigned int duty, int Max_Duty) {
-[e :U _set_PWM1_duty ]
-[v _duty `ui ~T0 @X0 1 r1 ]
-[v _Max_Duty `i ~T0 @X0 1 r2 ]
-[f ]
-[; ;motors.c: 67: if (duty < 1024) {
-"67
-[e $ ! < _duty -> -> 1024 `i `ui 274  ]
-{
-[; ;motors.c: 69: duty = ((float) duty / 1023) * Max_Duty;
-"69
-[e = _duty -> * / -> _duty `f -> -> 1023 `i `f -> _Max_Duty `f `ui ]
-[; ;motors.c: 70: CCP1X = duty & 2;
-"70
-[e = _CCP1X -> & _duty -> -> 2 `i `ui `b ]
-[; ;motors.c: 71: CCP1Y = duty & 1;
-"71
-[e = _CCP1Y -> & _duty -> -> 1 `i `ui `b ]
-[; ;motors.c: 72: CCPR1L = duty >> 2;
-"72
-[e = _CCPR1L -> >> _duty -> 2 `i `uc ]
-"73
-}
-[e :U 274 ]
-[; ;motors.c: 73: }
-[; ;motors.c: 74: }
-"74
-[e :UE 273 ]
-}
-"76
-[v _set_PWM2_duty `(v ~T0 @X0 1 ef2`ui`i ]
-{
-[; ;motors.c: 76: void set_PWM2_duty(unsigned int duty, int Max_Duty) {
-[e :U _set_PWM2_duty ]
-[v _duty `ui ~T0 @X0 1 r1 ]
-[v _Max_Duty `i ~T0 @X0 1 r2 ]
-[f ]
-[; ;motors.c: 77: if (duty < 1024) {
-"77
-[e $ ! < _duty -> -> 1024 `i `ui 276  ]
-{
-[; ;motors.c: 79: duty = ((float) duty / 1023) * Max_Duty;
-"79
-[e = _duty -> * / -> _duty `f -> -> 1023 `i `f -> _Max_Duty `f `ui ]
-[; ;motors.c: 80: CCP2X = duty & 2;
-"80
-[e = _CCP2X -> & _duty -> -> 2 `i `ui `b ]
-[; ;motors.c: 81: CCP2Y = duty & 1;
-"81
-[e = _CCP2Y -> & _duty -> -> 1 `i `ui `b ]
-[; ;motors.c: 82: CCPR2L = duty >> 2;
-"82
-[e = _CCPR2L -> >> _duty -> 2 `i `uc ]
-"83
-}
+[e ++ _i -> 1 `i ]
+[e :U 278 ]
+[e $ < _i - _cycle _us 275  ]
 [e :U 276 ]
-[; ;motors.c: 83: }
-[; ;motors.c: 84: }
-"84
-[e :UE 275 ]
+"14
 }
-"86
-[v _PWM1_Stop `(v ~T0 @X0 1 ef ]
-{
-[; ;motors.c: 86: void PWM1_Stop() {
-[e :U _PWM1_Stop ]
-[f ]
-[; ;motors.c: 88: CCP1M3 = 0;
-"88
-[e = _CCP1M3 -> -> 0 `i `b ]
-[; ;motors.c: 89: CCP1M2 = 0;
-"89
-[e = _CCP1M2 -> -> 0 `i `b ]
-[; ;motors.c: 90: CCP1M1 = 0;
-"90
-[e = _CCP1M1 -> -> 0 `i `b ]
-[; ;motors.c: 91: CCP1M0 = 0;
-"91
-[e = _CCP1M0 -> -> 0 `i `b ]
-[; ;motors.c: 92: }
-"92
-[e :UE 277 ]
+[; ;motors.c: 14: }
+[; ;motors.c: 15: }
+"15
+[e :UE 270 ]
 }
-"94
-[v _PWM2_Stop `(v ~T0 @X0 1 ef ]
-{
-[; ;motors.c: 94: void PWM2_Stop() {
-[e :U _PWM2_Stop ]
-[f ]
-[; ;motors.c: 96: CCP2M3 = 0;
-"96
-[e = _CCP2M3 -> -> 0 `i `b ]
-[; ;motors.c: 97: CCP2M2 = 0;
-"97
-[e = _CCP2M2 -> -> 0 `i `b ]
-[; ;motors.c: 98: CCP2M1 = 0;
-"98
-[e = _CCP2M1 -> -> 0 `i `b ]
-[; ;motors.c: 99: CCP2M0 = 0;
-"99
-[e = _CCP2M0 -> -> 0 `i `b ]
-[; ;motors.c: 100: }
-"100
-[e :UE 278 ]
-}
-"102
-[v _runPWM1 `(v ~T0 @X0 1 ef2`ui`l ]
-{
-[; ;motors.c: 102: void runPWM1(unsigned int duty, long freq) {
-[e :U _runPWM1 ]
-[v _duty `ui ~T0 @X0 1 r1 ]
-[v _freq `l ~T0 @X0 1 r2 ]
-[f ]
-[; ;motors.c: 103: PWM1_Start();
-"103
-[e ( _PWM1_Start ..  ]
-"104
-[v _max_duty `i ~T0 @X0 1 a ]
-[; ;motors.c: 104: int max_duty = set_PWM_freq(freq);
-[e = _max_duty ( _set_PWM_freq (1 _freq ]
-[; ;motors.c: 105: set_PWM1_duty(duty, max_duty);
-"105
-[e ( _set_PWM1_duty (2 , _duty _max_duty ]
-[; ;motors.c: 106: }
-"106
-[e :UE 279 ]
-}
-"108
-[v _runPWM2 `(v ~T0 @X0 1 ef2`ui`l ]
-{
-[; ;motors.c: 108: void runPWM2(unsigned int duty, long freq) {
-[e :U _runPWM2 ]
-[v _duty `ui ~T0 @X0 1 r1 ]
-[v _freq `l ~T0 @X0 1 r2 ]
-[f ]
-[; ;motors.c: 109: PWM2_Start();
-"109
-[e ( _PWM2_Start ..  ]
-"110
-[v _max_duty `i ~T0 @X0 1 a ]
-[; ;motors.c: 110: int max_duty = set_PWM_freq(freq);
-[e = _max_duty ( _set_PWM_freq (1 _freq ]
-[; ;motors.c: 111: set_PWM2_duty(duty, max_duty);
-"111
-[e ( _set_PWM2_duty (2 , _duty _max_duty ]
-[; ;motors.c: 112: }
-"112
-[e :UE 280 ]
-}
-"117
+"17
 [v _step `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;motors.c: 117: void step(int wait) {
+[; ;motors.c: 17: void step(int wait) {
 [e :U _step ]
 [v _wait `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 120: switch (PORTC & 0x0F) {
-"120
-[e $U 283  ]
+[; ;motors.c: 20: switch (PORTC & 0x0F) {
+"20
+[e $U 281  ]
 {
-[; ;motors.c: 121: case(1):
-"121
-[e :U 284 ]
-[; ;motors.c: 122: LATC0 = 0;
-"122
-[e = _LATC0 -> -> 0 `i `b ]
-[; ;motors.c: 123: LATC1 = 1;
-"123
-[e = _LATC1 -> -> 1 `i `b ]
-[; ;motors.c: 124: break;
-"124
-[e $U 282  ]
-[; ;motors.c: 125: case(2):
-"125
-[e :U 285 ]
-[; ;motors.c: 126: LATC1 = 0;
-"126
-[e = _LATC1 -> -> 0 `i `b ]
-[; ;motors.c: 127: LATC2 = 1;
-"127
-[e = _LATC2 -> -> 1 `i `b ]
-[; ;motors.c: 128: break;
-"128
-[e $U 282  ]
-[; ;motors.c: 129: case(4):
-"129
-[e :U 286 ]
-[; ;motors.c: 130: LATC2 = 0;
-"130
-[e = _LATC2 -> -> 0 `i `b ]
-[; ;motors.c: 131: LATC3 = 1;
-"131
-[e = _LATC3 -> -> 1 `i `b ]
-[; ;motors.c: 132: break;
-"132
-[e $U 282  ]
-[; ;motors.c: 133: case(8):
-"133
-[e :U 287 ]
-[; ;motors.c: 134: LATC3 = 0;
-"134
-[e = _LATC3 -> -> 0 `i `b ]
-[; ;motors.c: 135: LATC0 = 1;
-"135
-[e = _LATC0 -> -> 1 `i `b ]
-[; ;motors.c: 136: break;
-"136
-[e $U 282  ]
-[; ;motors.c: 137: default:
-"137
-[e :U 288 ]
-[; ;motors.c: 138: LATC0 = 1;
-"138
-[e = _LATC0 -> -> 1 `i `b ]
-[; ;motors.c: 139: LATC1 = 0;
-"139
-[e = _LATC1 -> -> 0 `i `b ]
-[; ;motors.c: 140: LATC2 = 0;
-"140
-[e = _LATC2 -> -> 0 `i `b ]
-[; ;motors.c: 141: LATC3 = 0;
-"141
-[e = _LATC3 -> -> 0 `i `b ]
-[; ;motors.c: 142: break;
-"142
-[e $U 282  ]
-"143
-}
-[; ;motors.c: 143: }
-[e $U 282  ]
-"120
-[e :U 283 ]
-[e [\ & -> _PORTC `i -> 15 `i , $ -> 1 `i 284
- , $ -> 2 `i 285
- , $ -> 4 `i 286
- , $ -> 8 `i 287
- 288 ]
-"143
+[; ;motors.c: 21: case(1):
+"21
 [e :U 282 ]
-[; ;motors.c: 144: for (wait; wait > 0; wait--) {
-"144
+[; ;motors.c: 22: LATC0 = 0;
+"22
+[e = _LATC0 -> -> 0 `i `b ]
+[; ;motors.c: 23: LATC1 = 1;
+"23
+[e = _LATC1 -> -> 1 `i `b ]
+[; ;motors.c: 24: break;
+"24
+[e $U 280  ]
+[; ;motors.c: 25: case(2):
+"25
+[e :U 283 ]
+[; ;motors.c: 26: LATC1 = 0;
+"26
+[e = _LATC1 -> -> 0 `i `b ]
+[; ;motors.c: 27: LATC2 = 1;
+"27
+[e = _LATC2 -> -> 1 `i `b ]
+[; ;motors.c: 28: break;
+"28
+[e $U 280  ]
+[; ;motors.c: 29: case(4):
+"29
+[e :U 284 ]
+[; ;motors.c: 30: LATC2 = 0;
+"30
+[e = _LATC2 -> -> 0 `i `b ]
+[; ;motors.c: 31: LATC3 = 1;
+"31
+[e = _LATC3 -> -> 1 `i `b ]
+[; ;motors.c: 32: break;
+"32
+[e $U 280  ]
+[; ;motors.c: 33: case(8):
+"33
+[e :U 285 ]
+[; ;motors.c: 34: LATC3 = 0;
+"34
+[e = _LATC3 -> -> 0 `i `b ]
+[; ;motors.c: 35: LATC0 = 1;
+"35
+[e = _LATC0 -> -> 1 `i `b ]
+[; ;motors.c: 36: break;
+"36
+[e $U 280  ]
+[; ;motors.c: 37: default:
+"37
+[e :U 286 ]
+[; ;motors.c: 38: LATC0 = 1;
+"38
+[e = _LATC0 -> -> 1 `i `b ]
+[; ;motors.c: 39: LATC1 = 0;
+"39
+[e = _LATC1 -> -> 0 `i `b ]
+[; ;motors.c: 40: LATC2 = 0;
+"40
+[e = _LATC2 -> -> 0 `i `b ]
+[; ;motors.c: 41: LATC3 = 0;
+"41
+[e = _LATC3 -> -> 0 `i `b ]
+[; ;motors.c: 42: break;
+"42
+[e $U 280  ]
+"43
+}
+[; ;motors.c: 43: }
+[e $U 280  ]
+"20
+[e :U 281 ]
+[e [\ & -> _PORTC `i -> 15 `i , $ -> 1 `i 282
+ , $ -> 2 `i 283
+ , $ -> 4 `i 284
+ , $ -> 8 `i 285
+ 286 ]
+"43
+[e :U 280 ]
+[; ;motors.c: 44: for (wait; wait > 0; wait--) {
+"44
 {
 [e _wait ]
-[e $ > _wait -> 0 `i 289  ]
-[e $U 290  ]
-[e :U 289 ]
+[e $ > _wait -> 0 `i 287  ]
+[e $U 288  ]
+[e :U 287 ]
 {
-[; ;motors.c: 145: _delay((unsigned long)((10)*(8000000/4000.0)));
-"145
+[; ;motors.c: 45: _delay((unsigned long)((10)*(8000000/4000.0)));
+"45
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"146
+"46
 }
-"144
+"44
 [e -- _wait -> 1 `i ]
-[e $ > _wait -> 0 `i 289  ]
-[e :U 290 ]
-"146
+[e $ > _wait -> 0 `i 287  ]
+[e :U 288 ]
+"46
 }
-[; ;motors.c: 146: }
-[; ;motors.c: 147: }
-"147
-[e :UE 281 ]
+[; ;motors.c: 46: }
+[; ;motors.c: 47: }
+"47
+[e :UE 279 ]
 }
-"150
+"50
 [v _moveXMotors `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 150: void moveXMotors() {
+[; ;motors.c: 50: void moveXMotors() {
 [e :U _moveXMotors ]
 [f ]
-[; ;motors.c: 152: lcdInst(0b10000000);;
-"152
+[; ;motors.c: 52: lcdInst(0b10000000);;
+"52
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 153: printf("Rotating Xs          ");
-"153
+[; ;motors.c: 53: printf("Rotating Xs          ");
+"53
 [e ( _printf :s 1C ]
-[; ;motors.c: 154: runPWM1(256, 3100);
-"154
+[; ;motors.c: 54: runPWM1(256, 3100);
+"54
 [e ( _runPWM1 (2 , -> -> 256 `i `ui -> -> 3100 `i `l ]
-[; ;motors.c: 155: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"155
+[; ;motors.c: 55: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"55
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;motors.c: 156: PWM1_Stop();
-"156
+[; ;motors.c: 56: PWM1_Stop();
+"56
 [e ( _PWM1_Stop ..  ]
-[; ;motors.c: 157: }
-"157
-[e :UE 292 ]
+[; ;motors.c: 57: }
+"57
+[e :UE 290 ]
 }
-"159
+"59
 [v _moveBigNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;motors.c: 159: void moveBigNose(int * prev, int next) {
+[; ;motors.c: 59: void moveBigNose(int * prev, int next) {
 [e :U _moveBigNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;motors.c: 163: lcdInst(0b10000000);;
-"163
+[; ;motors.c: 63: lcdInst(0b10000000);;
+"63
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 164: printf("bigNose to          ");
-"164
+[; ;motors.c: 64: printf("bigNose to          ");
+"64
 [e ( _printf :s 2C ]
-[; ;motors.c: 165: __lcd_newline();
-"165
+[; ;motors.c: 65: __lcd_newline();
+"65
 [e ( ___lcd_newline ..  ]
-[; ;motors.c: 166: switch(next){
-"166
-[e $U 295  ]
+[; ;motors.c: 66: switch (next) {
+"66
+[e $U 293  ]
 {
-[; ;motors.c: 167: case 0:
-"167
-[e :U 296 ]
-[; ;motors.c: 168: printf("uncharged          ");
-"168
-[e ( _printf :s 3C ]
-[; ;motors.c: 169: break;
-"169
-[e $U 294  ]
-[; ;motors.c: 170: case 1:
-"170
-[e :U 297 ]
-[; ;motors.c: 171: printf("C          ");
-"171
-[e ( _printf :s 4C ]
-[; ;motors.c: 172: break;
-"172
-[e $U 294  ]
-[; ;motors.c: 173: case 2:
-"173
-[e :U 298 ]
-[; ;motors.c: 174: printf("9V          ");
-"174
-[e ( _printf :s 5C ]
-[; ;motors.c: 175: break;
-"175
-[e $U 294  ]
-[; ;motors.c: 176: default:
-"176
-[e :U 299 ]
-[; ;motors.c: 177: printf("uncharged          ");
-"177
-[e ( _printf :s 6C ]
-"178
-}
-[; ;motors.c: 178: }
-[e $U 294  ]
-"166
-[e :U 295 ]
-[e [\ _next , $ -> 0 `i 296
- , $ -> 1 `i 297
- , $ -> 2 `i 298
- 299 ]
-"178
+[; ;motors.c: 67: case 0:
+"67
 [e :U 294 ]
-[; ;motors.c: 180: if (*prev == next)return;
-"180
-[e $ ! == *U _prev _next 300  ]
-[e $UE 293  ]
+[; ;motors.c: 68: printf("uncharged          ");
+"68
+[e ( _printf :s 3C ]
+[; ;motors.c: 69: break;
+"69
+[e $U 292  ]
+[; ;motors.c: 70: case 1:
+"70
+[e :U 295 ]
+[; ;motors.c: 71: printf("C          ");
+"71
+[e ( _printf :s 4C ]
+[; ;motors.c: 72: break;
+"72
+[e $U 292  ]
+[; ;motors.c: 73: case 2:
+"73
+[e :U 296 ]
+[; ;motors.c: 74: printf("9V          ");
+"74
+[e ( _printf :s 5C ]
+[; ;motors.c: 75: break;
+"75
+[e $U 292  ]
+[; ;motors.c: 76: default:
+"76
+[e :U 297 ]
+[; ;motors.c: 77: printf("uncharged          ");
+"77
+[e ( _printf :s 6C ]
+"78
+}
+[; ;motors.c: 78: }
+[e $U 292  ]
+"66
+[e :U 293 ]
+[e [\ _next , $ -> 0 `i 294
+ , $ -> 1 `i 295
+ , $ -> 2 `i 296
+ 297 ]
+"78
+[e :U 292 ]
+[; ;motors.c: 80: if (*prev == next)return;
+"80
+[e $ ! == *U _prev _next 298  ]
+[e $UE 291  ]
+[e :U 298 ]
+[; ;motors.c: 81: while (*prev < next) {
+"81
+[e $U 299  ]
 [e :U 300 ]
-[; ;motors.c: 181: while (*prev < next) {
-"181
-[e $U 301  ]
-[e :U 302 ]
 {
-[; ;motors.c: 183: *prev++;
-"183
+[; ;motors.c: 83: *prev++;
+"83
 [e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
-"184
+"84
 }
+[e :U 299 ]
+"81
+[e $ < *U _prev _next 300  ]
 [e :U 301 ]
-"181
-[e $ < *U _prev _next 302  ]
+[; ;motors.c: 84: }
+[; ;motors.c: 85: while (*prev > next) {
+"85
+[e $U 302  ]
 [e :U 303 ]
-[; ;motors.c: 184: }
-[; ;motors.c: 185: while (*prev > next) {
-"185
-[e $U 304  ]
-[e :U 305 ]
 {
-[; ;motors.c: 188: *prev--;
-"188
+[; ;motors.c: 88: *prev--;
+"88
 [e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
-"189
+"89
 }
+[e :U 302 ]
+"85
+[e $ > *U _prev _next 303  ]
 [e :U 304 ]
-"185
-[e $ > *U _prev _next 305  ]
-[e :U 306 ]
-[; ;motors.c: 189: }
-[; ;motors.c: 190: }
-"190
-[e :UE 293 ]
+[; ;motors.c: 89: }
+[; ;motors.c: 90: }
+"90
+[e :UE 291 ]
 }
-"192
+"92
 [v _moveSmallNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;motors.c: 192: void moveSmallNose(int * prev, int next) {
+[; ;motors.c: 92: void moveSmallNose(int * prev, int next) {
 [e :U _moveSmallNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;motors.c: 196: lcdInst(0b10000000);;
-"196
+[; ;motors.c: 96: lcdInst(0b10000000);;
+"96
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 197: printf("smallNose to          ");
-"197
+[; ;motors.c: 97: printf("smallNose to          ");
+"97
 [e ( _printf :s 7C ]
-[; ;motors.c: 198: __lcd_newline();
-"198
+[; ;motors.c: 98: __lcd_newline();
+"98
 [e ( ___lcd_newline ..  ]
-[; ;motors.c: 199: if (next) {
-"199
-[e $ ! != _next -> 0 `i 308  ]
+[; ;motors.c: 99: if (next) {
+"99
+[e $ ! != _next -> 0 `i 306  ]
 {
-[; ;motors.c: 200: printf("AA          ");
-"200
+[; ;motors.c: 100: printf("AA          ");
+"100
 [e ( _printf :s 8C ]
-"201
+"101
 }
-[; ;motors.c: 201: } else {
-[e $U 309  ]
-[e :U 308 ]
+[; ;motors.c: 101: } else {
+[e $U 307  ]
+[e :U 306 ]
 {
-[; ;motors.c: 202: printf("uncharged          ");
-"202
+[; ;motors.c: 102: printf("uncharged          ");
+"102
 [e ( _printf :s 9C ]
-"203
+"103
+}
+[e :U 307 ]
+[; ;motors.c: 103: }
+[; ;motors.c: 106: if (*prev == next)return;
+"106
+[e $ ! == *U _prev _next 308  ]
+[e $UE 305  ]
+[e :U 308 ]
+[; ;motors.c: 107: while (*prev < next) {
+"107
+[e $U 309  ]
+[e :U 310 ]
+{
+[; ;motors.c: 109: *prev++;
+"109
+[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"110
 }
 [e :U 309 ]
-[; ;motors.c: 203: }
-[; ;motors.c: 206: if (*prev == next)return;
-"206
-[e $ ! == *U _prev _next 310  ]
-[e $UE 307  ]
-[e :U 310 ]
-[; ;motors.c: 207: while (*prev < next) {
-"207
-[e $U 311  ]
-[e :U 312 ]
-{
-[; ;motors.c: 209: *prev++;
-"209
-[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
-"210
-}
+"107
+[e $ < *U _prev _next 310  ]
 [e :U 311 ]
-"207
-[e $ < *U _prev _next 312  ]
+[; ;motors.c: 110: }
+[; ;motors.c: 111: while (*prev > next) {
+"111
+[e $U 312  ]
 [e :U 313 ]
-[; ;motors.c: 210: }
-[; ;motors.c: 211: while (*prev > next) {
-"211
-[e $U 314  ]
-[e :U 315 ]
 {
-[; ;motors.c: 214: *prev--;
-"214
+[; ;motors.c: 114: *prev--;
+"114
 [e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
-"215
+"115
 }
+[e :U 312 ]
+"111
+[e $ > *U _prev _next 313  ]
 [e :U 314 ]
-"211
-[e $ > *U _prev _next 315  ]
-[e :U 316 ]
-[; ;motors.c: 215: }
-[; ;motors.c: 216: }
-"216
-[e :UE 307 ]
+[; ;motors.c: 115: }
+[; ;motors.c: 116: }
+"116
+[e :UE 305 ]
 }
-"218
+"118
 [v _stopMoving `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 218: void stopMoving() {
+[; ;motors.c: 118: void stopMoving() {
 [e :U _stopMoving ]
 [f ]
-[; ;motors.c: 219: (INTCONbits.GIE = 0);
-"219
+[; ;motors.c: 119: (INTCONbits.GIE = 0);
+"119
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 220: lcdInst(0b10000000);;
-"220
+[; ;motors.c: 120: lcdInst(0b10000000);;
+"120
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 221: printf("Stopped          ");
-"221
+[; ;motors.c: 121: printf("Stopped          ");
+"121
 [e ( _printf :s 10C ]
-[; ;motors.c: 222: ; while(1);;
-"222
-[e :U 319 ]
+[; ;motors.c: 122: while(1);
+"122
+[e :U 317 ]
+[e :U 316 ]
+[e $U 317  ]
 [e :U 318 ]
-[e $U 319  ]
-[e :U 320 ]
-[; ;motors.c: 224: }
-"224
-[e :UE 317 ]
+[; ;motors.c: 124: }
+"124
+[e :UE 315 ]
 }
 [p f _printf 8388608 ]
 [a 1C 82 111 116 97 116 105 110 103 32 88 115 32 32 32 32 32 32 32 32 32 32 0 ]

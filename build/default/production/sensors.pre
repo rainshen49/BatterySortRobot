@@ -3892,6 +3892,7 @@ void showInfo(unsigned int time, unsigned int * sorted);
 void interrupt keypressed(void);
 unsigned int captureKeypad();
 int getTime();
+void PWMC0(int us, int max);
 
 # 3 "sensors.c"
 int AD(char channel) {
