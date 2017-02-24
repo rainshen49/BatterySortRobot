@@ -20,8 +20,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 "6898
 [v _INT1IF `Vb ~T0 @X0 0 e@32640 ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "1 motors.h
 [v _stopMoving `(v ~T0 @X0 0 ef ]
 "6272 pic18f4620.h
@@ -38,12 +38,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S262 . . . . ]
 "6298
 [v _INTCONbits `VS262 ~T0 @X0 0 e@4082 ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"11 lcd.h
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 [v F3059 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+"161 pic18.h
 [v __delay `JF3059 ~T0 @X0 0 e ]
 [p i __delay ]
+"14 lcd.h
+[v ___lcd_newline `(v ~T0 @X0 0 ef ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -2794,6 +2796,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f4620.h: 7786: extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 [; ;pic18f4620.h: 7788: extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 [; ;pic18f4620.h: 7790: extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
+[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
+[; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+[; ;pic18.h: 43: extern void __nop(void);
+[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2860,17 +2873,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "61
 [p x EBTRB=OFF ]
-[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
-[; ;htc.h: 28: extern double __fpnormalize(double);
-[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -2900,6 +2902,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
+[; ;lcd.h: 14: void __lcd_newline();
 [; ;motors.h: 1: void stopMoving();
 [; ;motors.h: 2: void moveBigNose(int * prev, int next);
 [; ;motors.h: 3: void moveSmallNose(int * prev, int next);
@@ -2918,10 +2921,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.h: 2: int checkV(int voltage, float max);
 [; ;sensors.h: 3: int checkAA(int* sorted);
 [; ;sensors.h: 4: int checkC9V(int* sorted);
-[; ;modules.h: 19: void showInfo(unsigned int time, unsigned int * sorted);
-[; ;modules.h: 20: void interrupt keypressed(void);
-[; ;modules.h: 21: unsigned int captureKeypad();
-[; ;modules.h: 22: int getTime();
+[; ;modules.h: 20: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 21: void interrupt keypressed(void);
+[; ;modules.h: 22: unsigned int captureKeypad();
+[; ;modules.h: 23: int getTime();
 "3 modules.c
 [v _captureKeypad `(ui ~T0 @X0 1 ef ]
 {
@@ -2957,9 +2960,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "10
 [e :UE 270 ]
 }
-[v F3198 `(v ~T0 @X0 1 tf ]
+[v F3199 `(v ~T0 @X0 1 tf ]
 "12
-[v _keypressed `IF3198 ~T0 @X0 1 e ]
+[v _keypressed `IF3199 ~T0 @X0 1 e ]
 {
 [; ;modules.c: 12: void interrupt keypressed(void) {
 [e :U _keypressed ]
@@ -2975,9 +2978,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 17: INT1IF = 0;
 "17
 [e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 18: lcdInst(0b11000000);;
+[; ;modules.c: 18: printf("Emergency          ");
 "18
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[e ( _printf :s 1C ]
 [; ;modules.c: 19: stopMoving();
 "19
 [e ( _stopMoving ..  ]
@@ -3003,24 +3006,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 25: lcdInst(0b10000000);;
 "25
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 26: printf("Sorting Complete");
+[; ;modules.c: 26: printf("Sorting Complete          ");
 "26
-[e ( _printf :s 1C ]
+[e ( _printf :s 2C ]
 [; ;modules.c: 27: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "27
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 [; ;modules.c: 28: lcdInst(0b10000000);;
 "28
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 29: printf("Press a number");
+[; ;modules.c: 29: printf("Press a number          ");
 "29
-[e ( _printf :s 2C ]
-[; ;modules.c: 30: lcdInst(0b11000000);;
-"30
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 31: printf("For more info");
-"31
 [e ( _printf :s 3C ]
+[; ;modules.c: 30: __lcd_newline();
+"30
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 31: printf("For more info          ");
+"31
+[e ( _printf :s 4C ]
 "32
 [v _type `i ~T0 @X0 1 a ]
 [; ;modules.c: 32: int type = 0;
@@ -3042,15 +3045,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 37: lcdInst(0b10000000);;
 "37
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 38: printf("Time Elapsed:");
+[; ;modules.c: 38: printf("Time Elapsed:          ");
 "38
-[e ( _printf :s 4C ]
-[; ;modules.c: 39: lcdInst(0b11000000);;
+[e ( _printf :s 5C ]
+[; ;modules.c: 39: __lcd_newline();
 "39
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 40: printf("%d seconds", time);
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 40: printf("%d seconds          ", time);
 "40
-[e ( _printf , (. :s 5C _time ]
+[e ( _printf , (. :s 6C _time ]
 [; ;modules.c: 41: break;
 "41
 [e $U 283  ]
@@ -3060,102 +3063,105 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 43: lcdInst(0b10000000);;
 "43
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 44: printf("Total Sorted:");
+[; ;modules.c: 44: printf("Total Sorted:          ");
 "44
-[e ( _printf :s 6C ]
-[; ;modules.c: 45: printf("%d batteries", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+[e ( _printf :s 7C ]
+[; ;modules.c: 45: __lcd_newline();
 "45
-[e ( _printf , (. :s 7C + + + *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 46: break;
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 46: printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
 "46
-[e $U 283  ]
-[; ;modules.c: 47: case(2):
+[e ( _printf , (. :s 8C + + + *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 47: break;
 "47
-[e :U 287 ]
-[; ;modules.c: 48: lcdInst(0b10000000);;
+[e $U 283  ]
+[; ;modules.c: 48: case(2):
 "48
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 49: printf("AA Sorted:");
+[e :U 287 ]
+[; ;modules.c: 49: lcdInst(0b10000000);;
 "49
-[e ( _printf :s 8C ]
-[; ;modules.c: 50: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 50: printf("AA Sorted:          ");
 "50
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 51: printf("%d", sorted[0]);
+[e ( _printf :s 9C ]
+[; ;modules.c: 51: __lcd_newline();
 "51
-[e ( _printf , (. :s 9C *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 52: break;
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 52: printf("%d          ", sorted[0]);
 "52
-[e $U 283  ]
-[; ;modules.c: 53: case(3):
+[e ( _printf , (. :s 10C *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 53: break;
 "53
-[e :U 288 ]
-[; ;modules.c: 54: lcdInst(0b10000000);;
+[e $U 283  ]
+[; ;modules.c: 54: case(3):
 "54
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 55: printf("C Sorted:");
+[e :U 288 ]
+[; ;modules.c: 55: lcdInst(0b10000000);;
 "55
-[e ( _printf :s 10C ]
-[; ;modules.c: 56: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 56: printf("C Sorted:          ");
 "56
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 57: printf("%d", sorted[1]);
+[e ( _printf :s 11C ]
+[; ;modules.c: 57: __lcd_newline();
 "57
-[e ( _printf , (. :s 11C *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 58: break;
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 58: printf("%d          ", sorted[1]);
 "58
-[e $U 283  ]
-[; ;modules.c: 59: case(4):
+[e ( _printf , (. :s 12C *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 59: break;
 "59
-[e :U 289 ]
-[; ;modules.c: 60: lcdInst(0b10000000);;
+[e $U 283  ]
+[; ;modules.c: 60: case(4):
 "60
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 61: printf("9V Sorted:");
+[e :U 289 ]
+[; ;modules.c: 61: lcdInst(0b10000000);;
 "61
-[e ( _printf :s 12C ]
-[; ;modules.c: 62: lcdInst(0b11000000);;
-"62
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 63: printf("%d", sorted[2]);
-"63
-[e ( _printf , (. :s 13C *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 64: break;
-"64
-[e $U 283  ]
-[; ;modules.c: 65: case(5):
-"65
-[e :U 290 ]
-[; ;modules.c: 66: lcdInst(0b10000000);;
-"66
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 67: printf("Uncharged:");
+[; ;modules.c: 62: printf("9V Sorted:          ");
+"62
+[e ( _printf :s 13C ]
+[; ;modules.c: 63: __lcd_newline();
+"63
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 64: printf("%d          ", sorted[2]);
+"64
+[e ( _printf , (. :s 14C *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 65: break;
+"65
+[e $U 283  ]
+[; ;modules.c: 66: case(5):
+"66
+[e :U 290 ]
+[; ;modules.c: 67: lcdInst(0b10000000);;
 "67
-[e ( _printf :s 14C ]
-[; ;modules.c: 68: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 68: printf("Uncharged:          ");
 "68
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;modules.c: 69: printf("%d", sorted[3]);
+[e ( _printf :s 15C ]
+[; ;modules.c: 69: __lcd_newline();
 "69
-[e ( _printf , (. :s 15C *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 70: break;
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 70: printf("%d          ", sorted[3]);
 "70
-[e $U 283  ]
-[; ;modules.c: 71: case(15):
+[e ( _printf , (. :s 16C *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
+[; ;modules.c: 71: break;
 "71
-[e :U 291 ]
-[; ;modules.c: 72: asm("reset");
-"72
-[; <" reset ;# ">
-[; ;modules.c: 74: default:
-"74
-[e :U 292 ]
-[; ;modules.c: 75: break;
-"75
 [e $U 283  ]
+[; ;modules.c: 72: case(15):
+"72
+[e :U 291 ]
+[; ;modules.c: 73: asm("reset");
+"73
+[; <" reset ;# ">
+[; ;modules.c: 75: default:
+"75
+[e :U 292 ]
+[; ;modules.c: 76: break;
 "76
+[e $U 283  ]
+"77
 }
-[; ;modules.c: 76: }
+[; ;modules.c: 77: }
 [e $U 283  ]
 "35
 [e :U 284 ]
@@ -3167,53 +3173,54 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> 5 `i 290
  , $ -> 15 `i 291
  292 ]
-"76
-[e :U 283 ]
 "77
+[e :U 283 ]
+"78
 }
 [e :U 280 ]
 "33
 [e $U 281  ]
 [e :U 282 ]
-[; ;modules.c: 77: }
-[; ;modules.c: 78: (INTCONbits.GIE = 1);
-"78
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;modules.c: 79: }
+[; ;modules.c: 78: }
+[; ;modules.c: 79: (INTCONbits.GIE = 1);
 "79
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;modules.c: 80: }
+"80
 [e :UE 279 ]
 }
-"81
+"82
 [v _getTime `(i ~T0 @X0 1 ef ]
 {
-[; ;modules.c: 81: int getTime() {
+[; ;modules.c: 82: int getTime() {
 [e :U _getTime ]
 [f ]
-"83
+"84
 [v _time `i ~T0 @X0 1 a ]
-[; ;modules.c: 83: int time = 0;
+[; ;modules.c: 84: int time = 0;
 [e = _time -> 0 `i ]
-[; ;modules.c: 85: return time;
-"85
+[; ;modules.c: 86: return time;
+"86
 [e ) _time ]
 [e $UE 293  ]
-[; ;modules.c: 86: }
-"86
+[; ;modules.c: 87: }
+"87
 [e :UE 293 ]
 }
 [p f _printf 8388736 ]
-[a 7C 37 100 32 98 97 116 116 101 114 105 101 115 0 ]
-[a 5C 37 100 32 115 101 99 111 110 100 115 0 ]
-[a 2C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 0 ]
-[a 3C 70 111 114 32 109 111 114 101 32 105 110 102 111 0 ]
-[a 1C 83 111 114 116 105 110 103 32 67 111 109 112 108 101 116 101 0 ]
-[a 9C 37 100 0 ]
-[a 11C 37 100 0 ]
-[a 13C 37 100 0 ]
-[a 15C 37 100 0 ]
-[a 6C 84 111 116 97 108 32 83 111 114 116 101 100 58 0 ]
-[a 12C 57 86 32 83 111 114 116 101 100 58 0 ]
-[a 10C 67 32 83 111 114 116 101 100 58 0 ]
-[a 8C 65 65 32 83 111 114 116 101 100 58 0 ]
-[a 4C 84 105 109 101 32 69 108 97 112 115 101 100 58 0 ]
-[a 14C 85 110 99 104 97 114 103 101 100 58 0 ]
+[a 1C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 8C 37 100 32 98 97 116 116 101 114 105 101 115 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 6C 37 100 32 115 101 99 111 110 100 115 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 3C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 4C 70 111 114 32 109 111 114 101 32 105 110 102 111 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 2C 83 111 114 116 105 110 103 32 67 111 109 112 108 101 116 101 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 10C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 12C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 14C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 16C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 7C 84 111 116 97 108 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 13C 57 86 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 11C 67 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 9C 65 65 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 5C 84 105 109 101 32 69 108 97 112 115 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 15C 85 110 99 104 97 114 103 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]

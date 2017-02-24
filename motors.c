@@ -149,6 +149,7 @@ void step(int wait) {
 
 void moveXMotors() {
     //    move the X motors by 90 degree
+    __lcd_home();
     printf("Rotating Xs          ");
     runPWM1(256, 3100); //duty, freq
     __delay_ms(1000);

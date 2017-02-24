@@ -3741,6 +3741,34 @@ extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 
 extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 
+# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
+
+# 18 "pic18.h"
+__attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+__attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+
+
+# 42
+#pragma intrinsic(__nop)
+extern void __nop(void);
+
+# 135
+__attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+__attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+__attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+
+
+# 160
+#pragma intrinsic(_delay)
+extern __nonreentrant void _delay(unsigned long);
+#pragma intrinsic(_delaywdt)
+extern __nonreentrant void _delaywdt(unsigned long);
+#pragma intrinsic(_delay3)
+extern __nonreentrant void _delay3(unsigned char);
+
 
 # 9 "configBits.h"
 #pragma config OSC = HS
@@ -3797,34 +3825,6 @@ extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 
 #pragma config EBTRB = OFF
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
-extern const char __xc8_OPTIM_SPEED;
-
-extern double __fpnormalize(double);
-
-# 18 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h"
-__attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-__attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-
-
-# 42
-#pragma intrinsic(__nop)
-extern void __nop(void);
-
-# 135
-__attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-__attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-__attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-
-
-# 160
-#pragma intrinsic(_delay)
-extern __nonreentrant void _delay(unsigned long);
-#pragma intrinsic(_delaywdt)
-extern __nonreentrant void _delaywdt(unsigned long);
-#pragma intrinsic(_delay3)
-extern __nonreentrant void _delay3(unsigned char);
-
 # 14 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
 extern void * memmove(void *, const void *, size_t);
@@ -3861,6 +3861,7 @@ extern char * strrichr(const char *, int);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
+void __lcd_newline();
 
 # 1 "motors.h"
 void stopMoving();
@@ -3886,7 +3887,7 @@ int checkV(int voltage, float max);
 int checkAA(int* sorted);
 int checkC9V(int* sorted);
 
-# 19 "modules.h"
+# 20 "modules.h"
 void showInfo(unsigned int time, unsigned int * sorted);
 void interrupt keypressed(void);
 unsigned int captureKeypad();
@@ -3907,15 +3908,14 @@ return (ADRESH << 8) | ADRESL;
 
 int checkV(int voltage, float max) {
 
-lcdInst(0b11000000);;
+__lcd_newline();
 printf("%d received    ", voltage);
 for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
-if (voltage > 1023 * 4 / 5) {
+if (voltage < 50) {
 return 0;
 } else if (voltage > 0.85 * 1023 * max / 5) {
 return 1;
 } else {
-
 return -1;
 }
 }
@@ -3923,25 +3923,25 @@ return -1;
 int checkAA(int* sorted) {
 
 lcdInst(0b10000000);;
-printf("AA:     ");
-lcdInst(0b11000000);;
+printf("AA:          ");
+__lcd_newline();
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 switch (checkV(AD(0), 1.5)) {
 case 1:
 lcdInst(0b10000000);;
-printf("charged AA    ");
+printf("charged AA          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[0]++;
 return 1;
 case -1:
-lcdInst(0b11000000);;
-printf("uncharged AA     ");
+__lcd_newline();
+printf("uncharged AA          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[3]++;
 return 0;
 case 0:
 lcdInst(0b10000000);;
-printf("no AA     ");
+printf("no AA          ");
 return -1;
 default:
 return 0;
@@ -3951,39 +3951,39 @@ return 0;
 int checkC9V(int* sorted) {
 
 
-LATE = 0b1000;
+LATE = 0b100;
 lcdInst(0b10000000);;
-printf("V3");
+printf("V3          ");
 switch (checkV(AD(3), 1.5)) {
 case 0:
 lcdInst(0b10000000);;
-printf("9:");
+printf("9:          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 
 int i = 1;
 for (i; i < 3; i++) {
 
-lcdInst(0b11000000);;
+__lcd_newline();
 printf("channel %d   ", i);
 lcdInst(0b10000000);;
 _delay((unsigned long)((900)*(8000000/4000.0)));
-LATE = i == 1 ? 0 : 0b0110;
+LATE = i == 1 ? 0 : 0b011;
 switch (checkV(AD(i), 3.6)) {
 case 1:
 lcdInst(0b10000000);;
-printf("charged 9V  ");
+printf("charged 9V          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[2]++;
 return 2;
 case -1:
-lcdInst(0b11000000);;
-printf("uncharged 9V   ");
+__lcd_newline();
+printf("uncharged 9V          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[3]++;
 return 0;
 default:
 lcdInst(0b10000000);;
-printf("no 9    ");
+printf("no 9          ");
 continue;
 }
 }
@@ -3991,13 +3991,13 @@ return -1;
 case 1:
 
 lcdInst(0b10000000);;
-printf("charged C    ");
+printf("charged C          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[1]++;
 return 1;
 case -1:
-lcdInst(0b11000000);;
-printf("uncharged C    ");
+__lcd_newline();
+printf("uncharged C          ");
 _delay((unsigned long)((1000)*(8000000/4000.0)));
 sorted[3]++;
 return 0;

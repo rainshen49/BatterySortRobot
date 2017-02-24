@@ -1,6 +1,6 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F3059 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+"161 pic18.h
 [v __delay `JF3059 ~T0 @X0 0 e ]
 [p i __delay ]
 "11 lcd.h
@@ -2770,6 +2770,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f4620.h: 7786: extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 [; ;pic18f4620.h: 7788: extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 [; ;pic18f4620.h: 7790: extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
+[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
+[; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+[; ;pic18.h: 43: extern void __nop(void);
+[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2836,17 +2847,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "61
 [p x EBTRB=OFF ]
-[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
-[; ;htc.h: 28: extern double __fpnormalize(double);
-[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -2876,6 +2876,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
+[; ;lcd.h: 14: void __lcd_newline();
 [; ;motors.h: 1: void stopMoving();
 [; ;motors.h: 2: void moveBigNose(int * prev, int next);
 [; ;motors.h: 3: void moveSmallNose(int * prev, int next);
@@ -2894,10 +2895,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.h: 2: int checkV(int voltage, float max);
 [; ;sensors.h: 3: int checkAA(int* sorted);
 [; ;sensors.h: 4: int checkC9V(int* sorted);
-[; ;modules.h: 19: void showInfo(unsigned int time, unsigned int * sorted);
-[; ;modules.h: 20: void interrupt keypressed(void);
-[; ;modules.h: 21: unsigned int captureKeypad();
-[; ;modules.h: 22: int getTime();
+[; ;modules.h: 20: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 21: void interrupt keypressed(void);
+[; ;modules.h: 22: unsigned int captureKeypad();
+[; ;modules.h: 23: int getTime();
 "10 lcd.c
 [v _initLCD `(v ~T0 @X0 1 ef ]
 {
@@ -3022,4 +3023,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.c: 52: }
 "52
 [e :UE 273 ]
+}
+"54
+[v ___lcd_newline `(v ~T0 @X0 1 ef ]
+{
+[; ;lcd.c: 54: void __lcd_newline() {
+[e :U ___lcd_newline ]
+[f ]
+[; ;lcd.c: 55: lcdInst(0b11000000);
+"55
+[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[; ;lcd.c: 56: }
+"56
+[e :UE 274 ]
 }

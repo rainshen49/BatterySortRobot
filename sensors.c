@@ -17,12 +17,11 @@ int checkV(int voltage, float max) {
     __lcd_newline();
     printf("%d received    ", voltage);
     __delay_1s();
-    if (voltage > 1023 * 4 / 5) {
+    if (voltage < 50) {
         return 0;
     } else if (voltage > 0.85 * 1023 * max / 5) {
         return 1;
     } else {
-
         return -1;
     }
 }
@@ -56,9 +55,9 @@ int checkAA(int* sorted) {
 }
 
 int checkC9V(int* sorted) {
-    //    output RE1-3 corresponds to R1,R2,R3&4
+    //    output RE0-2 corresponds to R1,R2,R3&4
     //    input RA1(AN1),RA2(AN2),RA3(AN3)
-    LATE = 0b1000;
+    LATE = 0b100;
     __lcd_home();
     printf("V3          ");
     switch (checkV(AD(3), 1.5)) {
@@ -74,7 +73,7 @@ int checkC9V(int* sorted) {
                 printf("channel %d   ", i);
                 __lcd_home();
                 __delay_ms(900);
-                LATE = i == 1 ? 0 : 0b0110;
+                LATE = i == 1 ? 0 : 0b011;
                 switch (checkV(AD(i), 3.6)) {
                     case 1:
                         __lcd_home();

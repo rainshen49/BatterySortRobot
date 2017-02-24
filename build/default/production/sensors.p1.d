@@ -2,6 +2,7 @@
  build/default/production/sensors.p1:  \
  sensors.c  \
 pic18f4620.h  \
+pic18.h  \
 motors.h  \
 lcd.h  \
 modules.h  \

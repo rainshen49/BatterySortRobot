@@ -15,7 +15,7 @@ void interrupt keypressed(void) {
 
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
-        __lcd_newline("Emergency          ");
+        printf("Emergency          ");
         stopMoving();
     }
 }
@@ -37,36 +37,37 @@ void showInfo(unsigned int time, unsigned int * sorted) {
                 __lcd_home();
                 printf("Time Elapsed:          ");
                 __lcd_newline();
-                printf("%d seconds", time);
+                printf("%d seconds          ", time);
                 break;
             case(1):
                 __lcd_home();
                 printf("Total Sorted:          ");
-                printf("%d batteries", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+                __lcd_newline();
+                printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
                 break;
             case(2):
                 __lcd_home();
                 printf("AA Sorted:          ");
                 __lcd_newline();
-                printf("%d", sorted[0]);
+                printf("%d          ", sorted[0]);
                 break;
             case(3):
                 __lcd_home();
                 printf("C Sorted:          ");
                 __lcd_newline();
-                printf("%d", sorted[1]);
+                printf("%d          ", sorted[1]);
                 break;
             case(4):
                 __lcd_home();
                 printf("9V Sorted:          ");
                 __lcd_newline();
-                printf("%d", sorted[2]);
+                printf("%d          ", sorted[2]);
                 break;
             case(5):
                 __lcd_home();
                 printf("Uncharged:          ");
                 __lcd_newline();
-                printf("%d", sorted[3]);
+                printf("%d          ", sorted[3]);
                 break;
             case(15):
                 RESET();

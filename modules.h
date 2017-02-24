@@ -9,6 +9,7 @@
 #include <stdlib.h>
 //#include <xc.h>
 #include "pic18f4620.h"
+#include "pic18.h"
 #include "configBits.h"
 #include "constants.h"
 #include "lcd.h"

@@ -57,13 +57,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "355
 [v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
 [v F3059 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+"161 pic18.h
 [v __delay `JF3059 ~T0 @X0 0 e ]
 [p i __delay ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "11 lcd.h
 [v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"14 lcd.h
+[v ___lcd_newline `(v ~T0 @X0 0 ef ]
 "6272 pic18f4620.h
 [s S263 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S263 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -2828,6 +2830,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f4620.h: 7786: extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 [; ;pic18f4620.h: 7788: extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 [; ;pic18f4620.h: 7790: extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
+[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
+[; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+[; ;pic18.h: 43: extern void __nop(void);
+[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2894,17 +2907,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "61
 [p x EBTRB=OFF ]
-[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
-[; ;htc.h: 28: extern double __fpnormalize(double);
-[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -2934,6 +2936,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
+[; ;lcd.h: 14: void __lcd_newline();
 [; ;motors.h: 1: void stopMoving();
 [; ;motors.h: 2: void moveBigNose(int * prev, int next);
 [; ;motors.h: 3: void moveSmallNose(int * prev, int next);
@@ -2952,10 +2955,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.h: 2: int checkV(int voltage, float max);
 [; ;sensors.h: 3: int checkAA(int* sorted);
 [; ;sensors.h: 4: int checkC9V(int* sorted);
-[; ;modules.h: 19: void showInfo(unsigned int time, unsigned int * sorted);
-[; ;modules.h: 20: void interrupt keypressed(void);
-[; ;modules.h: 21: unsigned int captureKeypad();
-[; ;modules.h: 22: int getTime();
+[; ;modules.h: 20: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 21: void interrupt keypressed(void);
+[; ;modules.h: 22: unsigned int captureKeypad();
+[; ;modules.h: 23: int getTime();
 "5 motors.c
 [v _set_PWM_freq `(i ~T0 @X0 1 ef1`l ]
 {
@@ -3299,236 +3302,239 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.c: 150: void moveXMotors() {
 [e :U _moveXMotors ]
 [f ]
-[; ;motors.c: 152: printf("Rotating Xs    ");
+[; ;motors.c: 152: lcdInst(0b10000000);;
 "152
-[e ( _printf :s 1C ]
-[; ;motors.c: 153: runPWM1(256, 3100);
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 153: printf("Rotating Xs          ");
 "153
-[e ( _runPWM1 (2 , -> -> 256 `i `ui -> -> 3100 `i `l ]
-[; ;motors.c: 154: _delay((unsigned long)((1000)*(8000000/4000.0)));
+[e ( _printf :s 1C ]
+[; ;motors.c: 154: runPWM1(256, 3100);
 "154
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;motors.c: 155: PWM1_Stop();
+[e ( _runPWM1 (2 , -> -> 256 `i `ui -> -> 3100 `i `l ]
+[; ;motors.c: 155: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "155
-[e ( _PWM1_Stop ..  ]
-[; ;motors.c: 156: }
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 156: PWM1_Stop();
 "156
+[e ( _PWM1_Stop ..  ]
+[; ;motors.c: 157: }
+"157
 [e :UE 292 ]
 }
-"158
+"159
 [v _moveBigNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;motors.c: 158: void moveBigNose(int * prev, int next) {
+[; ;motors.c: 159: void moveBigNose(int * prev, int next) {
 [e :U _moveBigNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;motors.c: 162: lcdInst(0b10000000);;
-"162
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 163: printf("bigNose to    ");
+[; ;motors.c: 163: lcdInst(0b10000000);;
 "163
-[e ( _printf :s 2C ]
-[; ;motors.c: 164: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 164: printf("bigNose to          ");
 "164
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;motors.c: 165: switch(next){
+[e ( _printf :s 2C ]
+[; ;motors.c: 165: __lcd_newline();
 "165
+[e ( ___lcd_newline ..  ]
+[; ;motors.c: 166: switch(next){
+"166
 [e $U 295  ]
 {
-[; ;motors.c: 166: case 0:
-"166
-[e :U 296 ]
-[; ;motors.c: 167: printf("uncharged    ");
+[; ;motors.c: 167: case 0:
 "167
-[e ( _printf :s 3C ]
-[; ;motors.c: 168: break;
+[e :U 296 ]
+[; ;motors.c: 168: printf("uncharged          ");
 "168
-[e $U 294  ]
-[; ;motors.c: 169: case 1:
+[e ( _printf :s 3C ]
+[; ;motors.c: 169: break;
 "169
-[e :U 297 ]
-[; ;motors.c: 170: printf("C    ");
+[e $U 294  ]
+[; ;motors.c: 170: case 1:
 "170
-[e ( _printf :s 4C ]
-[; ;motors.c: 171: break;
+[e :U 297 ]
+[; ;motors.c: 171: printf("C          ");
 "171
-[e $U 294  ]
-[; ;motors.c: 172: case 2:
+[e ( _printf :s 4C ]
+[; ;motors.c: 172: break;
 "172
-[e :U 298 ]
-[; ;motors.c: 173: printf("9V    ");
+[e $U 294  ]
+[; ;motors.c: 173: case 2:
 "173
-[e ( _printf :s 5C ]
-[; ;motors.c: 174: break;
+[e :U 298 ]
+[; ;motors.c: 174: printf("9V          ");
 "174
-[e $U 294  ]
-[; ;motors.c: 175: default:
+[e ( _printf :s 5C ]
+[; ;motors.c: 175: break;
 "175
-[e :U 299 ]
-[; ;motors.c: 176: printf("uncharged    ");
-"176
-[e ( _printf :s 6C ]
-"177
-}
-[; ;motors.c: 177: }
 [e $U 294  ]
-"165
+[; ;motors.c: 176: default:
+"176
+[e :U 299 ]
+[; ;motors.c: 177: printf("uncharged          ");
+"177
+[e ( _printf :s 6C ]
+"178
+}
+[; ;motors.c: 178: }
+[e $U 294  ]
+"166
 [e :U 295 ]
 [e [\ _next , $ -> 0 `i 296
  , $ -> 1 `i 297
  , $ -> 2 `i 298
  299 ]
-"177
+"178
 [e :U 294 ]
-[; ;motors.c: 179: if (*prev == next)return;
-"179
+[; ;motors.c: 180: if (*prev == next)return;
+"180
 [e $ ! == *U _prev _next 300  ]
 [e $UE 293  ]
 [e :U 300 ]
-[; ;motors.c: 180: while (*prev < next) {
-"180
+[; ;motors.c: 181: while (*prev < next) {
+"181
 [e $U 301  ]
 [e :U 302 ]
 {
-[; ;motors.c: 182: *prev++;
-"182
-[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+[; ;motors.c: 183: *prev++;
 "183
+[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"184
 }
 [e :U 301 ]
-"180
+"181
 [e $ < *U _prev _next 302  ]
 [e :U 303 ]
-[; ;motors.c: 183: }
-[; ;motors.c: 184: while (*prev > next) {
-"184
+[; ;motors.c: 184: }
+[; ;motors.c: 185: while (*prev > next) {
+"185
 [e $U 304  ]
 [e :U 305 ]
 {
-[; ;motors.c: 187: *prev--;
-"187
-[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+[; ;motors.c: 188: *prev--;
 "188
+[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"189
 }
 [e :U 304 ]
-"184
+"185
 [e $ > *U _prev _next 305  ]
 [e :U 306 ]
-[; ;motors.c: 188: }
 [; ;motors.c: 189: }
-"189
+[; ;motors.c: 190: }
+"190
 [e :UE 293 ]
 }
-"191
+"192
 [v _moveSmallNose `(v ~T0 @X0 1 ef2`*i`i ]
 {
-[; ;motors.c: 191: void moveSmallNose(int * prev, int next) {
+[; ;motors.c: 192: void moveSmallNose(int * prev, int next) {
 [e :U _moveSmallNose ]
 [v _prev `*i ~T0 @X0 1 r1 ]
 [v _next `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;motors.c: 195: lcdInst(0b10000000);;
-"195
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 196: printf("smallNose to   ");
+[; ;motors.c: 196: lcdInst(0b10000000);;
 "196
-[e ( _printf :s 7C ]
-[; ;motors.c: 197: lcdInst(0b11000000);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 197: printf("smallNose to          ");
 "197
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;motors.c: 198: if (next) {
+[e ( _printf :s 7C ]
+[; ;motors.c: 198: __lcd_newline();
 "198
+[e ( ___lcd_newline ..  ]
+[; ;motors.c: 199: if (next) {
+"199
 [e $ ! != _next -> 0 `i 308  ]
 {
-[; ;motors.c: 199: printf("AA");
-"199
-[e ( _printf :s 8C ]
+[; ;motors.c: 200: printf("AA          ");
 "200
+[e ( _printf :s 8C ]
+"201
 }
-[; ;motors.c: 200: } else {
+[; ;motors.c: 201: } else {
 [e $U 309  ]
 [e :U 308 ]
 {
-[; ;motors.c: 201: printf("uncharged    ");
-"201
-[e ( _printf :s 9C ]
+[; ;motors.c: 202: printf("uncharged          ");
 "202
+[e ( _printf :s 9C ]
+"203
 }
 [e :U 309 ]
-[; ;motors.c: 202: }
-[; ;motors.c: 205: if (*prev == next)return;
-"205
+[; ;motors.c: 203: }
+[; ;motors.c: 206: if (*prev == next)return;
+"206
 [e $ ! == *U _prev _next 310  ]
 [e $UE 307  ]
 [e :U 310 ]
-[; ;motors.c: 206: while (*prev < next) {
-"206
+[; ;motors.c: 207: while (*prev < next) {
+"207
 [e $U 311  ]
 [e :U 312 ]
 {
-[; ;motors.c: 208: *prev++;
-"208
-[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+[; ;motors.c: 209: *prev++;
 "209
+[e *U ++ _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"210
 }
 [e :U 311 ]
-"206
+"207
 [e $ < *U _prev _next 312  ]
 [e :U 313 ]
-[; ;motors.c: 209: }
-[; ;motors.c: 210: while (*prev > next) {
-"210
+[; ;motors.c: 210: }
+[; ;motors.c: 211: while (*prev > next) {
+"211
 [e $U 314  ]
 [e :U 315 ]
 {
-[; ;motors.c: 213: *prev--;
-"213
-[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+[; ;motors.c: 214: *prev--;
 "214
+[e *U -- _prev * -> -> 1 `i `x -> -> # *U _prev `i `x ]
+"215
 }
 [e :U 314 ]
-"210
+"211
 [e $ > *U _prev _next 315  ]
 [e :U 316 ]
-[; ;motors.c: 214: }
 [; ;motors.c: 215: }
-"215
+[; ;motors.c: 216: }
+"216
 [e :UE 307 ]
 }
-"217
+"218
 [v _stopMoving `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 217: void stopMoving() {
+[; ;motors.c: 218: void stopMoving() {
 [e :U _stopMoving ]
 [f ]
-[; ;motors.c: 218: (INTCONbits.GIE = 0);
-"218
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 219: lcdInst(0b10000000);;
+[; ;motors.c: 219: (INTCONbits.GIE = 0);
 "219
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 220: printf("Stopped    ");
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;motors.c: 220: lcdInst(0b10000000);;
 "220
-[e ( _printf :s 10C ]
-[; ;motors.c: 221: ; while(1);;
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 221: printf("Stopped          ");
 "221
+[e ( _printf :s 10C ]
+[; ;motors.c: 222: ; while(1);;
+"222
 [e :U 319 ]
 [e :U 318 ]
 [e $U 319  ]
 [e :U 320 ]
-[; ;motors.c: 223: }
-"223
+[; ;motors.c: 224: }
+"224
 [e :UE 317 ]
 }
 [p f _printf 8388608 ]
-[a 8C 65 65 0 ]
-[a 7C 115 109 97 108 108 78 111 115 101 32 116 111 32 32 32 0 ]
-[a 1C 82 111 116 97 116 105 110 103 32 88 115 32 32 32 32 0 ]
-[a 2C 98 105 103 78 111 115 101 32 116 111 32 32 32 32 0 ]
-[a 10C 83 116 111 112 112 101 100 32 32 32 32 0 ]
-[a 3C 117 110 99 104 97 114 103 101 100 32 32 32 32 0 ]
-[a 6C 117 110 99 104 97 114 103 101 100 32 32 32 32 0 ]
-[a 9C 117 110 99 104 97 114 103 101 100 32 32 32 32 0 ]
-[a 5C 57 86 32 32 32 32 0 ]
-[a 4C 67 32 32 32 32 0 ]
+[a 1C 82 111 116 97 116 105 110 103 32 88 115 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 7C 115 109 97 108 108 78 111 115 101 32 116 111 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 2C 98 105 103 78 111 115 101 32 116 111 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 10C 83 116 111 112 112 101 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 3C 117 110 99 104 97 114 103 101 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 6C 117 110 99 104 97 114 103 101 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 9C 117 110 99 104 97 114 103 101 100 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 5C 57 86 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 4C 67 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 8C 65 65 32 32 32 32 32 32 32 32 32 32 0 ]

@@ -33,17 +33,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4518
 [v _ADCON0bits `VS178 ~T0 @X0 0 e@4034 ]
 [v F3059 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+"161 pic18.h
 [v __delay `JF3059 ~T0 @X0 0 e ]
 [p i __delay ]
 "4604 pic18f4620.h
 [v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
 "4598
 [v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+"14 lcd.h
+[v ___lcd_newline `(v ~T0 @X0 0 ef ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"11 lcd.h
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 "1316 pic18f4620.h
 [v _LATE `Vuc ~T0 @X0 0 e@3981 ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
@@ -2796,6 +2798,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f4620.h: 7786: extern volatile __bit nW @ (((unsigned) &SSPSTAT)*8) + 2;
 [; ;pic18f4620.h: 7788: extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 [; ;pic18f4620.h: 7790: extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
+[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
+[; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
+[; ;pic18.h: 43: extern void __nop(void);
+[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2862,17 +2875,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "61
 [p x EBTRB=OFF ]
-[; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
-[; ;htc.h: 28: extern double __fpnormalize(double);
-[; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
-[; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 135: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 136: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 137: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -2902,6 +2904,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
+[; ;lcd.h: 14: void __lcd_newline();
 [; ;motors.h: 1: void stopMoving();
 [; ;motors.h: 2: void moveBigNose(int * prev, int next);
 [; ;motors.h: 3: void moveSmallNose(int * prev, int next);
@@ -2920,10 +2923,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.h: 2: int checkV(int voltage, float max);
 [; ;sensors.h: 3: int checkAA(int* sorted);
 [; ;sensors.h: 4: int checkC9V(int* sorted);
-[; ;modules.h: 19: void showInfo(unsigned int time, unsigned int * sorted);
-[; ;modules.h: 20: void interrupt keypressed(void);
-[; ;modules.h: 21: unsigned int captureKeypad();
-[; ;modules.h: 22: int getTime();
+[; ;modules.h: 20: void showInfo(unsigned int time, unsigned int * sorted);
+[; ;modules.h: 21: void interrupt keypressed(void);
+[; ;modules.h: 22: unsigned int captureKeypad();
+[; ;modules.h: 23: int getTime();
 "3 sensors.c
 [v _AD `(i ~T0 @X0 1 ef1`uc ]
 {
@@ -2971,9 +2974,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _voltage `i ~T0 @X0 1 r1 ]
 [v _max `f ~T0 @X0 1 r2 ]
 [f ]
-[; ;sensors.c: 17: lcdInst(0b11000000);;
+[; ;sensors.c: 17: __lcd_newline();
 "17
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
+[e ( ___lcd_newline ..  ]
 [; ;sensors.c: 18: printf("%d received    ", voltage);
 "18
 [e ( _printf , (. :s 1C _voltage ]
@@ -2992,9 +2995,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _i `i -> 10 `i 275  ]
 [e :U 276 ]
 }
-[; ;sensors.c: 20: if (voltage > 1023 * 4 / 5) {
+[; ;sensors.c: 20: if (voltage < 50) {
 "20
-[e $ ! > _voltage / * -> 1023 `i -> 4 `i -> 5 `i 278  ]
+[e $ ! < _voltage -> 50 `i 278  ]
 {
 [; ;sensors.c: 21: return 0;
 "21
@@ -3017,326 +3020,326 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 281  ]
 [e :U 280 ]
 {
-[; ;sensors.c: 26: return -1;
-"26
+[; ;sensors.c: 25: return -1;
+"25
 [e ) -U -> 1 `i ]
 [e $UE 274  ]
-"27
+"26
 }
 [e :U 281 ]
 [e :U 279 ]
+[; ;sensors.c: 26: }
 [; ;sensors.c: 27: }
-[; ;sensors.c: 28: }
-"28
+"27
 [e :UE 274 ]
 }
-"30
+"29
 [v _checkAA `(i ~T0 @X0 1 ef1`*i ]
 {
-[; ;sensors.c: 30: int checkAA(int* sorted) {
+[; ;sensors.c: 29: int checkAA(int* sorted) {
 [e :U _checkAA ]
 [v _sorted `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 32: lcdInst(0b10000000);;
-"32
+[; ;sensors.c: 31: lcdInst(0b10000000);;
+"31
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 33: printf("AA:     ");
-"33
+[; ;sensors.c: 32: printf("AA:          ");
+"32
 [e ( _printf :s 2C ]
-[; ;sensors.c: 34: lcdInst(0b11000000);;
+[; ;sensors.c: 33: __lcd_newline();
+"33
+[e ( ___lcd_newline ..  ]
+[; ;sensors.c: 34: _delay((unsigned long)((1000)*(8000000/4000.0)));
 "34
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;sensors.c: 35: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"35
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 36: switch (checkV(AD(0), 1.5)) {
-"36
+[; ;sensors.c: 35: switch (checkV(AD(0), 1.5)) {
+"35
 [e $U 284  ]
 {
-[; ;sensors.c: 37: case 1:
-"37
+[; ;sensors.c: 36: case 1:
+"36
 [e :U 285 ]
-[; ;sensors.c: 38: lcdInst(0b10000000);;
-"38
+[; ;sensors.c: 37: lcdInst(0b10000000);;
+"37
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 39: printf("charged AA    ");
-"39
+[; ;sensors.c: 38: printf("charged AA          ");
+"38
 [e ( _printf :s 3C ]
-[; ;sensors.c: 40: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"40
+[; ;sensors.c: 39: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"39
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 41: sorted[0]++;
-"41
+[; ;sensors.c: 40: sorted[0]++;
+"40
 [e ++ *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 42: return 1;
-"42
+[; ;sensors.c: 41: return 1;
+"41
 [e ) -> 1 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 43: case -1:
-"43
+[; ;sensors.c: 42: case -1:
+"42
 [e :U 286 ]
-[; ;sensors.c: 44: lcdInst(0b11000000);;
+[; ;sensors.c: 43: __lcd_newline();
+"43
+[e ( ___lcd_newline ..  ]
+[; ;sensors.c: 44: printf("uncharged AA          ");
 "44
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;sensors.c: 45: printf("uncharged AA     ");
-"45
 [e ( _printf :s 4C ]
-[; ;sensors.c: 46: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"46
+[; ;sensors.c: 45: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"45
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 47: sorted[3]++;
-"47
+[; ;sensors.c: 46: sorted[3]++;
+"46
 [e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 48: return 0;
-"48
+[; ;sensors.c: 47: return 0;
+"47
 [e ) -> 0 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 49: case 0:
-"49
+[; ;sensors.c: 48: case 0:
+"48
 [e :U 287 ]
-[; ;sensors.c: 50: lcdInst(0b10000000);;
-"50
+[; ;sensors.c: 49: lcdInst(0b10000000);;
+"49
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 51: printf("no AA     ");
-"51
+[; ;sensors.c: 50: printf("no AA          ");
+"50
 [e ( _printf :s 5C ]
-[; ;sensors.c: 52: return -1;
-"52
+[; ;sensors.c: 51: return -1;
+"51
 [e ) -U -> 1 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 53: default:
-"53
+[; ;sensors.c: 52: default:
+"52
 [e :U 288 ]
-[; ;sensors.c: 54: return 0;
-"54
+[; ;sensors.c: 53: return 0;
+"53
 [e ) -> 0 `i ]
 [e $UE 282  ]
-"55
+"54
 }
-[; ;sensors.c: 55: }
+[; ;sensors.c: 54: }
 [e $U 283  ]
-"36
+"35
 [e :U 284 ]
 [e [\ ( _checkV (2 , ( _AD (1 -> -> 0 `i `uc -> .1.5 `f , $ -> 1 `i 285
  , $ -U -> 1 `i 286
  , $ -> 0 `i 287
  288 ]
-"55
+"54
 [e :U 283 ]
-[; ;sensors.c: 56: }
-"56
+[; ;sensors.c: 55: }
+"55
 [e :UE 282 ]
 }
-"58
+"57
 [v _checkC9V `(i ~T0 @X0 1 ef1`*i ]
 {
-[; ;sensors.c: 58: int checkC9V(int* sorted) {
+[; ;sensors.c: 57: int checkC9V(int* sorted) {
 [e :U _checkC9V ]
 [v _sorted `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 61: LATE = 0b1000;
+[; ;sensors.c: 60: LATE = 0b100;
+"60
+[e = _LATE -> -> 4 `i `uc ]
+[; ;sensors.c: 61: lcdInst(0b10000000);;
 "61
-[e = _LATE -> -> 8 `i `uc ]
-[; ;sensors.c: 62: lcdInst(0b10000000);;
-"62
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 63: printf("V3");
-"63
+[; ;sensors.c: 62: printf("V3          ");
+"62
 [e ( _printf :s 6C ]
-[; ;sensors.c: 64: switch (checkV(AD(3), 1.5)) {
-"64
+[; ;sensors.c: 63: switch (checkV(AD(3), 1.5)) {
+"63
 [e $U 291  ]
 {
-[; ;sensors.c: 65: case 0:
-"65
+[; ;sensors.c: 64: case 0:
+"64
 [e :U 292 ]
-[; ;sensors.c: 66: lcdInst(0b10000000);;
-"66
+[; ;sensors.c: 65: lcdInst(0b10000000);;
+"65
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 67: printf("9:");
-"67
+[; ;sensors.c: 66: printf("9:          ");
+"66
 [e ( _printf :s 7C ]
-[; ;sensors.c: 68: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"68
+[; ;sensors.c: 67: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"67
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"70
+"69
 [v _i `i ~T0 @X0 1 a ]
-[; ;sensors.c: 70: int i = 1;
+[; ;sensors.c: 69: int i = 1;
 [e = _i -> 1 `i ]
-[; ;sensors.c: 71: for (i; i < 3; i++) {
-"71
+[; ;sensors.c: 70: for (i; i < 3; i++) {
+"70
 {
 [e _i ]
 [e $ < _i -> 3 `i 293  ]
 [e $U 294  ]
 [e :U 293 ]
 {
-[; ;sensors.c: 73: lcdInst(0b11000000);;
+[; ;sensors.c: 72: __lcd_newline();
+"72
+[e ( ___lcd_newline ..  ]
+[; ;sensors.c: 73: printf("channel %d   ", i);
 "73
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;sensors.c: 74: printf("channel %d   ", i);
-"74
 [e ( _printf , (. :s 8C _i ]
-[; ;sensors.c: 75: lcdInst(0b10000000);;
-"75
+[; ;sensors.c: 74: lcdInst(0b10000000);;
+"74
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 76: _delay((unsigned long)((900)*(8000000/4000.0)));
-"76
+[; ;sensors.c: 75: _delay((unsigned long)((900)*(8000000/4000.0)));
+"75
 [e ( __delay (1 -> * -> -> 900 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 77: LATE = i == 1 ? 0 : 0b0110;
+[; ;sensors.c: 76: LATE = i == 1 ? 0 : 0b011;
+"76
+[e = _LATE -> ? == _i -> 1 `i : -> 0 `i -> 3 `i `uc ]
+[; ;sensors.c: 77: switch (checkV(AD(i), 3.6)) {
 "77
-[e = _LATE -> ? == _i -> 1 `i : -> 0 `i -> 6 `i `uc ]
-[; ;sensors.c: 78: switch (checkV(AD(i), 3.6)) {
-"78
 [e $U 297  ]
 {
-[; ;sensors.c: 79: case 1:
-"79
+[; ;sensors.c: 78: case 1:
+"78
 [e :U 298 ]
-[; ;sensors.c: 80: lcdInst(0b10000000);;
-"80
+[; ;sensors.c: 79: lcdInst(0b10000000);;
+"79
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 81: printf("charged 9V  ");
-"81
+[; ;sensors.c: 80: printf("charged 9V          ");
+"80
 [e ( _printf :s 9C ]
-[; ;sensors.c: 82: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"82
+[; ;sensors.c: 81: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"81
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 83: sorted[2]++;
-"83
+[; ;sensors.c: 82: sorted[2]++;
+"82
 [e ++ *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 84: return 2;
-"84
+[; ;sensors.c: 83: return 2;
+"83
 [e ) -> 2 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 85: case -1:
-"85
+[; ;sensors.c: 84: case -1:
+"84
 [e :U 299 ]
-[; ;sensors.c: 86: lcdInst(0b11000000);;
+[; ;sensors.c: 85: __lcd_newline();
+"85
+[e ( ___lcd_newline ..  ]
+[; ;sensors.c: 86: printf("uncharged 9V          ");
 "86
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;sensors.c: 87: printf("uncharged 9V   ");
-"87
 [e ( _printf :s 10C ]
-[; ;sensors.c: 88: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"88
+[; ;sensors.c: 87: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"87
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 89: sorted[3]++;
-"89
+[; ;sensors.c: 88: sorted[3]++;
+"88
 [e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 90: return 0;
-"90
+[; ;sensors.c: 89: return 0;
+"89
 [e ) -> 0 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 91: default:
-"91
+[; ;sensors.c: 90: default:
+"90
 [e :U 300 ]
-[; ;sensors.c: 92: lcdInst(0b10000000);;
-"92
+[; ;sensors.c: 91: lcdInst(0b10000000);;
+"91
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 93: printf("no 9    ");
-"93
+[; ;sensors.c: 92: printf("no 9          ");
+"92
 [e ( _printf :s 11C ]
-[; ;sensors.c: 94: continue;
-"94
+[; ;sensors.c: 93: continue;
+"93
 [e $U 295  ]
-"95
+"94
 }
-[; ;sensors.c: 95: }
+[; ;sensors.c: 94: }
 [e $U 296  ]
-"78
+"77
 [e :U 297 ]
 [e [\ ( _checkV (2 , ( _AD (1 -> _i `uc -> .3.6 `f , $ -> 1 `i 298
  , $ -U -> 1 `i 299
  300 ]
-"95
+"94
 [e :U 296 ]
-"96
+"95
 }
-"71
+"70
 [e :U 295 ]
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 3 `i 293  ]
 [e :U 294 ]
-"96
+"95
 }
-[; ;sensors.c: 96: }
-[; ;sensors.c: 97: return -1;
-"97
+[; ;sensors.c: 95: }
+[; ;sensors.c: 96: return -1;
+"96
 [e ) -U -> 1 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 98: case 1:
-"98
+[; ;sensors.c: 97: case 1:
+"97
 [e :U 301 ]
-[; ;sensors.c: 100: lcdInst(0b10000000);;
-"100
+[; ;sensors.c: 99: lcdInst(0b10000000);;
+"99
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 101: printf("charged C    ");
-"101
+[; ;sensors.c: 100: printf("charged C          ");
+"100
 [e ( _printf :s 12C ]
-[; ;sensors.c: 102: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"102
+[; ;sensors.c: 101: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"101
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 103: sorted[1]++;
-"103
+[; ;sensors.c: 102: sorted[1]++;
+"102
 [e ++ *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 104: return 1;
-"104
+[; ;sensors.c: 103: return 1;
+"103
 [e ) -> 1 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 105: case -1:
-"105
+[; ;sensors.c: 104: case -1:
+"104
 [e :U 302 ]
-[; ;sensors.c: 106: lcdInst(0b11000000);;
+[; ;sensors.c: 105: __lcd_newline();
+"105
+[e ( ___lcd_newline ..  ]
+[; ;sensors.c: 106: printf("uncharged C          ");
 "106
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;sensors.c: 107: printf("uncharged C    ");
-"107
 [e ( _printf :s 13C ]
-[; ;sensors.c: 108: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"108
+[; ;sensors.c: 107: _delay((unsigned long)((1000)*(8000000/4000.0)));
+"107
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 109: sorted[3]++;
-"109
+[; ;sensors.c: 108: sorted[3]++;
+"108
 [e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> 1 `i ]
-[; ;sensors.c: 110: return 0;
-"110
+[; ;sensors.c: 109: return 0;
+"109
 [e ) -> 0 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 111: default:
-"111
+[; ;sensors.c: 110: default:
+"110
 [e :U 303 ]
-[; ;sensors.c: 112: return -1;
-"112
+[; ;sensors.c: 111: return -1;
+"111
 [e ) -U -> 1 `i ]
 [e $UE 289  ]
-"113
+"112
 }
-[; ;sensors.c: 113: }
+[; ;sensors.c: 112: }
 [e $U 290  ]
-"64
+"63
 [e :U 291 ]
 [e [\ ( _checkV (2 , ( _AD (1 -> -> 3 `i `uc -> .1.5 `f , $ -> 0 `i 292
  , $ -> 1 `i 301
  , $ -U -> 1 `i 302
  303 ]
-"113
+"112
 [e :U 290 ]
-[; ;sensors.c: 114: }
-"114
+[; ;sensors.c: 113: }
+"113
 [e :UE 289 ]
 }
 [p f _printf 8388736 ]
-[a 7C 57 58 0 ]
-[a 6C 86 51 0 ]
-[a 9C 99 104 97 114 103 101 100 32 57 86 32 32 0 ]
 [a 8C 99 104 97 110 110 101 108 32 37 100 32 32 32 0 ]
-[a 10C 117 110 99 104 97 114 103 101 100 32 57 86 32 32 32 0 ]
 [a 1C 37 100 32 114 101 99 101 105 118 101 100 32 32 32 32 0 ]
-[a 13C 117 110 99 104 97 114 103 101 100 32 67 32 32 32 32 0 ]
-[a 12C 99 104 97 114 103 101 100 32 67 32 32 32 32 0 ]
-[a 3C 99 104 97 114 103 101 100 32 65 65 32 32 32 32 0 ]
-[a 11C 110 111 32 57 32 32 32 32 0 ]
-[a 5C 110 111 32 65 65 32 32 32 32 32 0 ]
-[a 4C 117 110 99 104 97 114 103 101 100 32 65 65 32 32 32 32 32 0 ]
-[a 2C 65 65 58 32 32 32 32 32 0 ]
+[a 10C 117 110 99 104 97 114 103 101 100 32 57 86 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 9C 99 104 97 114 103 101 100 32 57 86 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 13C 117 110 99 104 97 114 103 101 100 32 67 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 12C 99 104 97 114 103 101 100 32 67 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 5C 110 111 32 65 65 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 4C 117 110 99 104 97 114 103 101 100 32 65 65 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 3C 99 104 97 114 103 101 100 32 65 65 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 2C 65 65 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 7C 57 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 11C 110 111 32 57 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 6C 86 51 32 32 32 32 32 32 32 32 32 32 0 ]
