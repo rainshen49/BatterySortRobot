@@ -8,5 +8,5 @@ lcd.h  \
 modules.h  \
 macros.h  \
 constants.h  \
-sensors.h  \
-configBits.h 
+configBits.h  \
+common.h 

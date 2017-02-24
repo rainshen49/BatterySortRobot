@@ -4,8 +4,7 @@
  *
  * Created on July 18, 2016, 12:11 PM
  */
-
-#include "modules.h"
+#include "common.h"
 
 void initLCD(void) {
     __delay_ms(15);

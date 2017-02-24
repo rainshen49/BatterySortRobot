@@ -13,6 +13,7 @@
       <itemPath>motors.h</itemPath>
       <itemPath>sensors.h</itemPath>
       <itemPath>pic18.h</itemPath>
+      <itemPath>common.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
