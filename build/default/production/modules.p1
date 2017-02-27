@@ -1,5 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"191 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"6272 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+[s S258 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S258 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
+"6282
+[s S259 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S259 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
+"6292
+[s S260 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S260 . . GIEL GIEH ]
+"6271
+[u S257 `S258 1 `S259 1 `S260 1 ]
+[n S257 . . . . ]
+"6298
+[v _INTCONbits `VS257 ~T0 @X0 0 e@4082 ]
+"191
 [s S11 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S11 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
 "201
@@ -20,32 +34,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 "6898
 [v _INT1IF `Vb ~T0 @X0 0 e@32640 ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"4 motors.h
-[v _stopMoving `(v ~T0 @X0 0 ef ]
-"6272 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
-[s S258 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S258 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"6282
-[s S259 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S259 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"6292
-[s S260 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S260 . . GIEL GIEH ]
-"6271
-[u S257 `S258 1 `S259 1 `S260 1 ]
-[n S257 . . . . ]
-"6298
-[v _INTCONbits `VS257 ~T0 @X0 0 e@4082 ]
 "11 lcd.h
 [v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
-[v F2878 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
-[v __delay `JF2878 ~T0 @X0 0 e ]
-[p i __delay ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "14 lcd.h
 [v ___lcd_newline `(v ~T0 @X0 0 ef ]
+"4 I2C.h
+[v _I2C_Master_Start `(v ~T0 @X0 0 ef ]
+"2
+[v _I2C_Master_Write `(v ~T0 @X0 0 ef1`ui ]
+"5
+[v _I2C_Master_Stop `(v ~T0 @X0 0 ef ]
+"3
+[v _I2C_Master_Read `(uc ~T0 @X0 0 ef1`uc ]
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2854,331 +2856,325 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 13: void initLCD(void);
 [; ;lcd.h: 14: void __lcd_newline();
 [; ;modules.h: 8: unsigned int captureKeypad();
-[; ;modules.h: 9: void interrupt keypressed(void);
-[; ;modules.h: 10: void showInfo(unsigned int time, unsigned int *sorted);
-[; ;modules.h: 11: int getTime();
+[; ;modules.h: 9: void showInfo(unsigned int time, unsigned char *sorted);
+[; ;modules.h: 10: void getTime(unsigned char * time);
 [; ;motors.h: 1: void PWMC(int widthus, int cycles, int * port);
 [; ;motors.h: 2: void CW90(int * port);
 [; ;motors.h: 3: void CCW90(int * port);
-[; ;motors.h: 4: void stopMoving();
-"5 modules.c
+[; ;motors.h: 4: void stopMoving(char em);
+[; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
+[; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
+[; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);
+[; ;I2C.h: 4: void I2C_Master_Start();
+[; ;I2C.h: 5: void I2C_Master_Stop();
+"6 modules.c
 [v _captureKeypad `(ui ~T0 @X0 1 ef ]
-"6
 {
-[; ;modules.c: 5: unsigned int captureKeypad()
-[; ;modules.c: 6: {
+[; ;modules.c: 6: unsigned int captureKeypad() {
 [e :U _captureKeypad ]
 [f ]
-[; ;modules.c: 7: while (!PORTBbits.RB1)
+[; ;modules.c: 7: (INTCONbits.GIE = 0);
 "7
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;modules.c: 8: while (!PORTBbits.RB1)
+"8
 [e $U 267  ]
 [e :U 268 ]
-[; ;modules.c: 8: ;
-"8
+[; ;modules.c: 9: ;
+"9
 [e :U 267 ]
-"7
+"8
 [e $ ! != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 268  ]
 [e :U 269 ]
-"9
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 9: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 10: while (PORTBbits.RB1)
 "10
+[v _keypress `uc ~T0 @X0 1 a ]
+[; ;modules.c: 10: unsigned char keypress = (PORTB & 0xF0) >> 4;
+[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
+[; ;modules.c: 11: while (PORTBbits.RB1)
+"11
 [e $U 270  ]
 [e :U 271 ]
-[; ;modules.c: 11: ;
-"11
+[; ;modules.c: 12: ;
+"12
 [e :U 270 ]
-"10
+"11
 [e $ != -> . . _PORTBbits 0 1 `i -> -> -> 0 `i `Vuc `i 271  ]
 [e :U 272 ]
-[; ;modules.c: 12: INT1IF = 0;
-"12
+[; ;modules.c: 13: INT1IF = 0;
+"13
 [e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 14: return keypress;
+[; ;modules.c: 14: (INTCONbits.GIE = 1);
 "14
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;modules.c: 15: return keypress;
+"15
 [e ) -> _keypress `ui ]
 [e $UE 266  ]
-[; ;modules.c: 15: }
-"15
+[; ;modules.c: 16: }
+"16
 [e :UE 266 ]
 }
-[v F3041 `(v ~T0 @X0 1 tf ]
-"17
-[v _keypressed `IF3041 ~T0 @X0 1 e ]
 "18
+[v _showInfo `(v ~T0 @X0 1 ef2`ui`*uc ]
 {
-[; ;modules.c: 17: void interrupt keypressed(void)
-[; ;modules.c: 18: {
-[e :U _keypressed ]
-[f ]
-[; ;modules.c: 20: if (INT1IF)
-"20
-[e $ ! _INT1IF 274  ]
-[; ;modules.c: 21: {
-"21
-{
-"23
-[v _keypress `uc ~T0 @X0 1 a ]
-[; ;modules.c: 23: unsigned char keypress = (PORTB & 0xF0) >> 4;
-[e = _keypress -> >> & -> _PORTB `i -> 240 `i -> 4 `i `uc ]
-[; ;modules.c: 24: INT1IF = 0;
-"24
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;modules.c: 25: printf("Emergency          ");
-"25
-[e ( _printf :s 1C ]
-[; ;modules.c: 26: stopMoving();
-"26
-[e ( _stopMoving ..  ]
-"27
-}
-[e :U 274 ]
-[; ;modules.c: 27: }
-[; ;modules.c: 28: }
-"28
-[e :UE 273 ]
-}
-"30
-[v _showInfo `(v ~T0 @X0 1 ef2`ui`*ui ]
-"31
-{
-[; ;modules.c: 30: void showInfo(unsigned int time, unsigned int *sorted)
-[; ;modules.c: 31: {
+[; ;modules.c: 18: void showInfo(unsigned int time, unsigned char *sorted) {
 [e :U _showInfo ]
-"30
 [v _time `ui ~T0 @X0 1 r1 ]
-[v _sorted `*ui ~T0 @X0 1 r2 ]
-"31
+[v _sorted `*uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;modules.c: 32: (INTCONbits.GIE = 0);
-"32
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;modules.c: 33: lcdInst(0b10000000);;
-"33
+[; ;modules.c: 19: lcdInst(0b10000000);;
+"19
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 34: printf("Sorting Complete          ");
-"34
-[e ( _printf :s 2C ]
-[; ;modules.c: 35: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"35
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;modules.c: 36: lcdInst(0b10000000);;
-"36
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 37: printf("Press a number          ");
-"37
-[e ( _printf :s 3C ]
-[; ;modules.c: 38: __lcd_newline();
-"38
+[; ;modules.c: 20: printf("Press a number          ");
+"20
+[e ( _printf :s 1C ]
+[; ;modules.c: 21: __lcd_newline();
+"21
 [e ( ___lcd_newline ..  ]
-[; ;modules.c: 39: printf("For more info          ");
-"39
-[e ( _printf :s 4C ]
-"40
+[; ;modules.c: 22: printf("For more info          ");
+"22
+[e ( _printf :s 2C ]
+"23
 [v _type `i ~T0 @X0 1 a ]
-[; ;modules.c: 40: int type = 0;
+[; ;modules.c: 23: int type = 0;
 [e = _type -> 0 `i ]
-[; ;modules.c: 41: while (1)
-"41
-[e :U 277 ]
-[; ;modules.c: 42: {
-"42
+"24
+[v _stop `i ~T0 @X0 1 a ]
+[; ;modules.c: 24: int stop = 0;
+[e = _stop -> 0 `i ]
+[; ;modules.c: 25: while (!stop) {
+"25
+[e $U 274  ]
+[e :U 275 ]
 {
-[; ;modules.c: 43: type = captureKeypad();
-"43
+[; ;modules.c: 26: type = captureKeypad();
+"26
 [e = _type -> ( _captureKeypad ..  `i ]
-[; ;modules.c: 44: switch (type)
-"44
-[e $U 280  ]
-[; ;modules.c: 45: {
-"45
+[; ;modules.c: 27: switch (type) {
+"27
+[e $U 278  ]
 {
-[; ;modules.c: 46: case (0):
-"46
+[; ;modules.c: 28: case (0):
+"28
+[e :U 279 ]
+[; ;modules.c: 29: lcdInst(0b10000000);;
+"29
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 30: printf("Time Elapsed:          ");
+"30
+[e ( _printf :s 3C ]
+[; ;modules.c: 31: __lcd_newline();
+"31
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 32: printf("%u seconds          ", time);
+"32
+[e ( _printf , (. :s 4C _time ]
+[; ;modules.c: 33: break;
+"33
+[e $U 277  ]
+[; ;modules.c: 34: case (1):
+"34
+[e :U 280 ]
+[; ;modules.c: 35: lcdInst(0b10000000);;
+"35
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 36: printf("Total Sorted:          ");
+"36
+[e ( _printf :s 5C ]
+[; ;modules.c: 37: __lcd_newline();
+"37
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 38: printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+"38
+[e ( _printf , (. :s 6C + + + -> *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x `i -> *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x `i -> *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x `i -> *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x `i ]
+[; ;modules.c: 39: break;
+"39
+[e $U 277  ]
+[; ;modules.c: 40: case (2):
+"40
 [e :U 281 ]
+[; ;modules.c: 41: lcdInst(0b10000000);;
+"41
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;modules.c: 42: printf("AA Sorted:          ");
+"42
+[e ( _printf :s 7C ]
+[; ;modules.c: 43: __lcd_newline();
+"43
+[e ( ___lcd_newline ..  ]
+[; ;modules.c: 44: printf("%d             ", sorted[0]);
+"44
+[e ( _printf , (. :s 8C -> *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x `i ]
+[; ;modules.c: 45: break;
+"45
+[e $U 277  ]
+[; ;modules.c: 46: case (3):
+"46
+[e :U 282 ]
 [; ;modules.c: 47: lcdInst(0b10000000);;
 "47
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 48: printf("Time Elapsed:          ");
+[; ;modules.c: 48: printf("C Sorted:          ");
 "48
-[e ( _printf :s 5C ]
+[e ( _printf :s 9C ]
 [; ;modules.c: 49: __lcd_newline();
 "49
 [e ( ___lcd_newline ..  ]
-[; ;modules.c: 50: printf("%d seconds          ", time);
+[; ;modules.c: 50: printf("%d             ", sorted[1]);
 "50
-[e ( _printf , (. :s 6C _time ]
+[e ( _printf , (. :s 10C -> *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x `i ]
 [; ;modules.c: 51: break;
 "51
-[e $U 279  ]
-[; ;modules.c: 52: case (1):
+[e $U 277  ]
+[; ;modules.c: 52: case (4):
 "52
-[e :U 282 ]
+[e :U 283 ]
 [; ;modules.c: 53: lcdInst(0b10000000);;
 "53
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 54: printf("Total Sorted:          ");
+[; ;modules.c: 54: printf("9V Sorted:          ");
 "54
-[e ( _printf :s 7C ]
+[e ( _printf :s 11C ]
 [; ;modules.c: 55: __lcd_newline();
 "55
 [e ( ___lcd_newline ..  ]
-[; ;modules.c: 56: printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+[; ;modules.c: 56: printf("%d             ", sorted[2]);
 "56
-[e ( _printf , (. :s 8C + + + *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
+[e ( _printf , (. :s 12C -> *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x `i ]
 [; ;modules.c: 57: break;
 "57
-[e $U 279  ]
-[; ;modules.c: 58: case (2):
+[e $U 277  ]
+[; ;modules.c: 58: case (5):
 "58
-[e :U 283 ]
+[e :U 284 ]
 [; ;modules.c: 59: lcdInst(0b10000000);;
 "59
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 60: printf("AA Sorted:          ");
+[; ;modules.c: 60: printf("Uncharged:          ");
 "60
-[e ( _printf :s 9C ]
+[e ( _printf :s 13C ]
 [; ;modules.c: 61: __lcd_newline();
 "61
 [e ( ___lcd_newline ..  ]
-[; ;modules.c: 62: printf("%d          ", sorted[0]);
+[; ;modules.c: 62: printf("%d             ", sorted[3]);
 "62
-[e ( _printf , (. :s 10C *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
+[e ( _printf , (. :s 14C -> *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x `i ]
 [; ;modules.c: 63: break;
 "63
-[e $U 279  ]
-[; ;modules.c: 64: case (3):
+[e $U 277  ]
+[; ;modules.c: 64: case (15):
 "64
-[e :U 284 ]
-[; ;modules.c: 65: lcdInst(0b10000000);;
-"65
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 66: printf("C Sorted:          ");
-"66
-[e ( _printf :s 11C ]
-[; ;modules.c: 67: __lcd_newline();
-"67
-[e ( ___lcd_newline ..  ]
-[; ;modules.c: 68: printf("%d          ", sorted[1]);
-"68
-[e ( _printf , (. :s 12C *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 69: break;
-"69
-[e $U 279  ]
-[; ;modules.c: 70: case (4):
-"70
 [e :U 285 ]
-[; ;modules.c: 71: lcdInst(0b10000000);;
-"71
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 72: printf("9V Sorted:          ");
-"72
-[e ( _printf :s 13C ]
-[; ;modules.c: 73: __lcd_newline();
-"73
-[e ( ___lcd_newline ..  ]
-[; ;modules.c: 74: printf("%d          ", sorted[2]);
-"74
-[e ( _printf , (. :s 14C *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 75: break;
-"75
-[e $U 279  ]
-[; ;modules.c: 76: case (5):
-"76
-[e :U 286 ]
-[; ;modules.c: 77: lcdInst(0b10000000);;
-"77
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 78: printf("Uncharged:          ");
-"78
-[e ( _printf :s 15C ]
-[; ;modules.c: 79: __lcd_newline();
-"79
-[e ( ___lcd_newline ..  ]
-[; ;modules.c: 80: printf("%d          ", sorted[3]);
-"80
-[e ( _printf , (. :s 16C *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;modules.c: 81: break;
-"81
-[e $U 279  ]
-[; ;modules.c: 82: case (15):
-"82
-[e :U 287 ]
-[; ;modules.c: 83: asm("reset");
-"83
+[; ;modules.c: 65: asm("reset");
+"65
 [; <" reset ;# ">
-[; ;modules.c: 85: default:
+[; ;modules.c: 66: default:
+"66
+[e :U 286 ]
+[; ;modules.c: 67: stop = 1;
+"67
+[e = _stop -> 1 `i ]
+"68
+}
+[; ;modules.c: 68: }
+[e $U 277  ]
+"27
+[e :U 278 ]
+[e [\ _type , $ -> 0 `i 279
+ , $ -> 1 `i 280
+ , $ -> 2 `i 281
+ , $ -> 3 `i 282
+ , $ -> 4 `i 283
+ , $ -> 5 `i 284
+ , $ -> 15 `i 285
+ 286 ]
+"68
+[e :U 277 ]
+"69
+}
+[e :U 274 ]
+"25
+[e $ ! != _stop -> 0 `i 275  ]
+[e :U 276 ]
+[; ;modules.c: 69: }
+[; ;modules.c: 70: }
+"70
+[e :UE 273 ]
+}
+"72
+[v _getTime `(v ~T0 @X0 1 ef1`*uc ]
+{
+[; ;modules.c: 72: void getTime(unsigned char * time) {
+[e :U _getTime ]
+[v _time `*uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;modules.c: 73: (INTCONbits.GIE = 0);
+"73
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;modules.c: 77: I2C_Master_Start();
+"77
+[e ( _I2C_Master_Start ..  ]
+[; ;modules.c: 78: I2C_Master_Write(0b11010000);
+"78
+[e ( _I2C_Master_Write (1 -> -> 208 `i `ui ]
+[; ;modules.c: 79: I2C_Master_Write(0x00);
+"79
+[e ( _I2C_Master_Write (1 -> -> 0 `i `ui ]
+[; ;modules.c: 80: I2C_Master_Stop();
+"80
+[e ( _I2C_Master_Stop ..  ]
+[; ;modules.c: 83: I2C_Master_Start();
+"83
+[e ( _I2C_Master_Start ..  ]
+[; ;modules.c: 84: I2C_Master_Write(0b11010001);
+"84
+[e ( _I2C_Master_Write (1 -> -> 209 `i `ui ]
+[; ;modules.c: 85: for (unsigned char i = 0; i < 0x06; i++) {
 "85
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 6 `i 288  ]
+[e $U 289  ]
 [e :U 288 ]
-[; ;modules.c: 86: break;
+{
+[; ;modules.c: 86: time[i] = I2C_Master_Read(1);
 "86
-[e $U 279  ]
+[e = *U + _time * -> _i `ux -> -> # *U _time `ui `ux ( _I2C_Master_Read (1 -> -> 1 `i `uc ]
+"87
+}
+"85
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 6 `i 288  ]
+[e :U 289 ]
 "87
 }
 [; ;modules.c: 87: }
-[e $U 279  ]
-"44
-[e :U 280 ]
-[e [\ _type , $ -> 0 `i 281
- , $ -> 1 `i 282
- , $ -> 2 `i 283
- , $ -> 3 `i 284
- , $ -> 4 `i 285
- , $ -> 5 `i 286
- , $ -> 15 `i 287
- 288 ]
-"87
-[e :U 279 ]
+[; ;modules.c: 88: time[6] = I2C_Master_Read(0);
 "88
-}
-[e :U 276 ]
-"41
-[e $U 277  ]
-[e :U 278 ]
-[; ;modules.c: 88: }
-[; ;modules.c: 89: (INTCONbits.GIE = 1);
+[e = *U + _time * -> -> 6 `i `x -> -> # *U _time `i `x ( _I2C_Master_Read (1 -> -> 0 `i `uc ]
+[; ;modules.c: 89: I2C_Master_Stop();
 "89
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;modules.c: 90: }
+[e ( _I2C_Master_Stop ..  ]
+[; ;modules.c: 90: (INTCONbits.GIE = 1);
 "90
-[e :UE 275 ]
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;modules.c: 91: }
+"91
+[e :UE 287 ]
 }
-"92
-[v _getTime `(i ~T0 @X0 1 ef ]
-"93
-{
-[; ;modules.c: 92: int getTime()
-[; ;modules.c: 93: {
-[e :U _getTime ]
-[f ]
-"95
-[v _time `i ~T0 @X0 1 a ]
-[; ;modules.c: 95: int time = 0;
-[e = _time -> 0 `i ]
-[; ;modules.c: 97: return time;
-"97
-[e ) _time ]
-[e $UE 289  ]
-[; ;modules.c: 98: }
-"98
-[e :UE 289 ]
-}
-[p f _printf 8388736 ]
-[a 1C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 8C 37 100 32 98 97 116 116 101 114 105 101 115 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 6C 37 100 32 115 101 99 111 110 100 115 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 3C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 4C 70 111 114 32 109 111 114 101 32 105 110 102 111 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 2C 83 111 114 116 105 110 103 32 67 111 109 112 108 101 116 101 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 10C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 12C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 14C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 16C 37 100 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 7C 84 111 116 97 108 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 13C 57 86 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 11C 67 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 9C 65 65 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 5C 84 105 109 101 32 69 108 97 112 115 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 15C 85 110 99 104 97 114 103 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[p f _printf 8389760 ]
+[a 6C 37 100 32 98 97 116 116 101 114 105 101 115 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 4C 37 117 32 115 101 99 111 110 100 115 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 1C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 2C 70 111 114 32 109 111 114 101 32 105 110 102 111 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 5C 84 111 116 97 108 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 11C 57 86 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 9C 67 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 7C 65 65 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 3C 84 105 109 101 32 69 108 97 112 115 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 13C 85 110 99 104 97 114 103 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 8C 37 100 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 10C 37 100 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 12C 37 100 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 14C 37 100 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]

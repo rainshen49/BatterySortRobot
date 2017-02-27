@@ -2,6 +2,7 @@
  build/default/production/modules.p1:  \
  modules.c  \
 pic18f4620.h  \
+I2C.h  \
 pic18.h  \
 motors.h  \
 lcd.h  \

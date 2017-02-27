@@ -1,5 +1,5 @@
 
-# 1 "modules.c"
+# 1 "eeprom.c"
 
 
 # 9 "configBits.h"
@@ -3794,108 +3794,114 @@ void lcdNibble(char data);
 void initLCD(void);
 void __lcd_newline();
 
+# 11 "eeprom.h"
+unsigned char ReadEE(unsigned int address);
+void WriteEE(unsigned int address, unsigned char data);
+void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time);
+void WriteRun(unsigned char * sorted, unsigned int time);
+unsigned char back(unsigned char runs);
+void PermLog(unsigned char which);
+void initLatest();
+
 # 8 "modules.h"
 unsigned int captureKeypad();
 void showInfo(unsigned int time, unsigned char *sorted);
 void getTime(unsigned char * time);
 
-# 1 "motors.h"
-void PWMC(int widthus, int cycles, int * port);
-void CW90(int * port);
-void CCW90(int * port);
-void stopMoving(char em);
+# 7 "eeprom.c"
+unsigned char Latest = 0;
 
-# 1 "I2C.h"
-void I2C_Master_Init(const unsigned long c);
-void I2C_Master_Write(unsigned d);
-unsigned char I2C_Master_Read(unsigned char a);
-void I2C_Master_Start();
-void I2C_Master_Stop();
-
-# 6 "modules.c"
-unsigned int captureKeypad() {
-(INTCONbits.GIE = 0);
-while (!PORTBbits.RB1)
-;
-unsigned char keypress = (PORTB & 0xF0) >> 4;
-while (PORTBbits.RB1)
-;
-INT1IF = 0;
-(INTCONbits.GIE = 1);
-return keypress;
-}
-
-void showInfo(unsigned int time, unsigned char *sorted) {
-lcdInst(0b10000000);;
-printf("Press a number          ");
-__lcd_newline();
-printf("For more info          ");
-int type = 0;
-int stop = 0;
-while (!stop) {
-type = captureKeypad();
-switch (type) {
-case (0):
-lcdInst(0b10000000);;
-printf("Time Elapsed:          ");
-__lcd_newline();
-printf("%u seconds          ", time);
-break;
-case (1):
-lcdInst(0b10000000);;
-printf("Total Sorted:          ");
-__lcd_newline();
-printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
-break;
-case (2):
-lcdInst(0b10000000);;
-printf("AA Sorted:          ");
-__lcd_newline();
-printf("%d             ", sorted[0]);
-break;
-case (3):
-lcdInst(0b10000000);;
-printf("C Sorted:          ");
-__lcd_newline();
-printf("%d             ", sorted[1]);
-break;
-case (4):
-lcdInst(0b10000000);;
-printf("9V Sorted:          ");
-__lcd_newline();
-printf("%d             ", sorted[2]);
-break;
-case (5):
-lcdInst(0b10000000);;
-printf("Uncharged:          ");
-__lcd_newline();
-printf("%d             ", sorted[3]);
-break;
-case (15):
-asm("reset");
-default:
-stop = 1;
-}
+void initLatest() {
+Latest = ReadEE(160);
+if (Latest > 3) {
+Latest = 0;
 }
 }
 
-void getTime(unsigned char * time) {
-(INTCONbits.GIE = 0);
+unsigned char ReadEE(unsigned int address) {
+
+
+EEADRH = (unsigned char) (address >> 8);
+EEADR = (unsigned char) address;
+
+EECON1bits.EEPGD = 0;
+EECON1bits.CFGS = 0;
+EECON1bits.RD = 1;
 
 
 
-I2C_Master_Start();
-I2C_Master_Write(0b11010000);
-I2C_Master_Write(0x00);
-I2C_Master_Stop();
+while (EECON1bits.RD == 1);
 
+return EEDATA;
 
-I2C_Master_Start();
-I2C_Master_Write(0b11010001);
-for (unsigned char i = 0; i < 0x06; i++) {
-time[i] = I2C_Master_Read(1);
 }
-time[6] = I2C_Master_Read(0);
-I2C_Master_Stop();
-(INTCONbits.GIE = 1);
+
+void WriteEE(unsigned int address, unsigned char data) {
+
+EEADRH = (unsigned char) (address >> 8);
+EEADR = (unsigned char) address;
+
+EEDATA = data;
+EECON1bits.EEPGD = 0;
+EECON1bits.CFGS = 0;
+EECON1bits.WREN = 1;
+
+
+
+EECON2 = 0x55;
+EECON2 = 0xAA;
+EECON1bits.WR = 1;
+
+
+while (PIR2bits.EEIF == 0) {
+continue;
+}
+
+PIR2bits.EEIF = 0;
+EECON1bits.WREN = 0;
+}
+
+unsigned char back(unsigned char runs) {
+
+unsigned char result = Latest + 4 - runs;
+if (result > 4) {
+result -= 4;
+}
+return result;
+}
+
+void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time) {
+unsigned int add = back(backruns) * 5;
+*time = ReadEE(add++ *8);
+sorted[0] = ReadEE(add++ *8);
+sorted[1] = ReadEE(add++ *8);
+sorted[2] = ReadEE(add++ *8);
+sorted[3] = ReadEE(add++ *8);
+}
+
+void WriteRun(unsigned char * sorted, unsigned int time) {
+unsigned int add = ++Latest;
+if (add > 3) {
+add -= 4;
+Latest = add;
+}
+add *= 5;
+WriteEE(add++ *8, time);
+WriteEE(add++ *8, sorted[0]);
+WriteEE(add++ *8, sorted[1]);
+WriteEE(add++ *8, sorted[2]);
+WriteEE(add++ *8, sorted[3]);
+WriteEE(160, Latest);
+}
+
+void PermLog(unsigned char backruns) {
+unsigned int time;
+unsigned char sorted[] = {0, 0, 0, 0};
+ReadRun(backruns, sorted, &time);
+lcdInst(0b10000000);;
+printf("showing %u", backruns);
+__lcd_newline();
+printf("runs before");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
+showInfo(time, sorted);
 }

@@ -5,8 +5,8 @@ void PWMC(int widthus, int cycles, int * port) {
     widthus /= 10;
     widthus -= 1;
     int countdown = widthus;
-//    __lcd_newline();
-//    printf("countdown %d", countdown);
+    //    __lcd_newline();
+    //    printf("countdown %d", countdown);
     for (cycles; cycles > 0; cycles--) {
         countdown = widthus;
         LATC0 = (1 ^ LATC0) & port[0];
@@ -19,18 +19,23 @@ void PWMC(int widthus, int cycles, int * port) {
 }
 
 void CW90(int * port) {
-    PWMC(3000, 64, port);
+    __lcd_newline();
+    printf("clockwise  ");
+    PWMC(3000, 96, port);
 }
 
 void CCW90(int * port) {
-    PWMC(400, 450, port);
+    __lcd_newline();
+    printf("c-clockwise    ");
+    PWMC(400, 700, port);
 }
 
-void stopMoving() {
+void stopMoving(char em) {
     di();
     __lcd_home();
     LATC = 0;
-    printf("Stopped          ");
-    pause();
-    //    ei();
+    printf(em ? "Emergency          " : "Stopped          ");
+    __delay_1s();
+    if (em)
+        pause();
 }

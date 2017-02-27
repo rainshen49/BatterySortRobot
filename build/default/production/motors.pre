@@ -3798,7 +3798,7 @@ void __lcd_newline();
 void PWMC(int widthus, int cycles, int * port);
 void CW90(int * port);
 void CCW90(int * port);
-void stopMoving();
+void stopMoving(char em);
 
 # 4 "motors.c"
 void PWMC(int widthus, int cycles, int * port) {
@@ -3819,18 +3819,23 @@ _delay((unsigned long)((5)*(8000000/4000000.0)));
 }
 
 void CW90(int * port) {
-PWMC(3000, 64, port);
+__lcd_newline();
+printf("clockwise  ");
+PWMC(3000, 96, port);
 }
 
 void CCW90(int * port) {
-PWMC(400, 450, port);
+__lcd_newline();
+printf("c-clockwise    ");
+PWMC(400, 700, port);
 }
 
-void stopMoving() {
+void stopMoving(char em) {
 (INTCONbits.GIE = 0);
 lcdInst(0b10000000);;
 LATC = 0;
-printf("Stopped          ");
+printf(em ? "Emergency          " : "Stopped          ");
+for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+if (em)
 while(1);
-
 }

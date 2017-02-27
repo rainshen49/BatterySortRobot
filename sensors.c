@@ -7,7 +7,6 @@ int AD(char channel) {
     ADON = 1;
     ADCON0bits.GO = 1;
     while (ADCON0bits.GO_NOT_DONE) {
-
         __delay_ms(10);
     }
     return (ADRESH << 8) | ADRESL;
@@ -27,7 +26,7 @@ int checkV(int voltage, float max) {
     }
 }
 
-int checkAA(int *sorted) {
+int checkAA(unsigned char *sorted) {
     //    input RA0(AN0)
     __lcd_home();
     printf("AA:          ");
@@ -49,7 +48,7 @@ int checkAA(int *sorted) {
     }
 }
 
-int checkC(int *sorted) {
+int checkC(unsigned char *sorted) {
     //    input RA1(AN1)
     __lcd_home();
     printf("C:          ");
@@ -71,7 +70,7 @@ int checkC(int *sorted) {
     }
 }
 
-int check9(int *sorted) {
+int check9(unsigned char *sorted) {
     //    input RA2(AN2)
     __lcd_home();
     printf("9V:          ");

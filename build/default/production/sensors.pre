@@ -3797,9 +3797,9 @@ void __lcd_newline();
 # 1 "sensors.h"
 int AD(char channel);
 int checkV(int voltage, float max);
-int checkAA(int* sorted);
-int checkC(int *sorted);
-int check9(int *sorted);
+int checkAA(unsigned char* sorted);
+int checkC(unsigned char *sorted);
+int check9(unsigned char *sorted);
 
 # 4 "sensors.c"
 int AD(char channel) {
@@ -3808,7 +3808,6 @@ ADCON0 = ((channel << 2));
 ADON = 1;
 ADCON0bits.GO = 1;
 while (ADCON0bits.GO_NOT_DONE) {
-
 _delay((unsigned long)((10)*(8000000/4000.0)));
 }
 return (ADRESH << 8) | ADRESL;
@@ -3828,7 +3827,7 @@ return -1;
 }
 }
 
-int checkAA(int *sorted) {
+int checkAA(unsigned char *sorted) {
 
 lcdInst(0b10000000);;
 printf("AA:          ");
@@ -3850,7 +3849,7 @@ return 0;
 }
 }
 
-int checkC(int *sorted) {
+int checkC(unsigned char *sorted) {
 
 lcdInst(0b10000000);;
 printf("C:          ");
@@ -3872,7 +3871,7 @@ return 0;
 }
 }
 
-int check9(int *sorted) {
+int check9(unsigned char *sorted) {
 
 lcdInst(0b10000000);;
 printf("9V:          ");

@@ -6,8 +6,6 @@
  */
 
 unsigned int captureKeypad();
-void interrupt keypressed(void);
-void showInfo(unsigned int time, unsigned int *sorted);
-int getTime();
-
+void showInfo(unsigned int time, unsigned char *sorted);
+void getTime(unsigned char * time);
 

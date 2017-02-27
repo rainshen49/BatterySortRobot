@@ -3796,24 +3796,42 @@ void __lcd_newline();
 
 # 8 "modules.h"
 unsigned int captureKeypad();
-void interrupt keypressed(void);
-void showInfo(unsigned int time, unsigned int *sorted);
-int getTime();
+void showInfo(unsigned int time, unsigned char *sorted);
+void getTime(unsigned char * time);
 
 # 1 "sensors.h"
 int AD(char channel);
 int checkV(int voltage, float max);
-int checkAA(int* sorted);
-int checkC(int *sorted);
-int check9(int *sorted);
+int checkAA(unsigned char* sorted);
+int checkC(unsigned char *sorted);
+int check9(unsigned char *sorted);
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
 void CW90(int * port);
 void CCW90(int * port);
-void stopMoving();
+void stopMoving(char em);
 
-# 18 "main.c"
+# 11 "eeprom.h"
+unsigned char ReadEE(unsigned int address);
+void WriteEE(unsigned int address, unsigned char data);
+void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time);
+void WriteRun(unsigned char * sorted, unsigned int time);
+unsigned char back(unsigned char runs);
+void PermLog(unsigned char which);
+void initLatest();
+
+# 1 "I2C.h"
+void I2C_Master_Init(const unsigned long c);
+void I2C_Master_Write(unsigned d);
+unsigned char I2C_Master_Read(unsigned char a);
+void I2C_Master_Start();
+void I2C_Master_Stop();
+
+# 15 "main.c"
+int mode = 0;
+unsigned char time[7];
+
 void initialize() {
 TRISA = 0xFF;
 TRISB = 0xFF;
@@ -3836,16 +3854,22 @@ ADFM = 1;
 initLCD();
 lcdInst(0x01);;
 lcdInst(0b10000000);;
+I2C_Master_Init(10000);
+initLatest();
+_delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void mainloop(int *bigNose, int *smallNose) {
+unsigned int now, start;
+unsigned char sorted[] = {0, 0, 0, 0};
 __lcd_newline();
 printf("Sorting...          ");
 int stop = 0;
-int sorted[] = {0, 0, 0, 0};
-int startTime = getTime();
+
+
+
 int AA = -1, C = -1, V9 = -1;
-LATC3 = 1;
+LATC5 = 1;
 INT1IE = 1;
 (INTCONbits.GIE = 1);
 while (!stop) {
@@ -3861,36 +3885,42 @@ if (!AA) {
 if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
 stop = 1;
 }
-if (getTime() - startTime >= 180) {
-stop = 1;
-}
+
+
+
+
 }
 (INTCONbits.GIE = 0);
 
-showInfo(getTime() - startTime, sorted);
-stopMoving();
+
+stopMoving(0);
 return;
 }
 
 void simulate() {
+unsigned int now[] = {0, 0}, start[] = {0, 0};
+unsigned char sorted[] = {0, 0, 0, 0};
+unsigned int period = 0;
+start[0] = time[0];
+start[1] = time[1];
 lcdInst(0b10000000);;
 printf("Simulating...          ");
+_delay((unsigned long)((700)*(8000000/4000.0)));
 int stop = 0;
-int sorted[] = {0, 0, 0, 0};
 int AA = -1, C = -1, V9 = -1;
-LATC3 = 1;
+LATC5 = 1;
 while (!stop) {
-captureKeypad();
+
 AA = checkAA(sorted);
 
-for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+_delay((unsigned long)((700)*(8000000/4000.0)));
 C = checkC(sorted);
 
-for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+_delay((unsigned long)((700)*(8000000/4000.0)));
 
 V9 = check9(sorted);
 lcdInst(0b10000000);;
-captureKeypad();
+
 
 int portCW[] = {0, 0, 0};
 int portCCW[] = {0, 0, 0};
@@ -3901,10 +3931,12 @@ printf("AAServoLeft         ");
 } else if (AA == 1) {
 portCW[0] = 1;
 printf("AAServoRight         ");
+} else {
+printf("AAServoStays         ");
 }
 
 lcdInst(0b10000000);;
-for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+_delay((unsigned long)((700)*(8000000/4000.0)));
 
 if (!C) {
 portCCW[1] = 1;
@@ -3912,10 +3944,12 @@ printf("CServoLeft         ");
 } else if (C == 1) {
 portCW[1] = 1;
 printf("CServoRight         ");
+} else {
+printf("CServoStays         ");
 }
 
 lcdInst(0b10000000);;
-for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+_delay((unsigned long)((700)*(8000000/4000.0)));
 
 if (!V9) {
 portCCW[2] = 1;
@@ -3923,47 +3957,103 @@ printf("9ServoLeft         ");
 } else if (V9 == 1) {
 portCW[2] = 1;
 printf("9ServoRight         ");
+} else {
+printf("9ServoStays         ");
 }
-captureKeypad();
+
 
 CCW90(portCCW);
-_delay((unsigned long)((20)*(8000000/4000.0)));
+_delay((unsigned long)((700)*(8000000/4000.0)));
 CW90(portCW);
-LATC = 0b00001000;
+LATC0 = 0;
+LATC1 = 0;
+LATC2 = 0;
 
-if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
+
+if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+stop = 1;
+}
+getTime(time);
+now[0] = time[0];
+now[1] = time[1];
+lcdInst(0b10000000);;
+printf("start %02x:%02x    ", start[1], start[0]);
+__lcd_newline();
+printf("now %02x:%02x     ", now[1], now[0]);
+_delay((unsigned long)((700)*(8000000/4000.0)));
+
+period = (now[1] - start[1])*60 + now[0] - start[0];
+lcdInst(0b10000000);;
+printf("Period: %u", period);
+if (period > 60) {
 stop = 1;
 }
 }
-(INTCONbits.GIE = 0);
 
-showInfo(179, sorted);
-stopMoving();
-return;
+mode = 2;
+stopMoving(0);
+lcdInst(0b10000000);;
+printf("Sorting Complete          ");
+_delay((unsigned long)((700)*(8000000/4000.0)));
+showInfo(period, sorted);
+WriteRun(sorted, period);
+mode = 0;
 }
 
-# 157
-void testADC() {
-int sorted[]={1,1,1,1};
-while(1){
-int AA = checkAA(sorted);
+# 218
+void showRTC() {
 
-_delay((unsigned long)((500)*(8000000/4000.0)));
-}
+getTime(time);
+lcdInst(0b10000000);;
+printf("%02x/%02x/%02x         ", time[6], time[5], time[4]);
+__lcd_newline();
+printf("%02x:%02x:%02x         ", time[2], time[1], time[0]);
+_delay((unsigned long)((700)*(8000000/4000.0)));
 }
 
 int main(int argc, char **argv) {
 initialize();
 
 printf((unsigned char *) "Welcome!          ");
+_delay((unsigned long)((700)*(8000000/4000.0)));
+INT1IE = 1;
+(INTCONbits.GIE = 1);
+mode = 0;
 
-__lcd_newline();
-printf("Press Start          ");
+while (1)showRTC();
 
-
-
-simulate();
-
-
+# 244
 asm("reset");
+}
+
+void interrupt keypressed(void) {
+
+# 254
+(INTCONbits.GIE = 0);
+if (INT1IF) {
+unsigned char keypress = (PORTB & 0xF0) >> 4;
+INT1IF = 0;
+while (PORTBbits.RB1);
+switch (mode) {
+case 0:
+if (keypress < 4) {
+mode = 2;
+PermLog(keypress);
+mode = 0;
+} else {
+mode = 1;
+(INTCONbits.GIE = 1);
+simulate();
+(INTCONbits.GIE = 0);
+}
+break;
+case 1:
+mode = 3;
+stopMoving(1);
+break;
+default:
+break;
+}
+}
+(INTCONbits.GIE = 1);
 }
