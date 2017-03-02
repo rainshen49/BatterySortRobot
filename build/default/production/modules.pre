@@ -3798,6 +3798,7 @@ void __lcd_newline();
 unsigned int captureKeypad();
 void showInfo(unsigned int time, unsigned char *sorted);
 void getTime(unsigned char * time);
+unsigned int HexDecToDec2(unsigned int hex);
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
@@ -3813,13 +3814,18 @@ void I2C_Master_Start();
 void I2C_Master_Stop();
 
 # 6 "modules.c"
+unsigned int HexDecToDec2(unsigned int hex) {
+
+unsigned tenth = hex / 16;
+unsigned digit = hex % 16;
+return tenth * 10 + digit;
+}
+
 unsigned int captureKeypad() {
 (INTCONbits.GIE = 0);
-while (!PORTBbits.RB1)
-;
+while (!PORTBbits.RB1);
 unsigned char keypress = (PORTB & 0xF0) >> 4;
-while (PORTBbits.RB1)
-;
+while (PORTBbits.RB1);
 INT1IF = 0;
 (INTCONbits.GIE = 1);
 return keypress;

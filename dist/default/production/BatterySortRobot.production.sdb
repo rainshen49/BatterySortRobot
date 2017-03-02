@@ -5,34 +5,62 @@
 [d frameptr 4065 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
+[v i2___awdiv __awdiv `(i  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+[v i2___awmod __awmod `(i  1 e 2 0 ]
 "32 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awtoft.c
 [v ___awtoft __awtoft `(f  1 e 3 0 ]
-"464 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
+"409 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
+[v _fround fround `(d  1 s 3 fround ]
+[v i2_fround fround `(d  1 s 3 i2_fround ]
+"425
+[v _scale scale `(d  1 s 3 scale ]
+[v i2_scale scale `(d  1 s 3 i2_scale ]
+"464
 [v _printf printf `(i  1 e 2 0 ]
 [v i2_printf printf `(i  1 e 2 0 ]
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fldivl.c
+[v __div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
+[v i2__div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
+[v i2___ftpack __ftpack `(f  1 e 3 0 ]
 "86 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
+[v i2___ftadd __ftadd `(f  1 e 3 0 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftdivl.c
+[v __tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
+[v i2__tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftge.c
 [v ___ftge __ftge `(b  1 e 0 0 ]
+[v i2___ftge __ftge `(b  1 e 0 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 3 0 ]
+[v i2___ftmul __ftmul `(f  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
+[v i2___ftneg __ftneg `(f  1 e 3 0 ]
 "20 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 3 0 ]
+[v i2___ftsub __ftsub `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+[v i2___fttol __fttol `(l  1 e 4 0 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\isdigit.c
 [v _isdigit isdigit `(b  1 e 0 0 ]
 [v i2_isdigit isdigit `(b  1 e 0 0 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lldiv.c
 [v ___lldiv __lldiv `(ul  1 e 4 0 ]
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
-[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
-[v i2___lwdiv __lwdiv `(ui  1 e 2 0 ]
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwmod.c
-[v ___lwmod __lwmod `(ui  1 e 2 0 ]
-[v i2___lwmod __lwmod `(ui  1 e 2 0 ]
+[v i2___lldiv __lldiv `(ul  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+[v i2___llmod __llmod `(ul  1 e 4 0 ]
+"35 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lltoft.c
+[v ___lltoft __lltoft `(f  1 e 3 0 ]
+[v i2___lltoft __lltoft `(f  1 e 3 0 ]
 "10 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 3 0 ]
 "245
@@ -53,13 +81,13 @@
 [v i2_ReadEE ReadEE `(uc  1 e 1 0 ]
 "34
 [v _WriteEE WriteEE `(v  1 e 1 0 ]
-"59
+"57
 [v _back back `(uc  1 e 1 0 ]
-"68
+"66
 [v _ReadRun ReadRun `(v  1 e 1 0 ]
-"77
+"75
 [v _WriteRun WriteRun `(v  1 e 1 0 ]
-"92
+"90
 [v _PermLog PermLog `(v  1 e 1 0 ]
 "13 F:\MPLAB\BatterySortRobot\I2C.c
 [v _I2C_Master_Init I2C_Master_Init `(v  1 e 1 0 ]
@@ -94,42 +122,44 @@
 [v i2___lcd_newline __lcd_newline `(v  1 e 1 0 ]
 "18 F:\MPLAB\BatterySortRobot\main.c
 [v _initialize initialize `(v  1 e 1 0 ]
-"83
+"49
 [v _simulate simulate `(v  1 e 1 0 ]
-"218
+"152
 [v _showRTC showRTC `(v  1 e 1 0 ]
-"228
-[v _main main `(i  1 e 2 0 ]
-"247
+"171
 [v _keypressed keypressed `II(v  1 e 1 0 ]
+"207
+[v _main main `(i  1 e 2 0 ]
 "6 F:\MPLAB\BatterySortRobot\modules.c
+[v _HexDecToDec2 HexDecToDec2 `(ui  1 e 2 0 ]
+"13
 [v _captureKeypad captureKeypad `(ui  1 e 2 0 ]
-"18
+"23
 [v _showInfo showInfo `(v  1 e 1 0 ]
-"72
+"77
 [v _getTime getTime `(v  1 e 1 0 ]
 [v i2_getTime getTime `(v  1 e 1 0 ]
 "4 F:\MPLAB\BatterySortRobot\motors.c
 [v _PWMC PWMC `(v  1 e 1 0 ]
-"21
+"19
 [v _CW90 CW90 `(v  1 e 1 0 ]
-"27
+"25
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
-"33
+"31
 [v _stopMoving stopMoving `(v  1 e 1 0 ]
 "4 F:\MPLAB\BatterySortRobot\sensors.c
 [v _AD AD `(i  1 e 2 0 ]
-"15
+"13
 [v _checkV checkV `(i  1 e 2 0 ]
-"29
+"27
 [v _checkAA checkAA `(i  1 e 2 0 ]
-"51
+"49
 [v _checkC checkC `(i  1 e 2 0 ]
-"73
+"71
 [v _check9 check9 `(i  1 e 2 0 ]
 "185 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S171 . 1 `uc 1 RB0 1 0 :1:0 
+[s S175 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -139,7 +169,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "226
-[s S180 . 1 `uc 1 INT0 1 0 :1:0 
+[s S184 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CCP2 1 0 :1:3 
@@ -148,7 +178,7 @@
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S189 . 1 `uc 1 AN12 1 0 :1:0 
+[s S193 . 1 `uc 1 AN12 1 0 :1:0 
 `uc 1 AN10 1 0 :1:1 
 `uc 1 AN8 1 0 :1:2 
 `uc 1 AN9 1 0 :1:3 
@@ -157,11 +187,11 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S198 . 1 `uc 1 . 1 0 :3:0 
+[s S202 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S201 . 1 `S171 1 . 1 0 `S180 1 . 1 0 `S189 1 . 1 0 `S198 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES201  1 e 1 @3969 ]
+[u S205 . 1 `S175 1 . 1 0 `S184 1 . 1 0 `S193 1 . 1 0 `S202 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES205  1 e 1 @3969 ]
 "872
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "983
@@ -170,7 +200,7 @@
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
 "1205
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
-[s S319 . 1 `uc 1 LATD0 1 0 :1:0 
+[s S320 . 1 `uc 1 LATD0 1 0 :1:0 
 `uc 1 LATD1 1 0 :1:1 
 `uc 1 LATD2 1 0 :1:2 
 `uc 1 LATD3 1 0 :1:3 
@@ -180,7 +210,7 @@
 `uc 1 LATD7 1 0 :1:7 
 ]
 "1232
-[s S328 . 1 `uc 1 LD0 1 0 :1:0 
+[s S329 . 1 `uc 1 LD0 1 0 :1:0 
 `uc 1 LD1 1 0 :1:1 
 `uc 1 LD2 1 0 :1:2 
 `uc 1 LD3 1 0 :1:3 
@@ -189,8 +219,8 @@
 `uc 1 LD6 1 0 :1:6 
 `uc 1 LD7 1 0 :1:7 
 ]
-[u S337 . 1 `S319 1 . 1 0 `S328 1 . 1 0 ]
-[v _LATDbits LATDbits `VES337  1 e 1 @3980 ]
+[u S338 . 1 `S320 1 . 1 0 `S329 1 . 1 0 ]
+[v _LATDbits LATDbits `VES338  1 e 1 @3980 ]
 "1316
 [v _LATE LATE `VEuc  1 e 1 @3981 ]
 "1367
@@ -203,7 +233,7 @@
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
 "2251
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
-[s S720 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[s S723 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -213,12 +243,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "2792
-[s S729 . 1 `uc 1 . 1 0 :2:0 
+[s S732 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S732 . 1 `S720 1 . 1 0 `S729 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES732  1 e 1 @4001 ]
-[s S690 . 1 `uc 1 RD 1 0 :1:0 
+[u S735 . 1 `S723 1 . 1 0 `S732 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES735  1 e 1 @4001 ]
+[s S693 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -228,11 +258,11 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "2922
-[s S699 . 1 `uc 1 . 1 0 :6:0 
+[s S702 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S702 . 1 `S690 1 . 1 0 `S699 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES702  1 e 1 @4006 ]
+[u S705 . 1 `S693 1 . 1 0 `S702 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES705  1 e 1 @4006 ]
 "2966
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "2972
@@ -247,38 +277,38 @@
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "4474
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
-[s S550 . 1 `uc 1 . 1 0 :1:0 
+[s S554 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_NOT_DONE 1 0 :1:1 
 ]
 "4518
-[s S553 . 1 `uc 1 ADON 1 0 :1:0 
+[s S557 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 ]
-[s S557 . 1 `uc 1 . 1 0 :1:0 
+[s S561 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
 `uc 1 CHS2 1 0 :1:4 
 `uc 1 CHS3 1 0 :1:5 
 ]
-[s S564 . 1 `uc 1 . 1 0 :1:0 
+[s S568 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 DONE 1 0 :1:1 
 ]
-[s S567 . 1 `uc 1 . 1 0 :1:0 
+[s S571 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_DONE 1 0 :1:1 
 ]
-[s S570 . 1 `uc 1 . 1 0 :1:0 
+[s S574 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S573 . 1 `uc 1 . 1 0 :1:0 
+[s S577 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[s S576 . 1 `uc 1 . 1 0 :1:0 
+[s S580 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GODONE 1 0 :1:1 
 ]
-[u S579 . 1 `S550 1 . 1 0 `S553 1 . 1 0 `S557 1 . 1 0 `S564 1 . 1 0 `S567 1 . 1 0 `S570 1 . 1 0 `S573 1 . 1 0 `S576 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES579  1 e 1 @4034 ]
+[u S583 . 1 `S554 1 . 1 0 `S557 1 . 1 0 `S561 1 . 1 0 `S568 1 . 1 0 `S571 1 . 1 0 `S574 1 . 1 0 `S577 1 . 1 0 `S580 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES583  1 e 1 @4034 ]
 "4598
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "4604
@@ -293,7 +323,7 @@
 [v _SSPADD SSPADD `VEuc  1 e 1 @4040 ]
 "4966
 [v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
-[s S70 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S124 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -303,7 +333,7 @@
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "6298
-[s S79 . 1 `uc 1 . 1 0 :1:0 
+[s S133 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -312,12 +342,12 @@
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S88 . 1 `uc 1 . 1 0 :6:0 
+[s S142 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S92 . 1 `S70 1 . 1 0 `S79 1 . 1 0 `S88 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES92  1 e 1 @4082 ]
+[u S146 . 1 `S124 1 . 1 0 `S133 1 . 1 0 `S142 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES146  1 e 1 @4082 ]
 "6604
 [v _ACKDT ACKDT `VEb  1 e 0 @32301 ]
 "6606
@@ -349,49 +379,69 @@
 "7640
 [v _TRISC4 TRISC4 `VEb  1 e 0 @31908 ]
 "354 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
-[v _dpowers dpowers `C[5]ui  1 s 10 dpowers ]
+[v _dpowers dpowers `C[10]ul  1 s 40 dpowers ]
 "362
-[v _hexpowers hexpowers `C[4]ui  1 s 8 hexpowers ]
+[v _hexpowers hexpowers `C[8]ul  1 s 32 hexpowers ]
+"7 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\powers.c
+[v __powers_ _powers_ `C[13]d  1 e 39 0 ]
+"39
+[v __npowers_ _npowers_ `C[13]d  1 e 39 0 ]
 "7 F:\MPLAB\BatterySortRobot\eeprom.c
 [v _Latest Latest `uc  1 e 1 0 ]
 "15 F:\MPLAB\BatterySortRobot\main.c
 [v _mode mode `i  1 e 2 0 ]
 "16
 [v _time time `[7]uc  1 e 7 0 ]
-"228
+"207
 [v _main main `(i  1 e 2 0 ]
 {
-"245
+"220
 } 0
-"218
+"152
 [v _showRTC showRTC `(v  1 e 1 0 ]
 {
-"226
+"159
 } 0
 "464 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
 [v _printf printf `(i  1 e 2 0 ]
 {
 "1500
-[v printf@idx idx `uc  1 a 1 26 ]
-"501
-[v printf@width width `i  1 a 2 35 ]
+[v printf@idx idx `uc  1 a 1 80 ]
 "528
-[v printf@val val `ui  1 a 2 32 ]
-"529
-[v printf@len len `ui  1 a 2 29 ]
-"466
-[v printf@ap ap `[1]*.39v  1 a 2 27 ]
-"530
-[v printf@cp cp `*.39Cuc  1 a 2 24 ]
-"499
-[v printf@c c `c  1 a 1 37 ]
+[v printf@val val `ul  1 a 4 95 ]
+[u S847 . 4 `ul 1 vd 4 0 `d 1 integ 3 0 ]
+"526
+[v printf@tmpval tmpval `S847  1 a 4 89 ]
+"516
+[v printf@fval fval `d  1 a 3 101 ]
+"501
+[v printf@width width `i  1 a 2 104 ]
 "508
-[v printf@flag flag `uc  1 a 1 34 ]
-"506
-[v printf@prec prec `c  1 a 1 31 ]
+[v printf@flag flag `us  1 a 2 99 ]
+"516
+[v printf@exp exp `i  1 a 2 93 ]
+"504
+[v printf@prec prec `i  1 a 2 87 ]
+"466
+[v printf@ap ap `[1]*.39v  1 a 2 85 ]
+"529
+[v printf@len len `ui  1 a 2 83 ]
+"530
+[v printf@cp cp `*.39Cuc  1 a 2 81 ]
+"499
+[v printf@c c `c  1 a 1 106 ]
 "464
-[v printf@f f `*.25Cuc  1 p 2 12 ]
+[v printf@f f `*.25Cuc  1 p 2 63 ]
 "1541
+} 0
+"425
+[v _scale scale `(d  1 s 3 scale ]
+{
+[v scale@scl scl `c  1 a 1 wreg ]
+[v scale@scl scl `c  1 a 1 wreg ]
+"428
+[v scale@scl scl `c  1 a 1 41 ]
+"441
 } 0
 "25 F:\MPLAB\BatterySortRobot\lcd.c
 [v _putch putch `(v  1 e 1 0 ]
@@ -410,46 +460,168 @@
 [v isdigit@c c `uc  1 a 1 2 ]
 "15
 } 0
+"409 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
+[v _fround fround `(d  1 s 3 fround ]
+{
+[v fround@prec prec `uc  1 a 1 wreg ]
+[v fround@prec prec `uc  1 a 1 wreg ]
+"413
+[v fround@prec prec `uc  1 a 1 44 ]
+"418
+} 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
 {
 "17
-[v ___wmul@product product `ui  1 a 2 4 ]
+[v ___wmul@product product `ui  1 a 2 18 ]
 "15
-[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
-[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+[v ___wmul@multiplier multiplier `ui  1 p 2 14 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 16 ]
 "53
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwmod.c
-[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+{
+"65
+[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 30 ]
+"64
+[v ___ftmul@sign sign `uc  1 a 1 34 ]
+[v ___ftmul@cntr cntr `uc  1 a 1 33 ]
+[v ___ftmul@exp exp `uc  1 a 1 29 ]
+"62
+[v ___ftmul@f1 f1 `f  1 p 3 20 ]
+[v ___ftmul@f2 f2 `f  1 p 3 23 ]
+"157
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
 {
 "11
-[v ___lwmod@counter counter `uc  1 a 1 11 ]
+[v ___awmod@sign sign `uc  1 a 1 5 ]
+[v ___awmod@counter counter `uc  1 a 1 4 ]
 "8
-[v ___lwmod@dividend dividend `ui  1 p 2 7 ]
-[v ___lwmod@divisor divisor `ui  1 p 2 9 ]
+[v ___awmod@dividend dividend `i  1 p 2 0 ]
+[v ___awmod@divisor divisor `i  1 p 2 2 ]
+"35
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"11
+[v ___awdiv@quotient quotient `i  1 a 2 12 ]
+"12
+[v ___awdiv@sign sign `uc  1 a 1 11 ]
+[v ___awdiv@counter counter `uc  1 a 1 10 ]
+"8
+[v ___awdiv@dividend dividend `i  1 p 2 6 ]
+[v ___awdiv@divisor divisor `i  1 p 2 8 ]
+"42
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftdivl.c
+[v __tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
+{
+"63
+[v __tdiv_to_l_@quot quot `ul  1 a 4 9 ]
+"62
+[v __tdiv_to_l_@exp1 exp1 `uc  1 a 1 14 ]
+[v __tdiv_to_l_@cntr cntr `uc  1 a 1 13 ]
+"60
+[v __tdiv_to_l_@f1 f1 `f  1 p 3 0 ]
+[v __tdiv_to_l_@f2 f2 `f  1 p 3 3 ]
+"101
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fldivl.c
+[v __div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
+{
+"63
+[v __div_to_l_@quot quot `ul  1 a 4 6 ]
+"62
+[v __div_to_l_@exp1 exp1 `uc  1 a 1 11 ]
+[v __div_to_l_@cntr cntr `uc  1 a 1 10 ]
+"60
+[v __div_to_l_@f1 f1 `d  1 p 3 0 ]
+[v __div_to_l_@f2 f2 `d  1 p 3 3 ]
+"101
+} 0
+"35 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lltoft.c
+[v ___lltoft __lltoft `(f  1 e 3 0 ]
+{
+"37
+[v ___lltoft@exp exp `uc  1 a 1 16 ]
+"35
+[v ___lltoft@c c `ul  1 p 4 8 ]
+"46
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+{
+"11
+[v ___llmod@counter counter `uc  1 a 1 21 ]
+"8
+[v ___llmod@dividend dividend `ul  1 p 4 13 ]
+[v ___llmod@divisor divisor `ul  1 p 4 17 ]
 "26
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
-[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
 {
-"11
-[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
-"12
-[v ___lwdiv@counter counter `uc  1 a 1 6 ]
-"8
-[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
-"31
+"47
+[v ___fttol@lval lval `ul  1 a 4 52 ]
+"46
+[v ___fttol@exp1 exp1 `uc  1 a 1 56 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 51 ]
+"44
+[v ___fttol@f1 f1 `f  1 p 3 42 ]
+"73
 } 0
-"72 F:\MPLAB\BatterySortRobot\modules.c
+"20 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+{
+[v ___ftsub@f1 f1 `f  1 p 3 57 ]
+[v ___ftsub@f2 f2 `f  1 p 3 60 ]
+"27
+} 0
+"86 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+{
+"88
+[v ___ftadd@exp1 exp1 `uc  1 a 1 56 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 55 ]
+[v ___ftadd@sign sign `uc  1 a 1 54 ]
+"86
+[v ___ftadd@f1 f1 `f  1 p 3 45 ]
+[v ___ftadd@f2 f2 `f  1 p 3 48 ]
+"148
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+{
+[v ___ftpack@arg arg `um  1 p 3 0 ]
+[v ___ftpack@exp exp `uc  1 p 1 3 ]
+[v ___ftpack@sign sign `uc  1 p 1 4 ]
+"86
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
+{
+[v ___ftneg@f1 f1 `f  1 p 3 0 ]
+"20
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+{
+[v ___ftge@ff1 ff1 `f  1 p 3 0 ]
+[v ___ftge@ff2 ff2 `f  1 p 3 3 ]
+"13
+} 0
+"77 F:\MPLAB\BatterySortRobot\modules.c
 [v _getTime getTime `(v  1 e 1 0 ]
 {
-"85
+"90
 [v getTime@i i `uc  1 a 1 5 ]
-"72
+"77
 [v getTime@time time `*.39uc  1 p 2 3 ]
-"91
+"96
 } 0
 "42 F:\MPLAB\BatterySortRobot\I2C.c
 [v _I2C_Master_Write I2C_Master_Write `(v  1 e 1 0 ]
@@ -548,50 +720,50 @@
 [v ___lldiv@divisor divisor `ul  1 p 4 4 ]
 "31
 } 0
-"247 F:\MPLAB\BatterySortRobot\main.c
+"171 F:\MPLAB\BatterySortRobot\main.c
 [v _keypressed keypressed `II(v  1 e 1 0 ]
 {
-"256
-[v keypressed@keypress keypress `uc  1 a 1 110 ]
-"281
+"180
+[v keypressed@keypress keypress `uc  1 a 1 125 ]
+"205
 } 0
-"83
+"49
 [v _simulate simulate `(v  1 e 1 0 ]
 {
-"109
-[v simulate@portCCW portCCW `[3]i  1 a 6 66 ]
-"108
-[v simulate@portCW portCW `[3]i  1 a 6 60 ]
-"85
-[v simulate@sorted sorted `[4]uc  1 a 4 88 ]
-"84
-[v simulate@start start `[2]ui  1 a 4 84 ]
-[v simulate@now now `[2]ui  1 a 4 80 ]
-"86
-[v simulate@period period `ui  1 a 2 92 ]
-"93
-[v simulate@V9 V9 `i  1 a 2 78 ]
-[v simulate@C C `i  1 a 2 76 ]
-[v simulate@AA AA `i  1 a 2 74 ]
-"92
-[v simulate@stop stop `i  1 a 2 72 ]
-"83
-[v simulate@F3107 F3107 `[2]ui  1 s 4 F3107 ]
-"84
-[v simulate@F3109 F3109 `[2]ui  1 s 4 F3109 ]
-[v simulate@F3111 F3111 `[4]uc  1 s 4 F3111 ]
-"105
-[v simulate@F3121 F3121 `[3]i  1 s 6 F3121 ]
-"108
-[v simulate@F3123 F3123 `[3]i  1 s 6 F3123 ]
-"184
+"75
+[v simulate@portCCW portCCW `[3]i  1 a 6 10 ]
+"74
+[v simulate@portCW portCW `[3]i  1 a 6 4 ]
+"51
+[v simulate@sorted sorted `[4]uc  1 a 4 32 ]
+"50
+[v simulate@start start `[2]ui  1 a 4 28 ]
+[v simulate@now now `[2]ui  1 a 4 24 ]
+"52
+[v simulate@period period `ui  1 a 2 36 ]
+"54
+[v simulate@V9 V9 `i  1 a 2 22 ]
+[v simulate@C C `i  1 a 2 20 ]
+[v simulate@AA AA `i  1 a 2 18 ]
+"53
+[v simulate@stop stop `i  1 a 2 16 ]
+"49
+[v simulate@F3101 F3101 `[2]ui  1 s 4 F3101 ]
+"50
+[v simulate@F3103 F3103 `[2]ui  1 s 4 F3103 ]
+[v simulate@F3105 F3105 `[4]uc  1 s 4 F3105 ]
+"71
+[v simulate@F3115 F3115 `[3]i  1 s 6 F3115 ]
+"74
+[v simulate@F3117 F3117 `[3]i  1 s 6 F3117 ]
+"150
 } 0
-"72 F:\MPLAB\BatterySortRobot\modules.c
+"77 F:\MPLAB\BatterySortRobot\modules.c
 [v i2_getTime getTime `(v  1 e 1 0 ]
 {
 [v i2getTime@i getTime `uc  1 a 1 5 ]
 [v i2getTime@time time `*.39uc  1 p 2 3 ]
-"91
+"96
 } 0
 "42 F:\MPLAB\BatterySortRobot\I2C.c
 [v i2_I2C_Master_Write I2C_Master_Write `(v  1 e 1 0 ]
@@ -624,78 +796,51 @@
 {
 "25
 } 0
-"33 F:\MPLAB\BatterySortRobot\motors.c
+"31 F:\MPLAB\BatterySortRobot\motors.c
 [v _stopMoving stopMoving `(v  1 e 1 0 ]
 {
 [v stopMoving@em em `uc  1 a 1 wreg ]
-"38
-[v stopMoving@i i `uc  1 a 1 40 ]
-"33
 [v stopMoving@em em `uc  1 a 1 wreg ]
-[v stopMoving@em em `uc  1 a 1 39 ]
-"41
+[v stopMoving@em em `uc  1 a 1 116 ]
+"39
 } 0
-"51 F:\MPLAB\BatterySortRobot\sensors.c
+"49 F:\MPLAB\BatterySortRobot\sensors.c
 [v _checkC checkC `(i  1 e 2 0 ]
 {
-[v checkC@sorted sorted `*.39uc  1 p 2 54 ]
-"71
+[v checkC@sorted sorted `*.39uc  1 p 2 122 ]
+"69
 } 0
-"29
+"27
 [v _checkAA checkAA `(i  1 e 2 0 ]
 {
-[v checkAA@sorted sorted `*.39uc  1 p 2 54 ]
-"49
+[v checkAA@sorted sorted `*.39uc  1 p 2 122 ]
+"47
 } 0
-"73
+"71
 [v _check9 check9 `(i  1 e 2 0 ]
 {
-[v check9@sorted sorted `*.39uc  1 p 2 54 ]
-"93
+[v check9@sorted sorted `*.39uc  1 p 2 122 ]
+"91
 } 0
-"15
+"13
 [v _checkV checkV `(i  1 e 2 0 ]
 {
-"19
-[v checkV@i i `uc  1 a 1 53 ]
-"15
-[v checkV@voltage voltage `i  1 p 2 47 ]
-[v checkV@max max `f  1 p 3 49 ]
-"27
-} 0
-"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftmul.c
-[v ___ftmul __ftmul `(f  1 e 3 0 ]
-{
-"65
-[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 18 ]
-"64
-[v ___ftmul@sign sign `uc  1 a 1 22 ]
-[v ___ftmul@cntr cntr `uc  1 a 1 21 ]
-[v ___ftmul@exp exp `uc  1 a 1 17 ]
-"62
-[v ___ftmul@f1 f1 `f  1 p 3 8 ]
-[v ___ftmul@f2 f2 `f  1 p 3 11 ]
-"157
-} 0
-"4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftge.c
-[v ___ftge __ftge `(b  1 e 0 0 ]
-{
-[v ___ftge@ff1 ff1 `f  1 p 3 38 ]
-[v ___ftge@ff2 ff2 `f  1 p 3 41 ]
-"13
+[v checkV@voltage voltage `i  1 p 2 112 ]
+[v checkV@max max `f  1 p 3 114 ]
+"25
 } 0
 "54 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 3 0 ]
 {
 "60
-[v ___ftdiv@f3 f3 `f  1 a 3 33 ]
+[v ___ftdiv@f3 f3 `f  1 a 3 22 ]
 "59
-[v ___ftdiv@sign sign `uc  1 a 1 37 ]
-[v ___ftdiv@exp exp `uc  1 a 1 36 ]
-[v ___ftdiv@cntr cntr `uc  1 a 1 32 ]
+[v ___ftdiv@sign sign `uc  1 a 1 26 ]
+[v ___ftdiv@exp exp `uc  1 a 1 25 ]
+[v ___ftdiv@cntr cntr `uc  1 a 1 21 ]
 "54
-[v ___ftdiv@f1 f1 `f  1 p 3 23 ]
-[v ___ftdiv@f2 f2 `f  1 p 3 26 ]
+[v ___ftdiv@f1 f1 `f  1 p 3 12 ]
+[v ___ftdiv@f2 f2 `f  1 p 3 15 ]
 "86
 } 0
 "32 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awtoft.c
@@ -707,14 +852,6 @@
 [v ___awtoft@c c `i  1 p 2 8 ]
 "42
 } 0
-"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
-[v ___ftpack __ftpack `(f  1 e 3 0 ]
-{
-[v ___ftpack@arg arg `um  1 p 3 0 ]
-[v ___ftpack@exp exp `uc  1 p 1 3 ]
-[v ___ftpack@sign sign `uc  1 p 1 4 ]
-"86
-} 0
 "4 F:\MPLAB\BatterySortRobot\sensors.c
 [v _AD AD `(i  1 e 2 0 ]
 {
@@ -722,102 +859,113 @@
 [v AD@channel channel `uc  1 a 1 wreg ]
 "6
 [v AD@channel channel `uc  1 a 1 4 ]
-"13
+"11
 } 0
-"77 F:\MPLAB\BatterySortRobot\eeprom.c
+"75 F:\MPLAB\BatterySortRobot\eeprom.c
 [v _WriteRun WriteRun `(v  1 e 1 0 ]
 {
-"78
-[v WriteRun@add add `ui  1 a 2 12 ]
-"77
-[v WriteRun@sorted sorted `*.39uc  1 p 2 6 ]
-[v WriteRun@time time `ui  1 p 2 8 ]
-"90
+"76
+[v WriteRun@add add `ui  1 a 2 26 ]
+"75
+[v WriteRun@sorted sorted `*.39uc  1 p 2 20 ]
+[v WriteRun@time time `ui  1 p 2 22 ]
+"88
 } 0
 "34
 [v _WriteEE WriteEE `(v  1 e 1 0 ]
 {
 [v WriteEE@address address `ui  1 p 2 0 ]
 [v WriteEE@data data `uc  1 p 1 2 ]
-"57
+"55
 } 0
-"21 F:\MPLAB\BatterySortRobot\motors.c
+"6 F:\MPLAB\BatterySortRobot\modules.c
+[v _HexDecToDec2 HexDecToDec2 `(ui  1 e 2 0 ]
+{
+"9
+[v HexDecToDec2@digit digit `ui  1 a 2 27 ]
+"8
+[v HexDecToDec2@tenth tenth `ui  1 a 2 25 ]
+"6
+[v HexDecToDec2@hex hex `ui  1 p 2 20 ]
+"11
+} 0
+"19 F:\MPLAB\BatterySortRobot\motors.c
 [v _CW90 CW90 `(v  1 e 1 0 ]
 {
-[v CW90@port port `*.39i  1 p 2 36 ]
-"25
+[v CW90@port port `*.39i  1 p 2 112 ]
+"23
 } 0
-"27
+"25
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
 {
-[v CCW90@port port `*.39i  1 p 2 36 ]
-"31
+[v CCW90@port port `*.39i  1 p 2 112 ]
+"29
 } 0
 "4
 [v _PWMC PWMC `(v  1 e 1 0 ]
 {
 "7
-[v PWMC@countdown countdown `i  1 a 2 19 ]
+[v PWMC@countdown countdown `i  1 a 2 25 ]
 "4
-[v PWMC@widthus widthus `i  1 p 2 8 ]
-[v PWMC@cycles cycles `i  1 p 2 10 ]
-[v PWMC@port port `*.39i  1 p 2 12 ]
-"19
+[v PWMC@widthus widthus `i  1 p 2 14 ]
+[v PWMC@cycles cycles `i  1 p 2 16 ]
+[v PWMC@port port `*.39i  1 p 2 18 ]
+"17
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awdiv.c
-[v ___awdiv __awdiv `(i  1 e 2 0 ]
-{
-"11
-[v ___awdiv@quotient quotient `i  1 a 2 6 ]
-"12
-[v ___awdiv@sign sign `uc  1 a 1 5 ]
-[v ___awdiv@counter counter `uc  1 a 1 4 ]
-"8
-[v ___awdiv@dividend dividend `i  1 p 2 0 ]
-[v ___awdiv@divisor divisor `i  1 p 2 2 ]
-"42
-} 0
-"92 F:\MPLAB\BatterySortRobot\eeprom.c
+"90 F:\MPLAB\BatterySortRobot\eeprom.c
 [v _PermLog PermLog `(v  1 e 1 0 ]
 {
 [v PermLog@backruns backruns `uc  1 a 1 wreg ]
-"94
-[v PermLog@sorted sorted `[4]uc  1 a 4 51 ]
-"93
-[v PermLog@time time `ui  1 a 2 56 ]
 "92
+[v PermLog@sorted sorted `[4]uc  1 a 4 2 ]
+"91
+[v PermLog@time time `ui  1 a 2 7 ]
+"90
 [v PermLog@backruns backruns `uc  1 a 1 wreg ]
-"93
-[v PermLog@F3081 F3081 `[4]uc  1 s 4 F3081 ]
-[v PermLog@backruns backruns `uc  1 a 1 55 ]
-"102
+"91
+[v PermLog@F3083 F3083 `[4]uc  1 s 4 F3083 ]
+[v PermLog@backruns backruns `uc  1 a 1 6 ]
+"100
 } 0
-"18 F:\MPLAB\BatterySortRobot\modules.c
+"23 F:\MPLAB\BatterySortRobot\modules.c
 [v _showInfo showInfo `(v  1 e 1 0 ]
 {
-"24
-[v showInfo@stop stop `i  1 a 2 47 ]
+"29
+[v showInfo@stop stop `i  1 a 2 123 ]
+"28
+[v showInfo@type type `i  1 a 2 121 ]
 "23
-[v showInfo@type type `i  1 a 2 45 ]
-"18
-[v showInfo@time time `ui  1 p 2 36 ]
-[v showInfo@sorted sorted `*.39uc  1 p 2 38 ]
-"70
+[v showInfo@time time `ui  1 p 2 112 ]
+[v showInfo@sorted sorted `*.39uc  1 p 2 114 ]
+"75
 } 0
 "464 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
 [v i2_printf printf `(i  1 e 2 0 ]
 {
-[v i2printf@width printf `i  1 a 2 33 ]
-[v i2printf@val printf `ui  1 a 2 30 ]
-[v i2printf@len printf `ui  1 a 2 27 ]
-[v i2printf@ap printf `[1]*.39v  1 a 2 25 ]
-[v i2printf@cp printf `*.39Cuc  1 a 2 22 ]
-[v i2printf@c printf `c  1 a 1 35 ]
-[v i2printf@flag printf `uc  1 a 1 32 ]
-[v i2printf@prec printf `c  1 a 1 29 ]
-[v i2printf@idx printf `uc  1 a 1 24 ]
-[v i2printf@f f `*.25Cuc  1 p 2 12 ]
+[v i2printf@val printf `ul  1 a 4 100 ]
+[u S847 . 4 `ul 1 vd 4 0 `d 1 integ 3 0 ]
+[v i2printf@tmpval printf `S847  1 a 4 94 ]
+[v i2printf@fval printf `d  1 a 3 106 ]
+[v i2printf@width printf `i  1 a 2 109 ]
+[v i2printf@flag printf `us  1 a 2 104 ]
+[v i2printf@exp printf `i  1 a 2 98 ]
+[v i2printf@prec printf `i  1 a 2 92 ]
+[v i2printf@ap printf `[1]*.39v  1 a 2 90 ]
+[v i2printf@len printf `ui  1 a 2 88 ]
+[v i2printf@cp printf `*.39Cuc  1 a 2 85 ]
+[v i2printf@c printf `c  1 a 1 111 ]
+[v i2printf@idx printf `uc  1 a 1 87 ]
+[v i2printf@f f `*.25Cuc  1 p 2 70 ]
 "1541
+} 0
+"425
+[v i2_scale scale `(d  1 s 3 i2_scale ]
+{
+[v i2scale@scl scl `c  1 a 1 wreg ]
+[v i2scale@scl scl `c  1 a 1 wreg ]
+"428
+[v i2scale@scl scl `c  1 a 1 48 ]
+"441
 } 0
 "25 F:\MPLAB\BatterySortRobot\lcd.c
 [v i2_putch putch `(v  1 e 1 0 ]
@@ -836,30 +984,143 @@
 [v i2isdigit@c c `uc  1 a 1 2 ]
 "15
 } 0
+"409 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
+[v i2_fround fround `(d  1 s 3 i2_fround ]
+{
+[v i2fround@prec prec `uc  1 a 1 wreg ]
+[v i2fround@prec prec `uc  1 a 1 wreg ]
+"413
+[v i2fround@prec prec `uc  1 a 1 51 ]
+"418
+} 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\Umul16.c
 [v i2___wmul __wmul `(ui  1 e 2 0 ]
 {
-[v i2___wmul@product __wmul `ui  1 a 2 4 ]
-[v i2___wmul@multiplier multiplier `ui  1 p 2 0 ]
-[v i2___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+[v i2___wmul@product __wmul `ui  1 a 2 18 ]
+[v i2___wmul@multiplier multiplier `ui  1 p 2 14 ]
+[v i2___wmul@multiplicand multiplicand `ui  1 p 2 16 ]
 "53
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwmod.c
-[v i2___lwmod __lwmod `(ui  1 e 2 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftmul.c
+[v i2___ftmul __ftmul `(f  1 e 3 0 ]
 {
-[v i2___lwmod@counter __lwmod `uc  1 a 1 11 ]
-[v i2___lwmod@dividend dividend `ui  1 p 2 7 ]
-[v i2___lwmod@divisor divisor `ui  1 p 2 9 ]
+[v i2___ftmul@f3_as_product __ftmul `um  1 a 3 37 ]
+[v i2___ftmul@sign __ftmul `uc  1 a 1 41 ]
+[v i2___ftmul@cntr __ftmul `uc  1 a 1 40 ]
+[v i2___ftmul@exp __ftmul `uc  1 a 1 36 ]
+[v i2___ftmul@f1 f1 `f  1 p 3 27 ]
+[v i2___ftmul@f2 f2 `f  1 p 3 30 ]
+"157
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awmod.c
+[v i2___awmod __awmod `(i  1 e 2 0 ]
+{
+[v i2___awmod@sign __awmod `uc  1 a 1 5 ]
+[v i2___awmod@counter __awmod `uc  1 a 1 4 ]
+[v i2___awmod@dividend dividend `i  1 p 2 0 ]
+[v i2___awmod@divisor divisor `i  1 p 2 2 ]
+"35
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awdiv.c
+[v i2___awdiv __awdiv `(i  1 e 2 0 ]
+{
+[v i2___awdiv@quotient __awdiv `i  1 a 2 12 ]
+[v i2___awdiv@sign __awdiv `uc  1 a 1 11 ]
+[v i2___awdiv@counter __awdiv `uc  1 a 1 10 ]
+[v i2___awdiv@dividend dividend `i  1 p 2 6 ]
+[v i2___awdiv@divisor divisor `i  1 p 2 8 ]
+"42
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftdivl.c
+[v i2__tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
+{
+[v i2__tdiv_to_l_@quot _tdiv_to_l_ `ul  1 a 4 9 ]
+[v i2__tdiv_to_l_@exp1 _tdiv_to_l_ `uc  1 a 1 14 ]
+[v i2__tdiv_to_l_@cntr _tdiv_to_l_ `uc  1 a 1 13 ]
+[v i2__tdiv_to_l_@f1 f1 `f  1 p 3 0 ]
+[v i2__tdiv_to_l_@f2 f2 `f  1 p 3 3 ]
+"101
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fldivl.c
+[v i2__div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
+{
+[v i2__div_to_l_@quot _div_to_l_ `ul  1 a 4 6 ]
+[v i2__div_to_l_@exp1 _div_to_l_ `uc  1 a 1 11 ]
+[v i2__div_to_l_@cntr _div_to_l_ `uc  1 a 1 10 ]
+[v i2__div_to_l_@f1 f1 `d  1 p 3 0 ]
+[v i2__div_to_l_@f2 f2 `d  1 p 3 3 ]
+"101
+} 0
+"35 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lltoft.c
+[v i2___lltoft __lltoft `(f  1 e 3 0 ]
+{
+[v i2___lltoft@exp __lltoft `uc  1 a 1 16 ]
+[v i2___lltoft@c c `ul  1 p 4 8 ]
+"46
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\llmod.c
+[v i2___llmod __llmod `(ul  1 e 4 0 ]
+{
+[v i2___llmod@counter __llmod `uc  1 a 1 21 ]
+[v i2___llmod@dividend dividend `ul  1 p 4 13 ]
+[v i2___llmod@divisor divisor `ul  1 p 4 17 ]
 "26
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
-[v i2___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lldiv.c
+[v i2___lldiv __lldiv `(ul  1 e 4 0 ]
 {
-[v i2___lwdiv@quotient __lwdiv `ui  1 a 2 4 ]
-[v i2___lwdiv@counter __lwdiv `uc  1 a 1 6 ]
-[v i2___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v i2___lwdiv@divisor divisor `ui  1 p 2 2 ]
+[v i2___lldiv@quotient __lldiv `ul  1 a 4 8 ]
+[v i2___lldiv@counter __lldiv `uc  1 a 1 12 ]
+[v i2___lldiv@dividend dividend `ul  1 p 4 0 ]
+[v i2___lldiv@divisor divisor `ul  1 p 4 4 ]
 "31
+} 0
+"44 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\fttol.c
+[v i2___fttol __fttol `(l  1 e 4 0 ]
+{
+[v i2___fttol@lval __fttol `ul  1 a 4 52 ]
+[v i2___fttol@exp1 __fttol `uc  1 a 1 56 ]
+[v i2___fttol@sign1 __fttol `uc  1 a 1 51 ]
+[v i2___fttol@f1 f1 `f  1 p 3 42 ]
+"73
+} 0
+"20 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftsub.c
+[v i2___ftsub __ftsub `(f  1 e 3 0 ]
+{
+[v i2___ftsub@f1 f1 `f  1 p 3 64 ]
+[v i2___ftsub@f2 f2 `f  1 p 3 67 ]
+"27
+} 0
+"86 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftadd.c
+[v i2___ftadd __ftadd `(f  1 e 3 0 ]
+{
+[v i2___ftadd@exp1 __ftadd `uc  1 a 1 63 ]
+[v i2___ftadd@exp2 __ftadd `uc  1 a 1 62 ]
+[v i2___ftadd@sign __ftadd `uc  1 a 1 61 ]
+[v i2___ftadd@f1 f1 `f  1 p 3 52 ]
+[v i2___ftadd@f2 f2 `f  1 p 3 55 ]
+"148
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
+[v i2___ftpack __ftpack `(f  1 e 3 0 ]
+{
+[v i2___ftpack@arg arg `um  1 p 3 0 ]
+[v i2___ftpack@exp exp `uc  1 p 1 3 ]
+[v i2___ftpack@sign sign `uc  1 p 1 4 ]
+"86
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftneg.c
+[v i2___ftneg __ftneg `(f  1 e 3 0 ]
+{
+[v i2___ftneg@f1 f1 `f  1 p 3 0 ]
+"20
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftge.c
+[v i2___ftge __ftge `(b  1 e 0 0 ]
+{
+[v i2___ftge@ff1 ff1 `f  1 p 3 42 ]
+[v i2___ftge@ff2 ff2 `f  1 p 3 45 ]
+"13
 } 0
 "53 F:\MPLAB\BatterySortRobot\lcd.c
 [v i2___lcd_newline __lcd_newline `(v  1 e 1 0 ]
@@ -884,25 +1145,25 @@
 [v i2lcdNibble@data data `uc  1 a 1 1 ]
 "51
 } 0
-"6 F:\MPLAB\BatterySortRobot\modules.c
+"13 F:\MPLAB\BatterySortRobot\modules.c
 [v _captureKeypad captureKeypad `(ui  1 e 2 0 ]
 {
-"10
-[v captureKeypad@keypress keypress `uc  1 a 1 2 ]
 "16
+[v captureKeypad@keypress keypress `uc  1 a 1 2 ]
+"21
 } 0
-"68 F:\MPLAB\BatterySortRobot\eeprom.c
+"66 F:\MPLAB\BatterySortRobot\eeprom.c
 [v _ReadRun ReadRun `(v  1 e 1 0 ]
 {
 [v ReadRun@backruns backruns `uc  1 a 1 wreg ]
-"69
+"67
 [v ReadRun@add add `ui  1 a 2 11 ]
-"68
+"66
 [v ReadRun@backruns backruns `uc  1 a 1 wreg ]
 [v ReadRun@sorted sorted `*.39uc  1 p 2 2 ]
 [v ReadRun@time time `*.39ui  1 p 2 4 ]
 [v ReadRun@backruns backruns `uc  1 a 1 10 ]
-"75
+"73
 } 0
 "16
 [v i2_ReadEE ReadEE `(uc  1 e 1 0 ]
@@ -910,15 +1171,15 @@
 [v i2ReadEE@address address `ui  1 p 2 0 ]
 "32
 } 0
-"59
+"57
 [v _back back `(uc  1 e 1 0 ]
 {
 [v back@runs runs `uc  1 a 1 wreg ]
-"61
-[v back@result result `uc  1 a 1 1 ]
 "59
+[v back@result result `uc  1 a 1 1 ]
+"57
 [v back@runs runs `uc  1 a 1 wreg ]
-"61
+"59
 [v back@runs runs `uc  1 a 1 0 ]
-"66
+"64
 } 0

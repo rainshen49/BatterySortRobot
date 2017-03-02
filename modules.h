@@ -8,4 +8,4 @@
 unsigned int captureKeypad();
 void showInfo(unsigned int time, unsigned char *sorted);
 void getTime(unsigned char * time);
-
+unsigned int HexDecToDec2(unsigned int hex);

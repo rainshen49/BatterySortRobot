@@ -48,9 +48,7 @@ void WriteEE(unsigned int address, unsigned char data) {
     EECON1bits.WR = 1; // Part of required sequence for write to internal EEPROM
 
     // Loop until write operation is complete
-    while (PIR2bits.EEIF == 0) {
-        continue; // Do nothing, are just waiting
-    }
+    while (!PIR2bits.EEIF);
 
     PIR2bits.EEIF = 0; //Clearing EEIF bit (this MUST be cleared in software after each write)
     EECON1bits.WREN = 0; // Disable write (for safety, it is re-enabled next time a EEPROM write is performed)
@@ -97,6 +95,6 @@ void PermLog(unsigned char backruns) {
     printf("showing %u", backruns);
     __lcd_newline();
     printf("runs before");
-    __delay_ms(1000);
+    __delay_ms(700);
     showInfo(time, sorted);
 }

@@ -9,10 +9,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 "161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
 [v __delay `JF2878 ~T0 @X0 0 e ]
 [p i __delay ]
-"14 lcd.h
-[v ___lcd_newline `(v ~T0 @X0 0 ef ]
+"11 lcd.h
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"14 lcd.h
+[v ___lcd_newline `(v ~T0 @X0 0 ef ]
 "6272 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [s S258 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S258 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -27,9 +29,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S257 . . . . ]
 "6298
 [v _INTCONbits `VS257 ~T0 @X0 0 e@4082 ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
-"1094 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"1094
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
 "9 configBits.h
 [p x OSC=HS ]
@@ -2861,149 +2861,137 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _countdown `i ~T0 @X0 1 a ]
 [; ;motors.c: 7: int countdown = widthus;
 [e = _countdown _widthus ]
-[; ;motors.c: 10: for (cycles; cycles > 0; cycles--) {
-"10
+[; ;motors.c: 8: for (cycles; cycles > 0; cycles--) {
+"8
 {
 [e _cycles ]
 [e $ > _cycles -> 0 `i 267  ]
 [e $U 268  ]
 [e :U 267 ]
 {
-[; ;motors.c: 11: countdown = widthus;
-"11
+[; ;motors.c: 9: countdown = widthus;
+"9
 [e = _countdown _widthus ]
-[; ;motors.c: 12: LATC0 = (1 ^ LATC0) & port[0];
-"12
+[; ;motors.c: 10: LATC0 = (1 ^ LATC0) & port[0];
+"10
 [e = _LATC0 -> & ^ -> 1 `i -> _LATC0 `i *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x `b ]
-[; ;motors.c: 13: LATC1 = (1 ^ LATC1) & port[1];
-"13
+[; ;motors.c: 11: LATC1 = (1 ^ LATC1) & port[1];
+"11
 [e = _LATC1 -> & ^ -> 1 `i -> _LATC1 `i *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x `b ]
-[; ;motors.c: 14: LATC2 = (1 ^ LATC2) & port[2];
-"14
+[; ;motors.c: 12: LATC2 = (1 ^ LATC2) & port[2];
+"12
 [e = _LATC2 -> & ^ -> 1 `i -> _LATC2 `i *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x `b ]
-[; ;motors.c: 15: for (countdown; countdown > 0; countdown--) {
-"15
+[; ;motors.c: 13: for (countdown; countdown > 0; countdown--) {
+"13
 {
 [e _countdown ]
 [e $ > _countdown -> 0 `i 270  ]
 [e $U 271  ]
 [e :U 270 ]
 {
-[; ;motors.c: 16: _delay((unsigned long)((5)*(8000000/4000000.0)));
-"16
+[; ;motors.c: 14: _delay((unsigned long)((5)*(8000000/4000000.0)));
+"14
 [e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"17
-}
 "15
+}
+"13
 [e -- _countdown -> 1 `i ]
 [e $ > _countdown -> 0 `i 270  ]
 [e :U 271 ]
-"17
+"15
 }
-"18
+"16
 }
-"10
+"8
 [e -- _cycles -> 1 `i ]
 [e $ > _cycles -> 0 `i 267  ]
 [e :U 268 ]
-"18
+"16
 }
+[; ;motors.c: 15: }
+[; ;motors.c: 16: }
 [; ;motors.c: 17: }
-[; ;motors.c: 18: }
-[; ;motors.c: 19: }
-"19
+"17
 [e :UE 266 ]
 }
-"21
+"19
 [v _CW90 `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 21: void CW90(int * port) {
+[; ;motors.c: 19: void CW90(int * port) {
 [e :U _CW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 22: __lcd_newline();
-"22
-[e ( ___lcd_newline ..  ]
-[; ;motors.c: 23: printf("clockwise  ");
-"23
+[; ;motors.c: 20: lcdInst(0b10000000);;
+"20
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 21: printf("move clockwise  ");
+"21
 [e ( _printf :s 1C ]
-[; ;motors.c: 24: PWMC(3000, 96, port);
-"24
+[; ;motors.c: 22: PWMC(3000, 96, port);
+"22
 [e ( _PWMC (3 , , -> 3000 `i -> 96 `i _port ]
-[; ;motors.c: 25: }
-"25
+[; ;motors.c: 23: }
+"23
 [e :UE 273 ]
 }
-"27
+"25
 [v _CCW90 `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 27: void CCW90(int * port) {
+[; ;motors.c: 25: void CCW90(int * port) {
 [e :U _CCW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 28: __lcd_newline();
-"28
+[; ;motors.c: 26: __lcd_newline();
+"26
 [e ( ___lcd_newline ..  ]
-[; ;motors.c: 29: printf("c-clockwise    ");
-"29
+[; ;motors.c: 27: printf("move cclockwise    ");
+"27
 [e ( _printf :s 2C ]
-[; ;motors.c: 30: PWMC(400, 700, port);
-"30
+[; ;motors.c: 28: PWMC(400, 700, port);
+"28
 [e ( _PWMC (3 , , -> 400 `i -> 700 `i _port ]
-[; ;motors.c: 31: }
-"31
+[; ;motors.c: 29: }
+"29
 [e :UE 274 ]
 }
-"33
+"31
 [v _stopMoving `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;motors.c: 33: void stopMoving(char em) {
+[; ;motors.c: 31: void stopMoving(char em) {
 [e :U _stopMoving ]
 [v _em `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 34: (INTCONbits.GIE = 0);
-"34
+[; ;motors.c: 32: (INTCONbits.GIE = 0);
+"32
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 35: lcdInst(0b10000000);;
-"35
+[; ;motors.c: 33: lcdInst(0b10000000);;
+"33
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 36: LATC = 0;
-"36
+[; ;motors.c: 34: LATC = 0;
+"34
 [e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 37: printf(em ? "Emergency          " : "Stopped          ");
-"37
+[; ;motors.c: 35: printf(em ? "Emergency          " : "Stopped          ");
+"35
 [e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 3C :s 4C ]
-[; ;motors.c: 38: for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+[; ;motors.c: 36: _delay((unsigned long)((700)*(8000000/4000.0)));
+"36
+[e ( __delay (1 -> * -> -> 700 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 37: if (em)
+"37
+[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 276  ]
+[; ;motors.c: 38: while(1);
 "38
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 10 `i 276  ]
-[e $U 277  ]
-[e :U 276 ]
-{
-[e ( __delay (1 -> * -> -> 98 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-}
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 10 `i 276  ]
+[e :U 278 ]
 [e :U 277 ]
-}
-[; ;motors.c: 39: if (em)
-"39
-[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 279  ]
-[; ;motors.c: 40: while(1);
-"40
-[e :U 281 ]
-[e :U 280 ]
-[e $U 281  ]
-[e :U 282 ]
+[e $U 278  ]
 [e :U 279 ]
-[; ;motors.c: 41: }
-"41
+[e :U 276 ]
+[; ;motors.c: 39: }
+"39
 [e :UE 275 ]
 }
 [p f _printf 9437696 ]
-[a 1C 99 108 111 99 107 119 105 115 101 32 32 0 ]
-[a 2C 99 45 99 108 111 99 107 119 105 115 101 32 32 32 32 0 ]
+[a 1C 109 111 118 101 32 99 108 111 99 107 119 105 115 101 32 32 0 ]
+[a 2C 109 111 118 101 32 99 99 108 111 99 107 119 105 115 101 32 32 32 32 0 ]
 [a 3C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 4C 83 116 111 112 112 101 100 32 32 32 32 32 32 32 32 32 32 0 ]

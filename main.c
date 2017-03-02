@@ -43,54 +43,20 @@ void initialize() {
 }
 
 void mainloop(int *bigNose, int *smallNose) {
-    unsigned int now, start;
-    unsigned char sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
-    __lcd_newline();
-    printf("Sorting...          ");
-    int stop = 0;
-    //    unsigned char * now = getTime();
-    //    int startTime = now[1]*60 + now[0];
-    //    unsigned char * runTime;
-    int AA = -1, C = -1, V9 = -1;
-    LATC5 = 1; // start DC
-    INT1IE = 1;
-    ei(); //Enable all interrupts
-    while (!stop) {
-        AA = checkAA(sorted);
-        C = checkC(sorted);
-        V9 = check9(sorted);
-        if (!AA) {
-            // move servo left
-        } else if (AA == 1) {
-            // ,pve servo right
-        }
-        // same for 9V and C servos
-        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
-            stop = 1;
-        }
-        //        runTime = getTime();
-        //        if (runTime[1]*60 + runTime[0] - startTime >= 170) {
-        //            stop = 1;
-        //        }
-    }
-    di(); //disable all interrupts
-    //    interfacing with EEPROM
-    //    showInfo(getTime() - startTime, sorted);
-    stopMoving(0);
-    return;
+    printf("Mainloop");
 }
 
 void simulate() {
     unsigned int now[] = {0, 0}, start[] = {0, 0};
     unsigned char sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
     unsigned int period = 0;
-    start[0] = time[0]; //0 is seconds, 1 is hour
-    start[1] = time[1];
+    int stop = 0;
+    int AA, C, V9;
     __lcd_home();
     printf("Simulating...          ");
     __delay_ms(700);
-    int stop = 0;
-    int AA = -1, C = -1, V9 = -1;
+    start[0] = time[0]; //0 is seconds, 1 is hour
+    start[1] = time[1];
     LATC5 = 1; // start DC
     while (!stop) {
         //        captureKeypad();
@@ -146,29 +112,29 @@ void simulate() {
         //        captureKeypad();
 
         CCW90(portCCW);
-        __delay_ms(700);
         CW90(portCW);
+        __delay_ms(700);
         LATC0 = 0;
         LATC1 = 0;
         LATC2 = 0;
         //        captureKeypad();
 
-        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 10) {
             stop = 1;
         }
         getTime(time);
         now[0] = time[0]; //0 is seconds, 1 is hour
         now[1] = time[1];
         __lcd_home();
-        printf("start %02x:%02x    ", start[1], start[0]);
+        printf("start %02x:%02x     ", start[1], start[0]);
         __lcd_newline();
-        printf("now %02x:%02x     ", now[1], now[0]);
-        __delay_ms(700);
-        //        captureKeypad();
-        period = (now[1] - start[1])*60 + now[0] - start[0];
+        printf("now %02x:%02x       ", now[1], now[0]);
+        __delay_ms(1500);
+        period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
         __lcd_home();
-        printf("Period: %u", period);
-        if (period > 60) {
+        printf("Period: %u      ", period);
+        __delay_ms(700);
+        if (period > 20) {
             stop = 1;
         }
     }
@@ -183,40 +149,7 @@ void simulate() {
     mode = 0;
 }
 
-//void testPWM() {
-//    __lcd_home();
-//    printf("Width:700us");
-//    int port[] = {1, 1, 1};
-//    for (int i = 0; i < 4; i++) {
-//        CCW90(port);
-//        __delay_1s();
-//    }
-//}
-
-//void testADC() {
-//    while (1) {
-//        int AA = checkAA(sorted);
-//        //        printf("AA: %d",AA);
-//        __delay_ms(700);
-//    }
-//}
-
-//void testEEPROM() {
-//    unsigned int add = 0;
-//    for (unsigned char i = 0; i < 16; i++) {
-//        WriteEE(add * 8, i);
-//        add++;
-//    }
-//    while(1){
-//        unsigned int key = captureKeypad();
-//        __lcd_home();
-//        unsigned char result = ReadEE(key*8);
-//        printf("data: %u",result);
-//    }
-//}
-
 void showRTC() {
-
     getTime(time);
     __lcd_home();
     printf("%02x/%02x/%02x         ", time[6], time[5], time[4]); //Print date in YY/MM/DD
@@ -225,30 +158,21 @@ void showRTC() {
     __delay_ms(250);
 }
 
-int main(int argc, char **argv) {
-    initialize(); //Initiallize LCD and PORTs
-    // Enter Standby mode
-    printf((unsigned char *) "Welcome!          ");
-    __delay_ms(700);
-    INT1IE = 1;
-    ei(); //Enable all interrupts
-    mode = 0;
+void testADC() {
+    unsigned char sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
+    while (1)checkAA(sorted);
+}
 
-    while (1)showRTC();
-    //    pause();
-    //    mainloop(&bigNose, &smallNose);
-    //    testPWM();
-    //    testADC();
-    //    testRTC();
-    //    testEEPROM();
-    RESET();
+void testMotor() {
+    LATC5 = 1;
+    pause();
 }
 
 void interrupt keypressed(void) {
     //    test case:
     //    when standby: start runing
     //    when running: emergency
-    //    when result: show info
+    //    when result: show info (do nothing)
     //    when emergency: nothing
     //        printf("%d",INT1IF);
     di();
@@ -278,4 +202,19 @@ void interrupt keypressed(void) {
         }
     }
     ei();
+}
+
+int main(int argc, char **argv) {
+    initialize(); //Initiallize LCD and PORTs
+    // Enter Standby mode
+    printf((unsigned char *) "Welcome!          ");
+    __delay_ms(700);
+    INT1IE = 1;
+    ei(); //Enable all interrupts
+    mode = 0;
+    //        testADC();
+    //    testMotor();
+    while (1)showRTC();
+    //    pause();
+    RESET();
 }

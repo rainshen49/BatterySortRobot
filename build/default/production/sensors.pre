@@ -3807,20 +3807,18 @@ int AD(char channel) {
 ADCON0 = ((channel << 2));
 ADON = 1;
 ADCON0bits.GO = 1;
-while (ADCON0bits.GO_NOT_DONE) {
-_delay((unsigned long)((10)*(8000000/4000.0)));
-}
+while (ADCON0bits.GO_NOT_DONE);
 return (ADRESH << 8) | ADRESL;
 }
 
 int checkV(int voltage, float max) {
 
-printf("%d received    ", voltage);
+printf("%f02 received    ", (float) voltage / 1024 * 4.1);
 __lcd_newline();
-for(char i=0;i<10;i++){_delay((unsigned long)((98)*(8000000/4000.0)));};
+_delay((unsigned long)((700)*(8000000/4000.0)));
 if (voltage < 50) {
 return 0;
-} else if (voltage > 0.85 * 1023 * max / 5) {
+} else if (voltage > 0.85 * 1023 * max / 4.1) {
 return 1;
 } else {
 return -1;

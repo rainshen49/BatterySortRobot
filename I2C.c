@@ -6,7 +6,7 @@
  */
 
 
-#include <xc.h>
+#include "common.h"
 #include "I2C.h"
 #include "configBits.h"
 

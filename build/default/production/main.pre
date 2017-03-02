@@ -3798,6 +3798,7 @@ void __lcd_newline();
 unsigned int captureKeypad();
 void showInfo(unsigned int time, unsigned char *sorted);
 void getTime(unsigned char * time);
+unsigned int HexDecToDec2(unsigned int hex);
 
 # 1 "sensors.h"
 int AD(char channel);
@@ -3860,54 +3861,20 @@ _delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void mainloop(int *bigNose, int *smallNose) {
-unsigned int now, start;
-unsigned char sorted[] = {0, 0, 0, 0};
-__lcd_newline();
-printf("Sorting...          ");
-int stop = 0;
-
-
-
-int AA = -1, C = -1, V9 = -1;
-LATC5 = 1;
-INT1IE = 1;
-(INTCONbits.GIE = 1);
-while (!stop) {
-AA = checkAA(sorted);
-C = checkC(sorted);
-V9 = check9(sorted);
-if (!AA) {
-
-} else if (AA == 1) {
-
-}
-
-if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
-stop = 1;
-}
-
-
-
-
-}
-(INTCONbits.GIE = 0);
-
-
-stopMoving(0);
-return;
+printf("Mainloop");
 }
 
 void simulate() {
 unsigned int now[] = {0, 0}, start[] = {0, 0};
 unsigned char sorted[] = {0, 0, 0, 0};
 unsigned int period = 0;
-start[0] = time[0];
-start[1] = time[1];
+int stop = 0;
+int AA, C, V9;
 lcdInst(0b10000000);;
 printf("Simulating...          ");
 _delay((unsigned long)((700)*(8000000/4000.0)));
-int stop = 0;
-int AA = -1, C = -1, V9 = -1;
+start[0] = time[0];
+start[1] = time[1];
 LATC5 = 1;
 while (!stop) {
 
@@ -3963,29 +3930,29 @@ printf("9ServoStays         ");
 
 
 CCW90(portCCW);
-_delay((unsigned long)((700)*(8000000/4000.0)));
 CW90(portCW);
+_delay((unsigned long)((700)*(8000000/4000.0)));
 LATC0 = 0;
 LATC1 = 0;
 LATC2 = 0;
 
 
-if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 5) {
+if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 10) {
 stop = 1;
 }
 getTime(time);
 now[0] = time[0];
 now[1] = time[1];
 lcdInst(0b10000000);;
-printf("start %02x:%02x    ", start[1], start[0]);
+printf("start %02x:%02x     ", start[1], start[0]);
 __lcd_newline();
-printf("now %02x:%02x     ", now[1], now[0]);
-_delay((unsigned long)((700)*(8000000/4000.0)));
-
-period = (now[1] - start[1])*60 + now[0] - start[0];
+printf("now %02x:%02x       ", now[1], now[0]);
+_delay((unsigned long)((1500)*(8000000/4000.0)));
+period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
 lcdInst(0b10000000);;
-printf("Period: %u", period);
-if (period > 60) {
+printf("Period: %u      ", period);
+_delay((unsigned long)((700)*(8000000/4000.0)));
+if (period > 20) {
 stop = 1;
 }
 }
@@ -4000,35 +3967,28 @@ WriteRun(sorted, period);
 mode = 0;
 }
 
-# 218
 void showRTC() {
-
 getTime(time);
 lcdInst(0b10000000);;
 printf("%02x/%02x/%02x         ", time[6], time[5], time[4]);
 __lcd_newline();
 printf("%02x:%02x:%02x         ", time[2], time[1], time[0]);
-_delay((unsigned long)((700)*(8000000/4000.0)));
+_delay((unsigned long)((250)*(8000000/4000.0)));
 }
 
-int main(int argc, char **argv) {
-initialize();
+void testADC() {
+unsigned char sorted[] = {0, 0, 0, 0};
+while (1)checkAA(sorted);
+}
 
-printf((unsigned char *) "Welcome!          ");
-_delay((unsigned long)((700)*(8000000/4000.0)));
-INT1IE = 1;
-(INTCONbits.GIE = 1);
-mode = 0;
-
-while (1)showRTC();
-
-# 244
-asm("reset");
+void testMotor() {
+LATC5 = 1;
+while(1);
 }
 
 void interrupt keypressed(void) {
 
-# 254
+# 178
 (INTCONbits.GIE = 0);
 if (INT1IF) {
 unsigned char keypress = (PORTB & 0xF0) >> 4;
@@ -4056,4 +4016,19 @@ break;
 }
 }
 (INTCONbits.GIE = 1);
+}
+
+int main(int argc, char **argv) {
+initialize();
+
+printf((unsigned char *) "Welcome!          ");
+_delay((unsigned long)((700)*(8000000/4000.0)));
+INT1IE = 1;
+(INTCONbits.GIE = 1);
+mode = 0;
+
+
+while (1)showRTC();
+
+asm("reset");
 }

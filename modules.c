@@ -3,13 +3,18 @@
 #include "motors.h"
 #include "I2C.h"
 
+unsigned int HexDecToDec2(unsigned int hex) {
+    //    converts fake Dec (infact hex) to actual dec
+    unsigned tenth = hex / 16;
+    unsigned digit = hex % 16;
+    return tenth * 10 + digit;
+}
+
 unsigned int captureKeypad() {
     di();
-    while (!PORTBbits.RB1)
-        ;
+    while (!PORTBbits.RB1);
     unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
-    while (PORTBbits.RB1)
-        ;
+    while (PORTBbits.RB1);
     INT1IF = 0; //Clear flag bit
     ei();
     return keypress;

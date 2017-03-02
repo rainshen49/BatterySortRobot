@@ -3807,6 +3807,7 @@ void initLatest();
 unsigned int captureKeypad();
 void showInfo(unsigned int time, unsigned char *sorted);
 void getTime(unsigned char * time);
+unsigned int HexDecToDec2(unsigned int hex);
 
 # 7 "eeprom.c"
 unsigned char Latest = 0;
@@ -3853,9 +3854,7 @@ EECON2 = 0xAA;
 EECON1bits.WR = 1;
 
 
-while (PIR2bits.EEIF == 0) {
-continue;
-}
+while (!PIR2bits.EEIF);
 
 PIR2bits.EEIF = 0;
 EECON1bits.WREN = 0;
@@ -3902,6 +3901,6 @@ lcdInst(0b10000000);;
 printf("showing %u", backruns);
 __lcd_newline();
 printf("runs before");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
+_delay((unsigned long)((700)*(8000000/4000.0)));
 showInfo(time, sorted);
 }

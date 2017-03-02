@@ -2860,6 +2860,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 8: unsigned int captureKeypad();
 [; ;modules.h: 9: void showInfo(unsigned int time, unsigned char *sorted);
 [; ;modules.h: 10: void getTime(unsigned char * time);
+[; ;modules.h: 11: unsigned int HexDecToDec2(unsigned int hex);
 "7 eeprom.c
 [v _Latest `uc ~T0 @X0 1 e ]
 [i _Latest
@@ -2962,157 +2963,149 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom.c: 48: EECON1bits.WR = 1;
 "48
 [e = . . _EECON1bits 0 1 -> -> 1 `i `uc ]
-[; ;eeprom.c: 51: while (PIR2bits.EEIF == 0) {
+[; ;eeprom.c: 51: while (!PIR2bits.EEIF);
 "51
 [e $U 273  ]
 [e :U 274 ]
-{
-[; ;eeprom.c: 52: continue;
-"52
-[e $U 273  ]
-"53
-}
 [e :U 273 ]
-"51
-[e $ == -> . . _PIR2bits 0 4 `i -> 0 `i 274  ]
+[e $ ! != -> . . _PIR2bits 0 4 `i -> -> -> 0 `i `Vuc `i 274  ]
 [e :U 275 ]
-[; ;eeprom.c: 53: }
-[; ;eeprom.c: 55: PIR2bits.EEIF = 0;
-"55
+[; ;eeprom.c: 53: PIR2bits.EEIF = 0;
+"53
 [e = . . _PIR2bits 0 4 -> -> 0 `i `uc ]
-[; ;eeprom.c: 56: EECON1bits.WREN = 0;
-"56
+[; ;eeprom.c: 54: EECON1bits.WREN = 0;
+"54
 [e = . . _EECON1bits 0 2 -> -> 0 `i `uc ]
-[; ;eeprom.c: 57: }
-"57
+[; ;eeprom.c: 55: }
+"55
 [e :UE 272 ]
 }
-"59
+"57
 [v _back `(uc ~T0 @X0 1 ef1`uc ]
 {
-[; ;eeprom.c: 59: unsigned char back(unsigned char runs) {
+[; ;eeprom.c: 57: unsigned char back(unsigned char runs) {
 [e :U _back ]
 [v _runs `uc ~T0 @X0 1 r1 ]
 [f ]
-"61
+"59
 [v _result `uc ~T0 @X0 1 a ]
-[; ;eeprom.c: 61: unsigned char result = Latest + 4 - runs;
+[; ;eeprom.c: 59: unsigned char result = Latest + 4 - runs;
 [e = _result -> - + -> _Latest `i -> 4 `i -> _runs `i `uc ]
-[; ;eeprom.c: 62: if (result > 4) {
-"62
+[; ;eeprom.c: 60: if (result > 4) {
+"60
 [e $ ! > -> _result `i -> 4 `i 277  ]
 {
-[; ;eeprom.c: 63: result -= 4;
-"63
+[; ;eeprom.c: 61: result -= 4;
+"61
 [e =- _result -> -> 4 `i `uc ]
-"64
+"62
 }
 [e :U 277 ]
-[; ;eeprom.c: 64: }
-[; ;eeprom.c: 65: return result;
-"65
+[; ;eeprom.c: 62: }
+[; ;eeprom.c: 63: return result;
+"63
 [e ) _result ]
 [e $UE 276  ]
-[; ;eeprom.c: 66: }
-"66
+[; ;eeprom.c: 64: }
+"64
 [e :UE 276 ]
 }
-"68
+"66
 [v _ReadRun `(v ~T0 @X0 1 ef3`uc`*uc`*ui ]
 {
-[; ;eeprom.c: 68: void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time) {
+[; ;eeprom.c: 66: void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time) {
 [e :U _ReadRun ]
 [v _backruns `uc ~T0 @X0 1 r1 ]
 [v _sorted `*uc ~T0 @X0 1 r2 ]
 [v _time `*ui ~T0 @X0 1 r3 ]
 [f ]
-"69
+"67
 [v _add `ui ~T0 @X0 1 a ]
-[; ;eeprom.c: 69: unsigned int add = back(backruns) * 5;
+[; ;eeprom.c: 67: unsigned int add = back(backruns) * 5;
 [e = _add -> * -> ( _back (1 _backruns `i -> 5 `i `ui ]
-[; ;eeprom.c: 70: *time = ReadEE(add++ *8);
-"70
+[; ;eeprom.c: 68: *time = ReadEE(add++ *8);
+"68
 [e = *U _time -> ( _ReadEE (1 * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui `ui ]
-[; ;eeprom.c: 71: sorted[0] = ReadEE(add++ *8);
-"71
+[; ;eeprom.c: 69: sorted[0] = ReadEE(add++ *8);
+"69
 [e = *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ( _ReadEE (1 * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui ]
-[; ;eeprom.c: 72: sorted[1] = ReadEE(add++ *8);
-"72
+[; ;eeprom.c: 70: sorted[1] = ReadEE(add++ *8);
+"70
 [e = *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ( _ReadEE (1 * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui ]
-[; ;eeprom.c: 73: sorted[2] = ReadEE(add++ *8);
-"73
+[; ;eeprom.c: 71: sorted[2] = ReadEE(add++ *8);
+"71
 [e = *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ( _ReadEE (1 * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui ]
-[; ;eeprom.c: 74: sorted[3] = ReadEE(add++ *8);
-"74
+[; ;eeprom.c: 72: sorted[3] = ReadEE(add++ *8);
+"72
 [e = *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ( _ReadEE (1 * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui ]
-[; ;eeprom.c: 75: }
-"75
+[; ;eeprom.c: 73: }
+"73
 [e :UE 278 ]
 }
-"77
+"75
 [v _WriteRun `(v ~T0 @X0 1 ef2`*uc`ui ]
 {
-[; ;eeprom.c: 77: void WriteRun(unsigned char * sorted, unsigned int time) {
+[; ;eeprom.c: 75: void WriteRun(unsigned char * sorted, unsigned int time) {
 [e :U _WriteRun ]
 [v _sorted `*uc ~T0 @X0 1 r1 ]
 [v _time `ui ~T0 @X0 1 r2 ]
 [f ]
-"78
+"76
 [v _add `ui ~T0 @X0 1 a ]
-[; ;eeprom.c: 78: unsigned int add = ++Latest;
+[; ;eeprom.c: 76: unsigned int add = ++Latest;
 [e = _add -> =+ _Latest -> -> 1 `i `uc `ui ]
-[; ;eeprom.c: 79: if (add > 3) {
-"79
+[; ;eeprom.c: 77: if (add > 3) {
+"77
 [e $ ! > _add -> -> 3 `i `ui 280  ]
 {
-[; ;eeprom.c: 80: add -= 4;
-"80
+[; ;eeprom.c: 78: add -= 4;
+"78
 [e =- _add -> -> 4 `i `ui ]
-[; ;eeprom.c: 81: Latest = add;
-"81
+[; ;eeprom.c: 79: Latest = add;
+"79
 [e = _Latest -> _add `uc ]
-"82
+"80
 }
 [e :U 280 ]
-[; ;eeprom.c: 82: }
-[; ;eeprom.c: 83: add *= 5;
-"83
+[; ;eeprom.c: 80: }
+[; ;eeprom.c: 81: add *= 5;
+"81
 [e =* _add -> -> 5 `i `ui ]
-[; ;eeprom.c: 84: WriteEE(add++ *8, time);
-"84
+[; ;eeprom.c: 82: WriteEE(add++ *8, time);
+"82
 [e ( _WriteEE (2 , * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui -> _time `uc ]
-[; ;eeprom.c: 85: WriteEE(add++ *8, sorted[0]);
-"85
+[; ;eeprom.c: 83: WriteEE(add++ *8, sorted[0]);
+"83
 [e ( _WriteEE (2 , * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x ]
-[; ;eeprom.c: 86: WriteEE(add++ *8, sorted[1]);
-"86
+[; ;eeprom.c: 84: WriteEE(add++ *8, sorted[1]);
+"84
 [e ( _WriteEE (2 , * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x ]
-[; ;eeprom.c: 87: WriteEE(add++ *8, sorted[2]);
-"87
+[; ;eeprom.c: 85: WriteEE(add++ *8, sorted[2]);
+"85
 [e ( _WriteEE (2 , * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x ]
-[; ;eeprom.c: 88: WriteEE(add++ *8, sorted[3]);
-"88
+[; ;eeprom.c: 86: WriteEE(add++ *8, sorted[3]);
+"86
 [e ( _WriteEE (2 , * ++ _add -> -> 1 `i `ui -> -> 8 `i `ui *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x ]
-[; ;eeprom.c: 89: WriteEE(160, Latest);
-"89
+[; ;eeprom.c: 87: WriteEE(160, Latest);
+"87
 [e ( _WriteEE (2 , -> -> 160 `i `ui _Latest ]
-[; ;eeprom.c: 90: }
-"90
+[; ;eeprom.c: 88: }
+"88
 [e :UE 279 ]
 }
-"92
+"90
 [v _PermLog `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;eeprom.c: 92: void PermLog(unsigned char backruns) {
+[; ;eeprom.c: 90: void PermLog(unsigned char backruns) {
 [e :U _PermLog ]
 [v _backruns `uc ~T0 @X0 1 r1 ]
 [f ]
-"93
+"91
 [v _time `ui ~T0 @X0 1 a ]
-[v F3081 `uc ~T0 @X0 -> 0 `x s ]
-[i F3081
+[v F3083 `uc ~T0 @X0 -> 0 `x s ]
+[i F3083
 :U ..
-"94
+"92
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 0 `i `uc
@@ -3120,32 +3113,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _sorted `uc ~T0 @X0 4  a ]
-[; ;eeprom.c: 93: unsigned int time;
-[; ;eeprom.c: 94: unsigned char sorted[] = {0, 0, 0, 0};
-[e = _sorted F3081 ]
-[; ;eeprom.c: 95: ReadRun(backruns, sorted, &time);
-"95
+[; ;eeprom.c: 91: unsigned int time;
+[; ;eeprom.c: 92: unsigned char sorted[] = {0, 0, 0, 0};
+[e = _sorted F3083 ]
+[; ;eeprom.c: 93: ReadRun(backruns, sorted, &time);
+"93
 [e ( _ReadRun (3 , , _backruns &U _sorted &U _time ]
-[; ;eeprom.c: 96: lcdInst(0b10000000);;
-"96
+[; ;eeprom.c: 94: lcdInst(0b10000000);;
+"94
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;eeprom.c: 97: printf("showing %u", backruns);
-"97
+[; ;eeprom.c: 95: printf("showing %u", backruns);
+"95
 [e ( _printf , (. :s 1C -> _backruns `i ]
-[; ;eeprom.c: 98: __lcd_newline();
-"98
+[; ;eeprom.c: 96: __lcd_newline();
+"96
 [e ( ___lcd_newline ..  ]
-[; ;eeprom.c: 99: printf("runs before");
-"99
+[; ;eeprom.c: 97: printf("runs before");
+"97
 [e ( _printf :s 2C ]
-[; ;eeprom.c: 100: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"100
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;eeprom.c: 101: showInfo(time, sorted);
-"101
+[; ;eeprom.c: 98: _delay((unsigned long)((700)*(8000000/4000.0)));
+"98
+[e ( __delay (1 -> * -> -> 700 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;eeprom.c: 99: showInfo(time, sorted);
+"99
 [e ( _showInfo (2 , _time &U _sorted ]
-[; ;eeprom.c: 102: }
-"102
+[; ;eeprom.c: 100: }
+"100
 [e :UE 281 ]
 }
 [p f _printf 8389632 ]

@@ -6,20 +6,18 @@ int AD(char channel) {
     ADCON0 = ((channel << 2));
     ADON = 1;
     ADCON0bits.GO = 1;
-    while (ADCON0bits.GO_NOT_DONE) {
-        __delay_ms(10);
-    }
+    while (ADCON0bits.GO_NOT_DONE);
     return (ADRESH << 8) | ADRESL;
 }
 
 int checkV(int voltage, float max) {
     //    return 0 if not exist, 1 if exist and over 85 charged, -1 if exist but uncharged
-    printf("%d received    ", voltage);
+    printf("%f02 received    ", (float) voltage / 1024 * MAXV);
     __lcd_newline();
-    __delay_1s();
+    __delay_ms(700);
     if (voltage < 50) {
         return 0;
-    } else if (voltage > 0.85 * 1023 * max / 5) {
+    } else if (voltage > 0.85 * 1023 * max / MAXV) {
         return 1;
     } else {
         return -1;
