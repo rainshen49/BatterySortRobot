@@ -21,50 +21,36 @@ unsigned int captureKeypad() {
 }
 
 void showInfo(unsigned int time, unsigned char *sorted) {
-    __lcd_home();
-    printf("Press a number          ");
-    __lcd_newline();
-    printf("For more info          ");
+    println(0,"Press a number          ");
+    println(1,"For more info          ");
     int type = 0;
     int stop = 0;
     while (!stop) {
         type = captureKeypad();
         switch (type) {
             case (0):
-                __lcd_home();
-                printf("Time Elapsed:          ");
-                __lcd_newline();
-                printf("%u seconds          ", time);
+                println(0,"Time Elapsed:          ");
+                println(1,"%u seconds          ", time);
                 break;
             case (1):
-                __lcd_home();
-                printf("Total Sorted:          ");
-                __lcd_newline();
-                printf("%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+                println(0,"Total Sorted:          ");
+                println(1,"%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
                 break;
             case (2):
-                __lcd_home();
-                printf("AA Sorted:          ");
-                __lcd_newline();
-                printf("%d             ", sorted[0]);
+                println(0,"AA Sorted:          ");
+                println(1,"%d             ", sorted[0]);
                 break;
             case (3):
-                __lcd_home();
-                printf("C Sorted:          ");
-                __lcd_newline();
-                printf("%d             ", sorted[1]);
+                println(0,"C Sorted:          ");
+                println(1,"%d             ", sorted[1]);
                 break;
             case (4):
-                __lcd_home();
-                printf("9V Sorted:          ");
-                __lcd_newline();
-                printf("%d             ", sorted[2]);
+                println(0,"9V Sorted:          ");
+                println(1,"%d             ", sorted[2]);
                 break;
             case (5):
-                __lcd_home();
-                printf("Uncharged:          ");
-                __lcd_newline();
-                printf("%d             ", sorted[3]);
+                println(0,"Uncharged:          ");
+                println(1,"%d             ", sorted[3]);
                 break;
             case (15):
                 RESET();

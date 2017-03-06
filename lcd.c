@@ -53,3 +53,19 @@ void lcdNibble(char data) {
 void __lcd_newline() {
     lcdInst(0b11000000);
 }
+
+void println(char pos, const char *format, ...)
+{
+    char str[12];
+    if(pos){
+        __lcd_newline();
+    }else{
+        __lcd_home();
+    }
+    va_list arg;
+    va_start(arg, format);
+    vsprintf(str, format, arg);
+    printf("%s", str);
+    va_end(arg);
+    __delay_ms(700);
+}

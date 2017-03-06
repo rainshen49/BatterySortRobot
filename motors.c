@@ -17,23 +17,19 @@ void PWMC(int widthus, int cycles, int * port) {
 }
 
 void CW90(int * port) {
-    __lcd_home();
-    printf("move clockwise  ");
+    println(0,"move clockwise  ");
     PWMC(3000, 96, port);
 }
 
 void CCW90(int * port) {
-    __lcd_newline();
-    printf("move cclockwise    ");
+    println(1,"move cclockwise    ");
     PWMC(400, 700, port);
 }
 
 void stopMoving(char em) {
     di();
-    __lcd_home();
     LATC = 0;
-    printf(em ? "Emergency          " : "Stopped          ");
-    __delay_ms(700);
+    println(0,em ? "Emergency          " : "Stopped          ");
     if (em)
         pause();
 }

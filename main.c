@@ -43,7 +43,7 @@ void initialize() {
 }
 
 void mainloop(int *bigNose, int *smallNose) {
-    printf("Mainloop");
+    println(0,"Mainloop");
 }
 
 void simulate() {
@@ -52,9 +52,7 @@ void simulate() {
     unsigned int period = 0;
     int stop = 0;
     int AA, C, V9;
-    __lcd_home();
-    printf("Simulating...          ");
-    __delay_ms(700);
+    println(0,"Simulating...          ");
     start[0] = time[0]; //0 is seconds, 1 is hour
     start[1] = time[1];
     LATC5 = 1; // start DC
@@ -62,58 +60,49 @@ void simulate() {
         //        captureKeypad();
         AA = checkAA(sorted);
         //        captureKeypad();
-        __delay_ms(700);
         C = checkC(sorted);
         //        captureKeypad();
-        __delay_ms(700);
-
         V9 = check9(sorted);
-        __lcd_home();
         //        captureKeypad();
 
         int portCW[] = {0, 0, 0};
         int portCCW[] = {0, 0, 0};
-
+        __lcd_clear();
         if (!AA) {
             portCCW[0] = 1;
-            printf("AAServoLeft         ");
+            println(0,"AAServoLeft         ");
         } else if (AA == 1) {
             portCW[0] = 1;
-            printf("AAServoRight         ");
+            println(0,"AAServoRight         ");
         } else {
-            printf("AAServoStays         ");
+            println(0,"AAServoStays         ");
         }
         //        captureKeypad();
-        __lcd_home();
-        __delay_ms(700);
 
         if (!C) {
             portCCW[1] = 1;
-            printf("CServoLeft         ");
+            println(1,"CServoLeft         ");
         } else if (C == 1) {
             portCW[1] = 1;
-            printf("CServoRight         ");
+            println(1,"CServoRight         ");
         } else {
-            printf("CServoStays         ");
+            println(1,"CServoStays         ");
         }
         //        captureKeypad();
-        __lcd_home();
-        __delay_ms(700);
 
         if (!V9) {
             portCCW[2] = 1;
-            printf("9ServoLeft         ");
+            println(0,"9ServoLeft         ");
         } else if (V9 == 1) {
             portCW[2] = 1;
-            printf("9ServoRight         ");
+            println(0,"9ServoRight         ");
         } else {
-            printf("9ServoStays         ");
+            println(0,"9ServoStays         ");
         }
         //        captureKeypad();
 
         CCW90(portCCW);
         CW90(portCW);
-        __delay_ms(700);
         LATC0 = 0;
         LATC1 = 0;
         LATC2 = 0;
@@ -125,15 +114,10 @@ void simulate() {
         getTime(time);
         now[0] = time[0]; //0 is seconds, 1 is hour
         now[1] = time[1];
-        __lcd_home();
-        printf("start %02x:%02x     ", start[1], start[0]);
-        __lcd_newline();
-        printf("now %02x:%02x       ", now[1], now[0]);
-        __delay_ms(1500);
+        println(0,"start %02x:%02x     ", start[1], start[0]);
+        println(1,"now %02x:%02x       ", now[1], now[0]);
         period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
-        __lcd_home();
-        printf("Period: %u      ", period);
-        __delay_ms(700);
+        println(1,"Period: %u      ", period);
         if (period > 20) {
             stop = 1;
         }
@@ -141,9 +125,7 @@ void simulate() {
     //    interfacing with EEPROM
     mode = 2;
     stopMoving(0);
-    __lcd_home();
-    printf("Sorting Complete          ");
-    __delay_ms(700);
+    println(1,"Sorting Complete          ");
     showInfo(period, sorted);
     WriteRun(sorted, period);
     mode = 0;
@@ -174,7 +156,6 @@ void interrupt keypressed(void) {
     //    when running: emergency
     //    when result: show info (do nothing)
     //    when emergency: nothing
-    //        printf("%d",INT1IF);
     di();
     if (INT1IF) {
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
@@ -207,8 +188,7 @@ void interrupt keypressed(void) {
 int main(int argc, char **argv) {
     initialize(); //Initiallize LCD and PORTs
     // Enter Standby mode
-    printf((unsigned char *) "Welcome!          ");
-    __delay_ms(700);
+    println(1, "Welcome!          ");
     INT1IE = 1;
     ei(); //Enable all interrupts
     mode = 0;
