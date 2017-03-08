@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"4740 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"4740 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [v _SSPSTAT `Vuc ~T0 @X0 0 e@4039 ]
 "4671
 [v _SSPCON1 `Vuc ~T0 @X0 0 e@4038 ]
@@ -93,7 +93,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4620.h: 49: extern volatile unsigned char PORTA @ 0xF80;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"51 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [; ;pic18f4620.h: 51: asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
 [; ;pic18f4620.h: 54: typedef union {
@@ -2829,7 +2829,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void __lcd_newline();
+[; ;lcd.h: 14: void line0() ;
+[; ;lcd.h: 15: void line1() ;
 [; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
 [; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
 [; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);

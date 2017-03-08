@@ -21,36 +21,50 @@ unsigned int captureKeypad() {
 }
 
 void showInfo(unsigned int time, unsigned char *sorted) {
-    println(0,"Press a number          ");
-    println(1,"For more info          ");
+    line0();
+    printf("Press a number          ");
+    line1();
+    printf("For more info          ");
     int type = 0;
     int stop = 0;
     while (!stop) {
         type = captureKeypad();
         switch (type) {
             case (0):
-                println(0,"Time Elapsed:          ");
-                println(1,"%u seconds          ", time);
+                line0();
+                printf("Time Elapsed:          ");
+                line1();
+                printf("%u seconds          ", time);
                 break;
             case (1):
-                println(0,"Total Sorted:          ");
-                println(1,"%d batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
+                line0();
+                printf("Total Sorted:          ");
+                line1();
+                printf("%u batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
                 break;
             case (2):
-                println(0,"AA Sorted:          ");
-                println(1,"%d             ", sorted[0]);
+                line0();
+                printf("AA Sorted:          ");
+                line1();
+                printf("%u             ", sorted[0]);
                 break;
             case (3):
-                println(0,"C Sorted:          ");
-                println(1,"%d             ", sorted[1]);
+                line0();
+                printf("C Sorted:          ");
+                line1();
+                printf("%u             ", sorted[1]);
                 break;
             case (4):
-                println(0,"9V Sorted:          ");
-                println(1,"%d             ", sorted[2]);
+                line0();
+                printf("9V Sorted:          ");
+                line1();
+                printf("%u             ", sorted[2]);
                 break;
             case (5):
-                println(0,"Uncharged:          ");
-                println(1,"%d             ", sorted[3]);
+                line0();
+                printf("Uncharged:          ");
+                line1();
+                printf("%u             ", sorted[3]);
                 break;
             case (15):
                 RESET();

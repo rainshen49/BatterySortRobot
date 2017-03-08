@@ -57,17 +57,17 @@
 
 #pragma config EBTRB = OFF
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
+# 26 "/opt/microchip/xc8/v1.41/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\xc8debug.h"
+# 13 "/opt/microchip/xc8/v1.41/include/xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h"
+# 49 "/opt/microchip/xc8/v1.41/include/pic18f4620.h"
 extern volatile unsigned char PORTA @ 0xF80;
 
 asm("PORTA equ 0F80h");
@@ -3670,7 +3670,7 @@ extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 
 extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 
-# 18 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h"
+# 18 "/opt/microchip/xc8/v1.41/include/pic18.h"
 __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 
@@ -3693,10 +3693,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
+# 4 "/opt/microchip/xc8/v1.41/include/__size_t.h"
 typedef unsigned size_t;
 
-# 14 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\string.h"
+# 14 "/opt/microchip/xc8/v1.41/include/string.h"
 extern void * memcpy(void *, const void *, size_t);
 extern void * memmove(void *, const void *, size_t);
 extern void * memset(void *, int, size_t);
@@ -3728,7 +3728,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdarg.h"
+# 7 "/opt/microchip/xc8/v1.41/include/stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3737,17 +3737,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
+# 43 "/opt/microchip/xc8/v1.41/include/stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\errno.h"
+# 29 "/opt/microchip/xc8/v1.41/include/errno.h"
 extern int errno;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\conio.h"
+# 12 "/opt/microchip/xc8/v1.41/include/conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3761,7 +3761,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
+# 88 "/opt/microchip/xc8/v1.41/include/stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3792,7 +3792,8 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void __lcd_newline();
+void line0() ;
+void line1() ;
 
 # 8 "modules.h"
 unsigned int captureKeypad();
@@ -3861,6 +3862,7 @@ _delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void mainloop(int *bigNose, int *smallNose) {
+line0();
 printf("Mainloop");
 }
 
@@ -3870,9 +3872,8 @@ unsigned char sorted[] = {0, 0, 0, 0};
 unsigned int period = 0;
 int stop = 0;
 int AA, C, V9;
-lcdInst(0b10000000);;
+line0();
 printf("Simulating...          ");
-_delay((unsigned long)((700)*(8000000/4000.0)));
 start[0] = time[0];
 start[1] = time[1];
 LATC5 = 1;
@@ -3880,13 +3881,9 @@ while (!stop) {
 
 AA = checkAA(sorted);
 
-_delay((unsigned long)((700)*(8000000/4000.0)));
 C = checkC(sorted);
 
-_delay((unsigned long)((700)*(8000000/4000.0)));
-
 V9 = check9(sorted);
-lcdInst(0b10000000);;
 
 
 int portCW[] = {0, 0, 0};
@@ -3894,44 +3891,48 @@ int portCCW[] = {0, 0, 0};
 
 if (!AA) {
 portCCW[0] = 1;
+line0();
 printf("AAServoLeft         ");
 } else if (AA == 1) {
 portCW[0] = 1;
+line0();
 printf("AAServoRight         ");
 } else {
+line0();
 printf("AAServoStays         ");
 }
 
-lcdInst(0b10000000);;
-_delay((unsigned long)((700)*(8000000/4000.0)));
 
 if (!C) {
 portCCW[1] = 1;
+line1();
 printf("CServoLeft         ");
 } else if (C == 1) {
 portCW[1] = 1;
+line1();
 printf("CServoRight         ");
 } else {
+line1();
 printf("CServoStays         ");
 }
 
-lcdInst(0b10000000);;
-_delay((unsigned long)((700)*(8000000/4000.0)));
 
 if (!V9) {
 portCCW[2] = 1;
+line0();
 printf("9ServoLeft         ");
 } else if (V9 == 1) {
 portCW[2] = 1;
+line0();
 printf("9ServoRight         ");
 } else {
+line0();
 printf("9ServoStays         ");
 }
 
 
 CCW90(portCCW);
 CW90(portCW);
-_delay((unsigned long)((700)*(8000000/4000.0)));
 LATC0 = 0;
 LATC1 = 0;
 LATC2 = 0;
@@ -3943,15 +3944,13 @@ stop = 1;
 getTime(time);
 now[0] = time[0];
 now[1] = time[1];
-lcdInst(0b10000000);;
+line0();
 printf("start %02x:%02x     ", start[1], start[0]);
-__lcd_newline();
+line1();
 printf("now %02x:%02x       ", now[1], now[0]);
-_delay((unsigned long)((1500)*(8000000/4000.0)));
 period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
-lcdInst(0b10000000);;
+line1();
 printf("Period: %u      ", period);
-_delay((unsigned long)((700)*(8000000/4000.0)));
 if (period > 20) {
 stop = 1;
 }
@@ -3959,9 +3958,8 @@ stop = 1;
 
 mode = 2;
 stopMoving(0);
-lcdInst(0b10000000);;
+line1();
 printf("Sorting Complete          ");
-_delay((unsigned long)((700)*(8000000/4000.0)));
 showInfo(period, sorted);
 WriteRun(sorted, period);
 mode = 0;
@@ -3969,9 +3967,9 @@ mode = 0;
 
 void showRTC() {
 getTime(time);
-lcdInst(0b10000000);;
+line0();
 printf("%02x/%02x/%02x         ", time[6], time[5], time[4]);
-__lcd_newline();
+line1();
 printf("%02x:%02x:%02x         ", time[2], time[1], time[0]);
 _delay((unsigned long)((250)*(8000000/4000.0)));
 }
@@ -3988,7 +3986,7 @@ while(1);
 
 void interrupt keypressed(void) {
 
-# 178
+# 174
 (INTCONbits.GIE = 0);
 if (INT1IF) {
 unsigned char keypress = (PORTB & 0xF0) >> 4;
@@ -4021,8 +4019,9 @@ break;
 int main(int argc, char **argv) {
 initialize();
 
-printf((unsigned char *) "Welcome!          ");
-_delay((unsigned long)((700)*(8000000/4000.0)));
+line0();
+printf("Welcome!          ");
+_delay((unsigned long)((1000)*(8000000/4000.0)));
 INT1IE = 1;
 (INTCONbits.GIE = 1);
 mode = 0;

@@ -12,7 +12,8 @@ int AD(char channel) {
 
 int checkV(int voltage, float max) {
     //    return 0 if not exist, 1 if exist and over 85 charged, -1 if exist but uncharged
-    println(1,"%f02 received    ", (float) voltage / 1024 * MAXV);
+    line1();
+    printf("%f02 received    ", (float) voltage / 1024 * MAXV);
     if (voltage < 50) {
         return 0;
     } else if (voltage > 0.85 * 1023 * max / MAXV) {
@@ -24,18 +25,22 @@ int checkV(int voltage, float max) {
 
 int checkAA(unsigned char *sorted) {
     //    input RA0(AN0)
-    println(0,"AA:          ");
+    line0();
+    printf("AA:          ");
     switch (checkV(AD(0), 1.5)) {
         case 1:
-            println(0,"charged AA          ");
+            line0();
+            printf("charged AA          ");
             sorted[0]++;
             return 1;
         case -1:
-            println(0,"uncharged AA          ");
+            line0();
+            printf("uncharged AA          ");
             sorted[3]++;
             return 0;
         case 0:
-            println(0,"no AA          ");
+            line0();
+            printf("no AA          ");
             return -1;
         default:
             return 0;
@@ -44,18 +49,22 @@ int checkAA(unsigned char *sorted) {
 
 int checkC(unsigned char *sorted) {
     //    input RA1(AN1)
-    println(0,"C:          ");
+    line0();
+    printf("C:          ");
     switch (checkV(AD(1), 1.5)) {
         case 1:
-            println(0,"charged C          ");
+            line0();
+            printf("charged C          ");
             sorted[1]++;
             return 1;
         case -1:
-            println(0,"uncharged C          ");
+            line0();
+            printf("uncharged C          ");
             sorted[3]++;
             return 0;
         case 0:
-            println(0,"no C          ");
+            line0();
+            printf("no C          ");
             return -1;
         default:
             return 0;
@@ -64,18 +73,22 @@ int checkC(unsigned char *sorted) {
 
 int check9(unsigned char *sorted) {
     //    input RA2(AN2)
-    println(0,"9V:          ");
+    line0();
+    printf("9V:          ");
     switch (checkV(AD(2), 4)) {
         case 1:
-            println(0,"charged 9V          ");
+            line0();
+            printf("charged 9V          ");
             sorted[2]++;
             return 1;
         case -1:
-            println(0,"uncharged 9V          ");
+            line0();
+            printf("uncharged 9V          ");
             sorted[3]++;
             return 0;
         case 0:
-            println(0,"no 9V          ");
+            line0();
+            printf("no 9V          ");
             return -1;
         default:
             return 0;

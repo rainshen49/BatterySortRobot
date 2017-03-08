@@ -1,21 +1,21 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"6996 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"6996 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
 "6998
 [v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
 "7000
 [v _LATC2 `Vb ~T0 @X0 0 e@31834 ]
 [v F2878 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
+"161 /opt/microchip/xc8/v1.41/include/pic18.h
 [v __delay `JF2878 ~T0 @X0 0 e ]
 [p i __delay ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "14 lcd.h
-[v ___lcd_newline `(v ~T0 @X0 0 ef ]
-"6272 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+[v _line0 `(v ~T0 @X0 0 ef ]
+"195 /opt/microchip/xc8/v1.41/include/stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"15 lcd.h
+[v _line1 `(v ~T0 @X0 0 ef ]
+"6272 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [s S258 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S258 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
 "6282
@@ -101,7 +101,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4620.h: 49: extern volatile unsigned char PORTA @ 0xF80;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"51 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [; ;pic18f4620.h: 51: asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
 [; ;pic18f4620.h: 54: typedef union {
@@ -2837,7 +2837,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void __lcd_newline();
+[; ;lcd.h: 14: void line0() ;
+[; ;lcd.h: 15: void line1() ;
 [; ;motors.h: 1: void PWMC(int widthus, int cycles, int * port);
 [; ;motors.h: 2: void CW90(int * port);
 [; ;motors.h: 3: void CCW90(int * port);
@@ -2921,73 +2922,64 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _CW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 20: lcdInst(0b10000000);;
+[; ;motors.c: 20: line0();printf("move clockwise  ");
 "20
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 21: printf("move clockwise  ");
-"21
+[e ( _line0 ..  ]
 [e ( _printf :s 1C ]
-[; ;motors.c: 22: PWMC(3000, 96, port);
-"22
+[; ;motors.c: 21: PWMC(3000, 96, port);
+"21
 [e ( _PWMC (3 , , -> 3000 `i -> 96 `i _port ]
-[; ;motors.c: 23: }
-"23
+[; ;motors.c: 22: }
+"22
 [e :UE 273 ]
 }
-"25
+"24
 [v _CCW90 `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 25: void CCW90(int * port) {
+[; ;motors.c: 24: void CCW90(int * port) {
 [e :U _CCW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 26: __lcd_newline();
-"26
-[e ( ___lcd_newline ..  ]
-[; ;motors.c: 27: printf("move cclockwise    ");
-"27
+[; ;motors.c: 25: line1();printf("move cclockwise    ");
+"25
+[e ( _line1 ..  ]
 [e ( _printf :s 2C ]
-[; ;motors.c: 28: PWMC(400, 700, port);
-"28
+[; ;motors.c: 26: PWMC(400, 700, port);
+"26
 [e ( _PWMC (3 , , -> 400 `i -> 700 `i _port ]
-[; ;motors.c: 29: }
-"29
+[; ;motors.c: 27: }
+"27
 [e :UE 274 ]
 }
-"31
+"29
 [v _stopMoving `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;motors.c: 31: void stopMoving(char em) {
+[; ;motors.c: 29: void stopMoving(char em) {
 [e :U _stopMoving ]
 [v _em `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 32: (INTCONbits.GIE = 0);
-"32
+[; ;motors.c: 30: (INTCONbits.GIE = 0);
+"30
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 33: lcdInst(0b10000000);;
-"33
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 34: LATC = 0;
-"34
+[; ;motors.c: 31: LATC = 0;
+"31
 [e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 35: printf(em ? "Emergency          " : "Stopped          ");
-"35
+[; ;motors.c: 32: line0();printf(em ? "Emergency          " : "Stopped          ");
+"32
+[e ( _line0 ..  ]
 [e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 3C :s 4C ]
-[; ;motors.c: 36: _delay((unsigned long)((700)*(8000000/4000.0)));
-"36
-[e ( __delay (1 -> * -> -> 700 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;motors.c: 37: if (em)
-"37
+[; ;motors.c: 33: if (em)
+"33
 [e $ ! != -> _em `i -> -> -> 0 `i `uc `i 276  ]
-[; ;motors.c: 38: while(1);
-"38
+[; ;motors.c: 34: while(1);
+"34
 [e :U 278 ]
 [e :U 277 ]
 [e $U 278  ]
 [e :U 279 ]
 [e :U 276 ]
-[; ;motors.c: 39: }
-"39
+[; ;motors.c: 35: }
+"35
 [e :UE 275 ]
 }
 [p f _printf 9437696 ]

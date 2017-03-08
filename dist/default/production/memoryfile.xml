@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\BatterySortRobot.production.hex">
+  <executable name="dist/default/production/BatterySortRobot.production.hex">
     <memory name="program">
       <units>bytes</units>
       <length>65536</length>
-      <used>22404</used>
-      <free>43132</free>
+      <used>21918</used>
+      <free>43618</free>
     </memory>
     <memory name="data">
       <units>bytes</units>

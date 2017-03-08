@@ -11,9 +11,8 @@
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void __lcd_newline();
-void println(char pos, const char *format, ...);
-#include <stdarg.h>
+void line0() ;
+void line1() ;
 
 
 #endif	/* LCD_H */

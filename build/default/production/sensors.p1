@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"4474 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"4474 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [v _ADCON0 `Vuc ~T0 @X0 0 e@4034 ]
 "6634
 [v _ADON `Vb ~T0 @X0 0 e@32272 ]
@@ -36,16 +36,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
 "4598
 [v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
+"15 lcd.h
+[v _line1 `(v ~T0 @X0 0 ef ]
+"195 /opt/microchip/xc8/v1.41/include/stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "14 lcd.h
-[v ___lcd_newline `(v ~T0 @X0 0 ef ]
-[v F2878 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
-[v __delay `JF2878 ~T0 @X0 0 e ]
-[p i __delay ]
-"11 lcd.h
-[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
+[v _line0 `(v ~T0 @X0 0 ef ]
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -116,7 +112,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4620.h: 49: extern volatile unsigned char PORTA @ 0xF80;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+"51 /opt/microchip/xc8/v1.41/include/pic18f4620.h
 [; ;pic18f4620.h: 51: asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
 [; ;pic18f4620.h: 54: typedef union {
@@ -2852,7 +2848,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void __lcd_newline();
+[; ;lcd.h: 14: void line0() ;
+[; ;lcd.h: 15: void line1() ;
 [; ;sensors.h: 1: int AD(char channel);
 [; ;sensors.h: 2: int checkV(int voltage, float max);
 [; ;sensors.h: 3: int checkAA(unsigned char* sorted);
@@ -2897,89 +2894,89 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _voltage `i ~T0 @X0 1 r1 ]
 [v _max `f ~T0 @X0 1 r2 ]
 [f ]
-[; ;sensors.c: 15: printf("%f02 received    ", (float) voltage / 1024 * 4.1);
+[; ;sensors.c: 15: line1();
 "15
-[e ( _printf , (. :s 1C * -> / -> _voltage `f -> -> 1024 `i `f `d .4.1 ]
-[; ;sensors.c: 16: __lcd_newline();
+[e ( _line1 ..  ]
+[; ;sensors.c: 16: printf("%f02 received    ", (float) voltage / 1024 * 4.1);
 "16
-[e ( ___lcd_newline ..  ]
-[; ;sensors.c: 17: _delay((unsigned long)((700)*(8000000/4000.0)));
+[e ( _printf , (. :s 1C * -> / -> _voltage `f -> -> 1024 `i `f `d .4.1 ]
+[; ;sensors.c: 17: if (voltage < 50) {
 "17
-[e ( __delay (1 -> * -> -> 700 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;sensors.c: 18: if (voltage < 50) {
-"18
 [e $ ! < _voltage -> 50 `i 271  ]
 {
-[; ;sensors.c: 19: return 0;
-"19
+[; ;sensors.c: 18: return 0;
+"18
 [e ) -> 0 `i ]
 [e $UE 270  ]
-"20
+"19
 }
-[; ;sensors.c: 20: } else if (voltage > 0.85 * 1023 * max / 4.1) {
+[; ;sensors.c: 19: } else if (voltage > 0.85 * 1023 * max / 4.1) {
 [e $U 272  ]
 [e :U 271 ]
 [e $ ! > -> _voltage `d / * * .0.85 -> -> 1023 `i `d -> _max `d .4.1 273  ]
 {
-[; ;sensors.c: 21: return 1;
-"21
+[; ;sensors.c: 20: return 1;
+"20
 [e ) -> 1 `i ]
 [e $UE 270  ]
-"22
+"21
 }
-[; ;sensors.c: 22: } else {
+[; ;sensors.c: 21: } else {
 [e $U 274  ]
 [e :U 273 ]
 {
-[; ;sensors.c: 23: return -1;
-"23
+[; ;sensors.c: 22: return -1;
+"22
 [e ) -U -> 1 `i ]
 [e $UE 270  ]
-"24
+"23
 }
 [e :U 274 ]
 [e :U 272 ]
+[; ;sensors.c: 23: }
 [; ;sensors.c: 24: }
-[; ;sensors.c: 25: }
-"25
+"24
 [e :UE 270 ]
 }
-"27
+"26
 [v _checkAA `(i ~T0 @X0 1 ef1`*uc ]
 {
-[; ;sensors.c: 27: int checkAA(unsigned char *sorted) {
+[; ;sensors.c: 26: int checkAA(unsigned char *sorted) {
 [e :U _checkAA ]
 [v _sorted `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 29: lcdInst(0b10000000);;
+[; ;sensors.c: 28: line0();
+"28
+[e ( _line0 ..  ]
+[; ;sensors.c: 29: printf("AA:          ");
 "29
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 30: printf("AA:          ");
-"30
 [e ( _printf :s 2C ]
-[; ;sensors.c: 31: __lcd_newline();
-"31
-[e ( ___lcd_newline ..  ]
-[; ;sensors.c: 32: switch (checkV(AD(0), 1.5)) {
-"32
+[; ;sensors.c: 30: switch (checkV(AD(0), 1.5)) {
+"30
 [e $U 277  ]
 {
-[; ;sensors.c: 33: case 1:
-"33
+[; ;sensors.c: 31: case 1:
+"31
 [e :U 278 ]
-[; ;sensors.c: 34: printf("charged AA          ");
-"34
+[; ;sensors.c: 32: line0();
+"32
+[e ( _line0 ..  ]
+[; ;sensors.c: 33: printf("charged AA          ");
+"33
 [e ( _printf :s 3C ]
-[; ;sensors.c: 35: sorted[0]++;
-"35
+[; ;sensors.c: 34: sorted[0]++;
+"34
 [e ++ *U + _sorted * -> -> 0 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
-[; ;sensors.c: 36: return 1;
-"36
+[; ;sensors.c: 35: return 1;
+"35
 [e ) -> 1 `i ]
 [e $UE 275  ]
-[; ;sensors.c: 37: case -1:
-"37
+[; ;sensors.c: 36: case -1:
+"36
 [e :U 279 ]
+[; ;sensors.c: 37: line0();
+"37
+[e ( _line0 ..  ]
 [; ;sensors.c: 38: printf("uncharged AA          ");
 "38
 [e ( _printf :s 4C ]
@@ -2993,52 +2990,52 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 41: case 0:
 "41
 [e :U 280 ]
-[; ;sensors.c: 42: printf("no AA          ");
+[; ;sensors.c: 42: line0();
 "42
-[e ( _printf :s 5C ]
-[; ;sensors.c: 43: return -1;
+[e ( _line0 ..  ]
+[; ;sensors.c: 43: printf("no AA          ");
 "43
+[e ( _printf :s 5C ]
+[; ;sensors.c: 44: return -1;
+"44
 [e ) -U -> 1 `i ]
 [e $UE 275  ]
-[; ;sensors.c: 44: default:
-"44
-[e :U 281 ]
-[; ;sensors.c: 45: return 0;
+[; ;sensors.c: 45: default:
 "45
+[e :U 281 ]
+[; ;sensors.c: 46: return 0;
+"46
 [e ) -> 0 `i ]
 [e $UE 275  ]
-"46
+"47
 }
-[; ;sensors.c: 46: }
+[; ;sensors.c: 47: }
 [e $U 276  ]
-"32
+"30
 [e :U 277 ]
 [e [\ ( _checkV (2 , ( _AD (1 -> -> 0 `i `uc -> .1.5 `f , $ -> 1 `i 278
  , $ -U -> 1 `i 279
  , $ -> 0 `i 280
  281 ]
-"46
-[e :U 276 ]
-[; ;sensors.c: 47: }
 "47
+[e :U 276 ]
+[; ;sensors.c: 48: }
+"48
 [e :UE 275 ]
 }
-"49
+"50
 [v _checkC `(i ~T0 @X0 1 ef1`*uc ]
 {
-[; ;sensors.c: 49: int checkC(unsigned char *sorted) {
+[; ;sensors.c: 50: int checkC(unsigned char *sorted) {
 [e :U _checkC ]
 [v _sorted `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 51: lcdInst(0b10000000);;
-"51
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 52: printf("C:          ");
+[; ;sensors.c: 52: line0();
 "52
-[e ( _printf :s 6C ]
-[; ;sensors.c: 53: __lcd_newline();
+[e ( _line0 ..  ]
+[; ;sensors.c: 53: printf("C:          ");
 "53
-[e ( ___lcd_newline ..  ]
+[e ( _printf :s 6C ]
 [; ;sensors.c: 54: switch (checkV(AD(1), 1.5)) {
 "54
 [e $U 284  ]
@@ -3046,49 +3043,58 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 55: case 1:
 "55
 [e :U 285 ]
-[; ;sensors.c: 56: printf("charged C          ");
+[; ;sensors.c: 56: line0();
 "56
-[e ( _printf :s 7C ]
-[; ;sensors.c: 57: sorted[1]++;
+[e ( _line0 ..  ]
+[; ;sensors.c: 57: printf("charged C          ");
 "57
-[e ++ *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
-[; ;sensors.c: 58: return 1;
+[e ( _printf :s 7C ]
+[; ;sensors.c: 58: sorted[1]++;
 "58
+[e ++ *U + _sorted * -> -> 1 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
+[; ;sensors.c: 59: return 1;
+"59
 [e ) -> 1 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 59: case -1:
-"59
-[e :U 286 ]
-[; ;sensors.c: 60: printf("uncharged C          ");
+[; ;sensors.c: 60: case -1:
 "60
-[e ( _printf :s 8C ]
-[; ;sensors.c: 61: sorted[3]++;
+[e :U 286 ]
+[; ;sensors.c: 61: line0();
 "61
-[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
-[; ;sensors.c: 62: return 0;
+[e ( _line0 ..  ]
+[; ;sensors.c: 62: printf("uncharged C          ");
 "62
+[e ( _printf :s 8C ]
+[; ;sensors.c: 63: sorted[3]++;
+"63
+[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
+[; ;sensors.c: 64: return 0;
+"64
 [e ) -> 0 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 63: case 0:
-"63
-[e :U 287 ]
-[; ;sensors.c: 64: printf("no C          ");
-"64
-[e ( _printf :s 9C ]
-[; ;sensors.c: 65: return -1;
+[; ;sensors.c: 65: case 0:
 "65
+[e :U 287 ]
+[; ;sensors.c: 66: line0();
+"66
+[e ( _line0 ..  ]
+[; ;sensors.c: 67: printf("no C          ");
+"67
+[e ( _printf :s 9C ]
+[; ;sensors.c: 68: return -1;
+"68
 [e ) -U -> 1 `i ]
 [e $UE 282  ]
-[; ;sensors.c: 66: default:
-"66
+[; ;sensors.c: 69: default:
+"69
 [e :U 288 ]
-[; ;sensors.c: 67: return 0;
-"67
+[; ;sensors.c: 70: return 0;
+"70
 [e ) -> 0 `i ]
 [e $UE 282  ]
-"68
+"71
 }
-[; ;sensors.c: 68: }
+[; ;sensors.c: 71: }
 [e $U 283  ]
 "54
 [e :U 284 ]
@@ -3096,89 +3102,95 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -U -> 1 `i 286
  , $ -> 0 `i 287
  288 ]
-"68
+"71
 [e :U 283 ]
-[; ;sensors.c: 69: }
-"69
+[; ;sensors.c: 72: }
+"72
 [e :UE 282 ]
 }
-"71
+"74
 [v _check9 `(i ~T0 @X0 1 ef1`*uc ]
 {
-[; ;sensors.c: 71: int check9(unsigned char *sorted) {
+[; ;sensors.c: 74: int check9(unsigned char *sorted) {
 [e :U _check9 ]
 [v _sorted `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 73: lcdInst(0b10000000);;
-"73
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;sensors.c: 74: printf("9V:          ");
-"74
-[e ( _printf :s 10C ]
-[; ;sensors.c: 75: __lcd_newline();
-"75
-[e ( ___lcd_newline ..  ]
-[; ;sensors.c: 76: switch (checkV(AD(2), 4)) {
+[; ;sensors.c: 76: line0();
 "76
+[e ( _line0 ..  ]
+[; ;sensors.c: 77: printf("9V:          ");
+"77
+[e ( _printf :s 10C ]
+[; ;sensors.c: 78: switch (checkV(AD(2), 4)) {
+"78
 [e $U 291  ]
 {
-[; ;sensors.c: 77: case 1:
-"77
-[e :U 292 ]
-[; ;sensors.c: 78: printf("charged 9V          ");
-"78
-[e ( _printf :s 11C ]
-[; ;sensors.c: 79: sorted[2]++;
+[; ;sensors.c: 79: case 1:
 "79
-[e ++ *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
-[; ;sensors.c: 80: return 1;
+[e :U 292 ]
+[; ;sensors.c: 80: line0();
 "80
+[e ( _line0 ..  ]
+[; ;sensors.c: 81: printf("charged 9V          ");
+"81
+[e ( _printf :s 11C ]
+[; ;sensors.c: 82: sorted[2]++;
+"82
+[e ++ *U + _sorted * -> -> 2 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
+[; ;sensors.c: 83: return 1;
+"83
 [e ) -> 1 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 81: case -1:
-"81
-[e :U 293 ]
-[; ;sensors.c: 82: printf("uncharged 9V          ");
-"82
-[e ( _printf :s 12C ]
-[; ;sensors.c: 83: sorted[3]++;
-"83
-[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
-[; ;sensors.c: 84: return 0;
+[; ;sensors.c: 84: case -1:
 "84
+[e :U 293 ]
+[; ;sensors.c: 85: line0();
+"85
+[e ( _line0 ..  ]
+[; ;sensors.c: 86: printf("uncharged 9V          ");
+"86
+[e ( _printf :s 12C ]
+[; ;sensors.c: 87: sorted[3]++;
+"87
+[e ++ *U + _sorted * -> -> 3 `i `x -> -> # *U _sorted `i `x -> -> 1 `i `uc ]
+[; ;sensors.c: 88: return 0;
+"88
 [e ) -> 0 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 85: case 0:
-"85
+[; ;sensors.c: 89: case 0:
+"89
 [e :U 294 ]
-[; ;sensors.c: 86: printf("no 9V          ");
-"86
+[; ;sensors.c: 90: line0();
+"90
+[e ( _line0 ..  ]
+[; ;sensors.c: 91: printf("no 9V          ");
+"91
 [e ( _printf :s 13C ]
-[; ;sensors.c: 87: return -1;
-"87
+[; ;sensors.c: 92: return -1;
+"92
 [e ) -U -> 1 `i ]
 [e $UE 289  ]
-[; ;sensors.c: 88: default:
-"88
+[; ;sensors.c: 93: default:
+"93
 [e :U 295 ]
-[; ;sensors.c: 89: return 0;
-"89
+[; ;sensors.c: 94: return 0;
+"94
 [e ) -> 0 `i ]
 [e $UE 289  ]
-"90
+"95
 }
-[; ;sensors.c: 90: }
+[; ;sensors.c: 95: }
 [e $U 290  ]
-"76
+"78
 [e :U 291 ]
 [e [\ ( _checkV (2 , ( _AD (1 -> -> 2 `i `uc -> -> 4 `i `f , $ -> 1 `i 292
  , $ -U -> 1 `i 293
  , $ -> 0 `i 294
  295 ]
-"90
+"95
 [e :U 290 ]
-[; ;sensors.c: 91: }
-"91
+[; ;sensors.c: 96: }
+"96
 [e :UE 289 ]
 }
 [p f _printf 8396800 ]
