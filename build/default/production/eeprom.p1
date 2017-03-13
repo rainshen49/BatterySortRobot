@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "11 eeprom.h
 [v _ReadEE `(uc ~T0 @X0 0 ef1`ui ]
-"2984 /opt/microchip/xc8/v1.41/include/pic18f4620.h
+"2984 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [v _EEADRH `Vuc ~T0 @X0 0 e@4010 ]
 "2978
 [v _EEADR `Vuc ~T0 @X0 0 e@4009 ]
@@ -33,12 +33,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR2bits `VS97 ~T0 @X0 0 e@4001 ]
 "14 lcd.h
 [v _line0 `(v ~T0 @X0 0 ef ]
-"195 /opt/microchip/xc8/v1.41/include/stdio.h
+"195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "15 lcd.h
 [v _line1 `(v ~T0 @X0 0 ef ]
 [v F2878 `(v ~T0 @X0 1 tf1`ul ]
-"161 /opt/microchip/xc8/v1.41/include/pic18.h
+"161 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h
 [v __delay `JF2878 ~T0 @X0 0 e ]
 [p i __delay ]
 "9 modules.h
@@ -113,7 +113,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4620.h: 49: extern volatile unsigned char PORTA @ 0xF80;
-"51 /opt/microchip/xc8/v1.41/include/pic18f4620.h
+"51 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [; ;pic18f4620.h: 51: asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
 [; ;pic18f4620.h: 54: typedef union {
@@ -3123,13 +3123,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom.c: 94: line0();
 "94
 [e ( _line0 ..  ]
-[; ;eeprom.c: 95: printf("showing %u", backruns);
+[; ;eeprom.c: 95: printf("showing %u      ", backruns);
 "95
 [e ( _printf , (. :s 1C -> _backruns `i ]
 [; ;eeprom.c: 96: line1();
 "96
 [e ( _line1 ..  ]
-[; ;eeprom.c: 97: printf("runs before");
+[; ;eeprom.c: 97: printf("runs before     ");
 "97
 [e ( _printf :s 2C ]
 [; ;eeprom.c: 98: _delay((unsigned long)((700)*(8000000/4000.0)));
@@ -3143,5 +3143,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 281 ]
 }
 [p f _printf 8389632 ]
-[a 1C 115 104 111 119 105 110 103 32 37 117 0 ]
-[a 2C 114 117 110 115 32 98 101 102 111 114 101 0 ]
+[a 2C 114 117 110 115 32 98 101 102 111 114 101 32 32 32 32 32 0 ]
+[a 1C 115 104 111 119 105 110 103 32 37 117 32 32 32 32 32 32 0 ]

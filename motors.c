@@ -17,13 +17,13 @@ void PWMC(int widthus, int cycles, int * port) {
 }
 
 void CW90(int * port) {
-    line0();printf("move clockwise  ");
+//    line0();printf("move clockwise  ");
     PWMC(3000, 96, port);
 }
 
 void CCW90(int * port) {
-    line1();printf("move cclockwise    ");
-    PWMC(400, 700, port);
+//    line1();printf("move cclockwise    ");
+    PWMC(300, 1400, port);
 }
 
 void stopMoving(char em) {

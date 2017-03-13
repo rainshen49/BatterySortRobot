@@ -17,6 +17,5 @@
 //#define _XTAL_FREQ 32000000
 #define TMR2PRESCALE 16
 
-
 #endif	/* MACROS_H */
 

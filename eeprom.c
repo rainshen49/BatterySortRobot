@@ -92,9 +92,9 @@ void PermLog(unsigned char backruns) {
     unsigned char sorted[] = {0, 0, 0, 0};
     ReadRun(backruns, sorted, &time);
     line0();
-    printf("showing %u", backruns);
+    printf("showing %u      ", backruns);
     line1();
-    printf("runs before");
+    printf("runs before     ");
     __delay_ms(700);
     showInfo(time, sorted);
 }

@@ -57,17 +57,17 @@
 
 #pragma config EBTRB = OFF
 
-# 26 "/opt/microchip/xc8/v1.41/include/htc.h"
+# 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "/opt/microchip/xc8/v1.41/include/xc8debug.h"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "/opt/microchip/xc8/v1.41/include/pic18f4620.h"
+# 49 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h"
 extern volatile unsigned char PORTA @ 0xF80;
 
 asm("PORTA equ 0F80h");
@@ -3670,7 +3670,7 @@ extern volatile __bit nWR @ (((unsigned) &PORTE)*8) + 1;
 
 extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 
-# 18 "/opt/microchip/xc8/v1.41/include/pic18.h"
+# 18 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18.h"
 __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 
@@ -3693,10 +3693,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 4 "/opt/microchip/xc8/v1.41/include/__size_t.h"
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
 typedef unsigned size_t;
 
-# 14 "/opt/microchip/xc8/v1.41/include/string.h"
+# 14 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
 extern void * memmove(void *, const void *, size_t);
 extern void * memset(void *, int, size_t);
@@ -3728,7 +3728,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 7 "/opt/microchip/xc8/v1.41/include/stdarg.h"
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3737,17 +3737,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "/opt/microchip/xc8/v1.41/include/stdio.h"
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "/opt/microchip/xc8/v1.41/include/errno.h"
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\errno.h"
 extern int errno;
 
-# 12 "/opt/microchip/xc8/v1.41/include/conio.h"
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3761,7 +3761,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "/opt/microchip/xc8/v1.41/include/stdio.h"
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3803,10 +3803,12 @@ unsigned int HexDecToDec2(unsigned int hex);
 
 # 1 "sensors.h"
 int AD(char channel);
-int checkV(int voltage, float max);
+int checkV(int channel, float max);
 int checkAA(unsigned char* sorted);
 int checkC(unsigned char *sorted);
 int check9(unsigned char *sorted);
+
+unsigned char fluctuate(int a, int b);
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
@@ -3841,12 +3843,12 @@ TRISC = 0x00;
 TRISD = 0x00;
 TRISE = 0x00;
 
+RBPU = 0;
 LATA = 0x00;
 LATB = 0x00;
 LATC = 0x00;
 LATD = 0x00;
 LATE = 0x00;
-
 
 ADCON0 = 0x00;
 ADCON1 = 0x0C;
@@ -3855,10 +3857,11 @@ ADFM = 1;
 
 initLCD();
 lcdInst(0x01);;
-lcdInst(0b10000000);;
+_delay((unsigned long)((50)*(8000000/4000.0)));
 I2C_Master_Init(10000);
+
+_delay((unsigned long)((50)*(8000000/4000.0)));
 initLatest();
-_delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void mainloop(int *bigNose, int *smallNose) {
@@ -3877,57 +3880,57 @@ printf("Simulating...          ");
 start[0] = time[0];
 start[1] = time[1];
 LATC5 = 1;
+INT2IE = 1;
+INT2IF = 0;
 while (!stop) {
 
+line0();
 AA = checkAA(sorted);
 
 C = checkC(sorted);
 
 V9 = check9(sorted);
+printf("    ");
 
 
 int portCW[] = {0, 0, 0};
 int portCCW[] = {0, 0, 0};
 
+line1();
+printf("AA:");
 if (!AA) {
 portCCW[0] = 1;
-line0();
-printf("AAServoLeft         ");
+printf(" -");
 } else if (AA == 1) {
 portCW[0] = 1;
-line0();
-printf("AAServoRight         ");
+printf(" +");
 } else {
-line0();
-printf("AAServoStays         ");
+printf(" 0");
 }
 
+printf(" C:");
 
 if (!C) {
 portCCW[1] = 1;
-line1();
-printf("CServoLeft         ");
+printf(" -");
 } else if (C == 1) {
 portCW[1] = 1;
-line1();
-printf("CServoRight         ");
+printf(" +");
 } else {
-line1();
-printf("CServoStays         ");
+printf(" 0");
 }
 
+printf(" 9V:");
 
 if (!V9) {
 portCCW[2] = 1;
-line0();
-printf("9ServoLeft         ");
+printf(" -");
+
 } else if (V9 == 1) {
 portCW[2] = 1;
-line0();
-printf("9ServoRight         ");
+printf(" +");
 } else {
-line0();
-printf("9ServoStays         ");
+printf(" 0");
 }
 
 
@@ -3938,60 +3941,50 @@ LATC1 = 0;
 LATC2 = 0;
 
 
-if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 10) {
-stop = 1;
+if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
+
 }
 getTime(time);
 now[0] = time[0];
 now[1] = time[1];
 line0();
-printf("start %02x:%02x     ", start[1], start[0]);
-line1();
-printf("now %02x:%02x       ", now[1], now[0]);
+printf("%02x:%02x to %02x:%02x  ", start[1], start[0], now[1], now[0]);
 period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
 line1();
-printf("Period: %u      ", period);
+printf("Period: %u        ", period);
 if (period > 20) {
-stop = 1;
+
 }
+
 }
 
 mode = 2;
+INT2IE = 0;
 stopMoving(0);
 line1();
 printf("Sorting Complete          ");
-showInfo(period, sorted);
 WriteRun(sorted, period);
+_delay((unsigned long)((700)*(8000000/4000.0)));
+showInfo(period, sorted);
 mode = 0;
 }
 
 void showRTC() {
 getTime(time);
 line0();
-printf("%02x/%02x/%02x         ", time[6], time[5], time[4]);
+printf("    %02x/%02x/%02x      ", time[6], time[5], time[4]);
 line1();
-printf("%02x:%02x:%02x         ", time[2], time[1], time[0]);
+printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]);
 _delay((unsigned long)((250)*(8000000/4000.0)));
 }
 
-void testADC() {
-unsigned char sorted[] = {0, 0, 0, 0};
-while (1)checkAA(sorted);
-}
+void interrupt intrpt(void) {
 
-void testMotor() {
-LATC5 = 1;
-while(1);
-}
-
-void interrupt keypressed(void) {
-
-# 174
+# 166
 (INTCONbits.GIE = 0);
 if (INT1IF) {
 unsigned char keypress = (PORTB & 0xF0) >> 4;
 INT1IF = 0;
-while (PORTBbits.RB1);
 switch (mode) {
 case 0:
 if (keypress < 4) {
@@ -4005,6 +3998,14 @@ simulate();
 (INTCONbits.GIE = 0);
 }
 break;
+default:
+break;
+}
+while (PORTBbits.RB1);
+}
+if (INT2IF) {
+INT2IF = 0;
+switch (mode) {
 case 1:
 mode = 3;
 stopMoving(1);
@@ -4012,22 +4013,26 @@ break;
 default:
 break;
 }
+while (PORTBbits.RB2);
 }
 (INTCONbits.GIE = 1);
 }
 
-int main(int argc, char **argv) {
+# 211
+int main() {
 initialize();
 
 line0();
 printf("Welcome!          ");
-_delay((unsigned long)((1000)*(8000000/4000.0)));
+
+_delay((unsigned long)((500)*(8000000/4000.0)));
+
 INT1IE = 1;
+INT1IF = 0;
+INT2IE = 0;
 (INTCONbits.GIE = 1);
 mode = 0;
 
-
 while (1)showRTC();
-
 asm("reset");
 }
