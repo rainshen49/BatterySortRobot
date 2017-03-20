@@ -22,7 +22,6 @@ void initialize() {
     TRISD = 0x00;
     TRISE = 0x00;
     //    config all ports input or output
-    RBPU = 0;
     LATA = 0x00;
     LATB = 0x00;
     LATC = 0x00;
@@ -154,7 +153,7 @@ void showRTC() {
     printf("    %02x/%02x/%02x      ", time[6], time[5], time[4]); //Print date in YY/MM/DD
     line1();
     printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]); //HH:MM:SS
-    __delay_ms(250);
+    __delay_ms(200);
 }
 
 void interrupt intrpt(void) {

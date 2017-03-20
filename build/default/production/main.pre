@@ -3843,7 +3843,6 @@ TRISC = 0x00;
 TRISD = 0x00;
 TRISE = 0x00;
 
-RBPU = 0;
 LATA = 0x00;
 LATB = 0x00;
 LATC = 0x00;
@@ -3975,12 +3974,12 @@ line0();
 printf("    %02x/%02x/%02x      ", time[6], time[5], time[4]);
 line1();
 printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]);
-_delay((unsigned long)((250)*(8000000/4000.0)));
+_delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void interrupt intrpt(void) {
 
-# 166
+# 165
 (INTCONbits.GIE = 0);
 if (INT1IF) {
 unsigned char keypress = (PORTB & 0xF0) >> 4;
@@ -4018,7 +4017,7 @@ while (PORTBbits.RB2);
 (INTCONbits.GIE = 1);
 }
 
-# 211
+# 210
 int main() {
 initialize();
 
