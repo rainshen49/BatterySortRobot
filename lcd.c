@@ -49,12 +49,3 @@ void lcdNibble(char data) {
     E = 1;
     __delay_us(LCD_DELAY);
 }
-
-
-void line0() {
-    lcdInst(0b10000000);
-}
-
-void line1() {
-    lcdInst(0b11000000);
-}

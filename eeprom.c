@@ -87,14 +87,26 @@ void WriteRun(unsigned char * sorted, unsigned int time) {
     WriteEE(160, Latest); // this place stores the Latest location of the eeprom
 }
 
-void PermLog(unsigned char backruns) {
-    unsigned int time;
-    unsigned char sorted[] = {0, 0, 0, 0};
-    ReadRun(backruns, sorted, &time);
-    line0();
-    printf("showing %u      ", backruns);
-    line1();
-    printf("runs before     ");
-    __delay_ms(700);
-    showInfo(time, sorted);
+void PermLog() {
+    unsigned char goback = 0;
+    while (!goback) {
+        line0();
+        printf("Permanent log:       ");
+        line1();
+        printf("Which run?       ");
+        unsigned char backruns = captureKeypad();
+        if (backruns == 3)backruns = 2;
+        if (backruns == 4)backruns = 3;
+        if (backruns < 4) {
+            unsigned int time;
+            unsigned char sorted[] = {0, 0, 0, 0};
+            ReadRun(backruns, sorted, &time);
+            line0();
+            printf("showing %u      ", backruns);
+            line1();
+            printf("runs before     ");
+            __delay_ms(700);
+            showInfo(time, sorted);
+        } else goback = 1;
+    }
 }

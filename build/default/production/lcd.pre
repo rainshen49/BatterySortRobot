@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 9 "lcd.c"
 void initLCD(void) {
@@ -3838,13 +3836,4 @@ LATDbits.LATD3 = 0;
 _delay((unsigned long)((25)*(8000000/4000000.0)));
 LATDbits.LATD3 = 1;
 _delay((unsigned long)((25)*(8000000/4000000.0)));
-}
-
-
-void line0() {
-lcdInst(0b10000000);
-}
-
-void line1() {
-lcdInst(0b11000000);
 }

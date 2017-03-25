@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
@@ -3830,7 +3828,7 @@ PWMC(300, 1400, port);
 void stopMoving(char em) {
 (INTCONbits.GIE = 0);
 LATC = 0;
-line0();printf(em ? "Emergency          " : "Stopped          ");
+lcdInst(0b10000000);printf(em ? "Emergency          " : "Stopped          ");
 if (em)
 while(1);
 }

@@ -39,7 +39,7 @@ int checkAA(unsigned char *sorted) {
     //    input RA0(AN0)
     //    line0();
     printf("AA:");
-    switch (checkV(0, 1.5)) {
+    switch (checkV(2, 1.5)) {
         case 1:
             //            line0();
             printf(" 1 ");
@@ -63,7 +63,7 @@ int checkC(unsigned char *sorted) {
     //    input RA1(AN1)
     //    line0();
     printf("C:");
-    switch (checkV(1, 1.5)) {
+    switch (checkV(0, 1.5)) {
         case 1:
             //            line0();
             printf(" 1 ");
@@ -87,7 +87,7 @@ int check9(unsigned char *sorted) {
     //    input RA2(AN2)
     //    line0();
     printf("9V:");
-    switch (checkV(2, 4)) {
+    switch (checkV(5, 4)) {
         case 1:
             //            line0();
             printf(" 1 ");

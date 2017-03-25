@@ -2844,8 +2844,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void line0() ;
-[; ;lcd.h: 15: void line1() ;
 [; ;sensors.h: 1: int AD(char channel);
 [; ;sensors.h: 2: int checkV(int channel, float max);
 [; ;sensors.h: 3: int checkAA(unsigned char* sorted);
@@ -2988,7 +2986,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 41: printf("AA:");
 "41
 [e ( _printf :s 1C ]
-[; ;sensors.c: 42: switch (checkV(0, 1.5)) {
+[; ;sensors.c: 42: switch (checkV(2, 1.5)) {
 "42
 [e $U 281  ]
 {
@@ -3041,7 +3039,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 280  ]
 "42
 [e :U 281 ]
-[e [\ ( _checkV (2 , -> 0 `i -> .1.5 `f , $ -> 1 `i 282
+[e [\ ( _checkV (2 , -> 2 `i -> .1.5 `f , $ -> 1 `i 282
  , $ -U -> 1 `i 283
  , $ -> 0 `i 284
  285 ]
@@ -3061,7 +3059,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 65: printf("C:");
 "65
 [e ( _printf :s 5C ]
-[; ;sensors.c: 66: switch (checkV(1, 1.5)) {
+[; ;sensors.c: 66: switch (checkV(0, 1.5)) {
 "66
 [e $U 288  ]
 {
@@ -3114,7 +3112,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 287  ]
 "66
 [e :U 288 ]
-[e [\ ( _checkV (2 , -> 1 `i -> .1.5 `f , $ -> 1 `i 289
+[e [\ ( _checkV (2 , -> 0 `i -> .1.5 `f , $ -> 1 `i 289
  , $ -U -> 1 `i 290
  , $ -> 0 `i 291
  292 ]
@@ -3134,7 +3132,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 89: printf("9V:");
 "89
 [e ( _printf :s 9C ]
-[; ;sensors.c: 90: switch (checkV(2, 4)) {
+[; ;sensors.c: 90: switch (checkV(5, 4)) {
 "90
 [e $U 295  ]
 {
@@ -3187,7 +3185,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 294  ]
 "90
 [e :U 295 ]
-[e [\ ( _checkV (2 , -> 2 `i -> -> 4 `i `f , $ -> 1 `i 296
+[e [\ ( _checkV (2 , -> 5 `i -> -> 4 `i `f , $ -> 1 `i 296
  , $ -U -> 1 `i 297
  , $ -> 0 `i 298
  299 ]

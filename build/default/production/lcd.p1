@@ -2826,8 +2826,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void line0() ;
-[; ;lcd.h: 15: void line1() ;
 "9 lcd.c
 [v _initLCD `(v ~T0 @X0 1 ef ]
 {
@@ -2952,30 +2950,4 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.c: 51: }
 "51
 [e :UE 269 ]
-}
-"54
-[v _line0 `(v ~T0 @X0 1 ef ]
-{
-[; ;lcd.c: 54: void line0() {
-[e :U _line0 ]
-[f ]
-[; ;lcd.c: 55: lcdInst(0b10000000);
-"55
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;lcd.c: 56: }
-"56
-[e :UE 270 ]
-}
-"58
-[v _line1 `(v ~T0 @X0 1 ef ]
-{
-[; ;lcd.c: 58: void line1() {
-[e :U _line1 ]
-[f ]
-[; ;lcd.c: 59: lcdInst(0b11000000);
-"59
-[e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;lcd.c: 60: }
-"60
-[e :UE 271 ]
 }

@@ -20,7 +20,7 @@ void initialize() {
     TRISB = 0xFF; //All input mode
     TRISC = 0x00; //All output mode
     TRISD = 0x00;
-    TRISE = 0x00;
+    TRISE = 0x0F;
     //    config all ports input or output
     LATA = 0x00;
     LATB = 0x00;
@@ -29,7 +29,7 @@ void initialize() {
     LATE = 0x00;
     //    initialize all pins to be low
     ADCON0 = 0x00; //Disable ADC
-    ADCON1 = 0x0C; //Set AN0-2 to be analog input
+    ADCON1 = 0x09; //Set AN0-5 to be analog input
     CVRCON = 0x00; // Disable CCP reference voltage output
     ADFM = 1;
     //    set digital and analog
@@ -42,7 +42,7 @@ void initialize() {
     initLatest();
 }
 
-void mainloop(int *bigNose, int *smallNose) {
+void mainloop() {
     line0();
     printf("Mainloop");
 }
@@ -57,17 +57,17 @@ void simulate() {
     printf("Simulating...          ");
     start[0] = time[0]; //0 is seconds, 1 is hour
     start[1] = time[1];
-    LATC5 = 1; // start DC
+    LATC6 = 1; // start DC
     INT2IE = 1; // enable the emergency stop
     INT2IF = 0;
     while (!stop) {
         //        captureKeypad();
         line0();
-        AA = checkAA(sorted);
+        V9 = check9(sorted);
         //        captureKeypad();
         C = checkC(sorted);
         //        captureKeypad();
-        V9 = check9(sorted);
+        AA = checkAA(sorted);
         printf("    ");
 
         //        captureKeypad();
@@ -75,8 +75,8 @@ void simulate() {
         int portCCW[] = {0, 0, 0};
 
         line1();
-        printf("AA:");
-        if (!AA) {
+        printf("9V:");
+        if (!V9) {
             portCCW[0] = 1;
             printf(" -");
         } else if (AA == 1) {
@@ -98,9 +98,9 @@ void simulate() {
             printf(" 0");
         }
         //        captureKeypad();
-        printf(" 9V:");
+        printf(" AA:");
 
-        if (!V9) {
+        if (!AA) {
             portCCW[2] = 1;
             printf(" -");
 
@@ -157,32 +157,50 @@ void showRTC() {
 }
 
 void interrupt intrpt(void) {
-    //    test case:
-    //    when standby: start runing
-    //    when running: emergency
-    //    when result: show info (do nothing)
-    //    when emergency: nothing
+    //    *: Back, #: Permlog, D: Start
     di();
     if (INT1IF) {
+        int portCW[] = {0, 0, 0};
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
+        while (PORTBbits.RB1); //wait for release
         switch (mode) {
             case 0:
-                if (keypress < 4) {
-                    mode = 2;
-                    PermLog(keypress);
-                    mode = 0;
-                } else {
-                    mode = 1;
-                    ei();
-                    simulate();
-                    di();
+                switch (keypress) {
+                    case 14:
+                        mode = 2;
+                        PermLog();
+                        mode = 0;
+                        break;
+                    case 15:
+                        mode = 1;
+                        ei();
+                        simulate();
+                        di();
+                        break;
+                    case 11:
+                        //                        move AA servo a bit
+                        portCW[0] = 1;
+                        PWMC(3000, 10, portCW);
+                        break;
+                    case 7:
+                        //                        move C servo a bit
+                        portCW[1] = 1;
+                        PWMC(3000, 10, portCW);
+                        break;
+
+                    case 3:
+                        //                        move 9V servo a bit
+                        portCW[2] = 1;
+                        PWMC(3000, 10, portCW);
+                        break;
+                    case 12:
+                        return;
                 }
                 break;
             default:
                 break;
         }
-        while (PORTBbits.RB1); //wait for release
     }
     if (INT2IF) {
         INT2IF = 0; //Clear flag bit
@@ -212,7 +230,7 @@ int main() {
     // Enter Standby mode
     line0();
     printf("Welcome!          ");
-    //    pause();
+    //        pause();
     __delay_ms(500);
     //    testPWM();
     INT1IE = 1;

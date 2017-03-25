@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 8 "modules.h"
 unsigned int captureKeypad();
@@ -3822,7 +3820,7 @@ void WriteEE(unsigned int address, unsigned char data);
 void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time);
 void WriteRun(unsigned char * sorted, unsigned int time);
 unsigned char back(unsigned char runs);
-void PermLog(unsigned char which);
+void PermLog();
 void initLatest();
 
 # 1 "I2C.h"
@@ -3841,7 +3839,7 @@ TRISA = 0xFF;
 TRISB = 0xFF;
 TRISC = 0x00;
 TRISD = 0x00;
-TRISE = 0x00;
+TRISE = 0x0F;
 
 LATA = 0x00;
 LATB = 0x00;
@@ -3850,7 +3848,7 @@ LATD = 0x00;
 LATE = 0x00;
 
 ADCON0 = 0x00;
-ADCON1 = 0x0C;
+ADCON1 = 0x09;
 CVRCON = 0x00;
 ADFM = 1;
 
@@ -3863,8 +3861,8 @@ _delay((unsigned long)((50)*(8000000/4000.0)));
 initLatest();
 }
 
-void mainloop(int *bigNose, int *smallNose) {
-line0();
+void mainloop() {
+lcdInst(0b10000000);
 printf("Mainloop");
 }
 
@@ -3874,30 +3872,30 @@ unsigned char sorted[] = {0, 0, 0, 0};
 unsigned int period = 0;
 int stop = 0;
 int AA, C, V9;
-line0();
+lcdInst(0b10000000);
 printf("Simulating...          ");
 start[0] = time[0];
 start[1] = time[1];
-LATC5 = 1;
+LATC6 = 1;
 INT2IE = 1;
 INT2IF = 0;
 while (!stop) {
 
-line0();
-AA = checkAA(sorted);
+lcdInst(0b10000000);
+V9 = check9(sorted);
 
 C = checkC(sorted);
 
-V9 = check9(sorted);
+AA = checkAA(sorted);
 printf("    ");
 
 
 int portCW[] = {0, 0, 0};
 int portCCW[] = {0, 0, 0};
 
-line1();
-printf("AA:");
-if (!AA) {
+lcdInst(0b11000000);
+printf("9V:");
+if (!V9) {
 portCCW[0] = 1;
 printf(" -");
 } else if (AA == 1) {
@@ -3919,9 +3917,9 @@ printf(" +");
 printf(" 0");
 }
 
-printf(" 9V:");
+printf(" AA:");
 
-if (!V9) {
+if (!AA) {
 portCCW[2] = 1;
 printf(" -");
 
@@ -3946,10 +3944,10 @@ if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
 getTime(time);
 now[0] = time[0];
 now[1] = time[1];
-line0();
+lcdInst(0b10000000);
 printf("%02x:%02x to %02x:%02x  ", start[1], start[0], now[1], now[0]);
 period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
-line1();
+lcdInst(0b11000000);
 printf("Period: %u        ", period);
 if (period > 20) {
 
@@ -3960,7 +3958,7 @@ if (period > 20) {
 mode = 2;
 INT2IE = 0;
 stopMoving(0);
-line1();
+lcdInst(0b11000000);
 printf("Sorting Complete          ");
 WriteRun(sorted, period);
 _delay((unsigned long)((700)*(8000000/4000.0)));
@@ -3970,37 +3968,58 @@ mode = 0;
 
 void showRTC() {
 getTime(time);
-line0();
+lcdInst(0b10000000);
 printf("    %02x/%02x/%02x      ", time[6], time[5], time[4]);
-line1();
+lcdInst(0b11000000);
 printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]);
 _delay((unsigned long)((200)*(8000000/4000.0)));
 }
 
 void interrupt intrpt(void) {
 
-# 165
 (INTCONbits.GIE = 0);
 if (INT1IF) {
+int portCW[] = {0, 0, 0};
 unsigned char keypress = (PORTB & 0xF0) >> 4;
 INT1IF = 0;
+while (PORTBbits.RB1);
 switch (mode) {
 case 0:
-if (keypress < 4) {
+switch (keypress) {
+case 14:
 mode = 2;
-PermLog(keypress);
+PermLog();
 mode = 0;
-} else {
+break;
+case 15:
 mode = 1;
 (INTCONbits.GIE = 1);
 simulate();
 (INTCONbits.GIE = 0);
+break;
+case 11:
+
+portCW[0] = 1;
+PWMC(3000, 10, portCW);
+break;
+case 7:
+
+portCW[1] = 1;
+PWMC(3000, 10, portCW);
+break;
+
+case 3:
+
+portCW[2] = 1;
+PWMC(3000, 10, portCW);
+break;
+case 12:
+return;
 }
 break;
 default:
 break;
 }
-while (PORTBbits.RB1);
 }
 if (INT2IF) {
 INT2IF = 0;
@@ -4017,11 +4036,11 @@ while (PORTBbits.RB2);
 (INTCONbits.GIE = 1);
 }
 
-# 210
+# 228
 int main() {
 initialize();
 
-line0();
+lcdInst(0b10000000);
 printf("Welcome!          ");
 
 _delay((unsigned long)((500)*(8000000/4000.0)));

@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 8 "modules.h"
 unsigned int captureKeypad();
@@ -3833,53 +3831,52 @@ return keypress;
 }
 
 void showInfo(unsigned int time, unsigned char *sorted) {
-line0();
+lcdInst(0b10000000);
 printf("Press a number          ");
-line1();
+lcdInst(0b11000000);
 printf("For more info          ");
 int type = 0;
 int stop = 0;
 while (!stop) {
 type = captureKeypad();
+
 switch (type) {
 case (0):
-line0();
+lcdInst(0b10000000);
 printf("Time Elapsed:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u seconds          ", time);
 break;
 case (1):
-line0();
+lcdInst(0b10000000);
 printf("Total Sorted:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u batteries          ", sorted[0] + sorted[1] + sorted[2] + sorted[3]);
 break;
 case (2):
-line0();
+lcdInst(0b10000000);
 printf("AA Sorted:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u             ", sorted[0]);
 break;
-case (3):
-line0();
+case (4):
+lcdInst(0b10000000);
 printf("C Sorted:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u             ", sorted[1]);
 break;
-case (4):
-line0();
+case (5):
+lcdInst(0b10000000);
 printf("9V Sorted:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u             ", sorted[2]);
 break;
-case (5):
-line0();
+case (6):
+lcdInst(0b10000000);
 printf("Uncharged:          ");
-line1();
+lcdInst(0b11000000);
 printf("%u             ", sorted[3]);
 break;
-case (15):
-asm("reset");
 default:
 stop = 1;
 }

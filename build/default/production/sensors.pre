@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 1 "sensors.h"
 int AD(char channel);
@@ -3843,7 +3841,7 @@ int checkAA(unsigned char *sorted) {
 
 
 printf("AA:");
-switch (checkV(0, 1.5)) {
+switch (checkV(2, 1.5)) {
 case 1:
 
 printf(" 1 ");
@@ -3867,7 +3865,7 @@ int checkC(unsigned char *sorted) {
 
 
 printf("C:");
-switch (checkV(1, 1.5)) {
+switch (checkV(0, 1.5)) {
 case 1:
 
 printf(" 1 ");
@@ -3891,7 +3889,7 @@ int check9(unsigned char *sorted) {
 
 
 printf("9V:");
-switch (checkV(2, 4)) {
+switch (checkV(5, 4)) {
 case 1:
 
 printf(" 1 ");

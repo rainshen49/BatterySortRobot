@@ -25,8 +25,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCONbits `VS257 ~T0 @X0 0 e@4082 ]
 "1094
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"14 lcd.h
-[v _line0 `(v ~T0 @X0 0 ef ]
+"11 lcd.h
+[v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "9 configBits.h
@@ -2835,8 +2835,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void line0() ;
-[; ;lcd.h: 15: void line1() ;
 [; ;motors.h: 1: void PWMC(int widthus, int cycles, int * port);
 [; ;motors.h: 2: void CW90(int * port);
 [; ;motors.h: 3: void CCW90(int * port);
@@ -2954,9 +2952,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.c: 31: LATC = 0;
 "31
 [e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 32: line0();printf(em ? "Emergency          " : "Stopped          ");
+[; ;motors.c: 32: lcdInst(0b10000000);printf(em ? "Emergency          " : "Stopped          ");
 "32
-[e ( _line0 ..  ]
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
 [e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
 [; ;motors.c: 33: if (em)
 "33

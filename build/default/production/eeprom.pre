@@ -3792,8 +3792,6 @@ extern int printf(const char *, ...);
 void lcdInst(char data);
 void lcdNibble(char data);
 void initLCD(void);
-void line0() ;
-void line1() ;
 
 # 11 "eeprom.h"
 unsigned char ReadEE(unsigned int address);
@@ -3801,7 +3799,7 @@ void WriteEE(unsigned int address, unsigned char data);
 void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time);
 void WriteRun(unsigned char * sorted, unsigned int time);
 unsigned char back(unsigned char runs);
-void PermLog(unsigned char which);
+void PermLog();
 void initLatest();
 
 # 8 "modules.h"
@@ -3894,14 +3892,26 @@ WriteEE(add++ *8, sorted[3]);
 WriteEE(160, Latest);
 }
 
-void PermLog(unsigned char backruns) {
+void PermLog() {
+unsigned char goback = 0;
+while (!goback) {
+lcdInst(0b10000000);
+printf("Permanent log:       ");
+lcdInst(0b11000000);
+printf("Which run?       ");
+unsigned char backruns = captureKeypad();
+if (backruns == 3)backruns = 2;
+if (backruns == 4)backruns = 3;
+if (backruns < 4) {
 unsigned int time;
 unsigned char sorted[] = {0, 0, 0, 0};
 ReadRun(backruns, sorted, &time);
-line0();
+lcdInst(0b10000000);
 printf("showing %u      ", backruns);
-line1();
+lcdInst(0b11000000);
 printf("runs before     ");
 _delay((unsigned long)((700)*(8000000/4000.0)));
 showInfo(time, sorted);
+} else goback = 1;
+}
 }

@@ -29,6 +29,7 @@ void showInfo(unsigned int time, unsigned char *sorted) {
     int stop = 0;
     while (!stop) {
         type = captureKeypad();
+//      1:time,2:Total,3:AA,4:C,5:9V,6:uncharged
         switch (type) {
             case (0):
                 line0();
@@ -48,26 +49,24 @@ void showInfo(unsigned int time, unsigned char *sorted) {
                 line1();
                 printf("%u             ", sorted[0]);
                 break;
-            case (3):
+            case (4):
                 line0();
                 printf("C Sorted:          ");
                 line1();
                 printf("%u             ", sorted[1]);
                 break;
-            case (4):
+            case (5):
                 line0();
                 printf("9V Sorted:          ");
                 line1();
                 printf("%u             ", sorted[2]);
                 break;
-            case (5):
+            case (6):
                 line0();
                 printf("Uncharged:          ");
                 line1();
                 printf("%u             ", sorted[3]);
                 break;
-            case (15):
-                RESET();
             default:
                 stop = 1;
         }

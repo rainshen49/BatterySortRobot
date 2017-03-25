@@ -2829,8 +2829,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 11: void lcdInst(char data);
 [; ;lcd.h: 12: void lcdNibble(char data);
 [; ;lcd.h: 13: void initLCD(void);
-[; ;lcd.h: 14: void line0() ;
-[; ;lcd.h: 15: void line1() ;
 [; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
 [; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
 [; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);

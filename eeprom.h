@@ -13,7 +13,7 @@ void WriteEE(unsigned int address, unsigned char data);
 void ReadRun(unsigned char backruns, unsigned char * sorted, unsigned int * time);
 void WriteRun(unsigned char * sorted, unsigned int time);
 unsigned char back(unsigned char runs);
-void PermLog(unsigned char which);
+void PermLog();
 void initLatest();
 
 #endif	/* EEPROM_H */
