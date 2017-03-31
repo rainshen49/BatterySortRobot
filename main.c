@@ -153,10 +153,7 @@ void simulate() {
         if (period > 60) {
             //            stop = 1;
         }
-        //        __delay_ms(500);
-        //        captureKeypad();
     }
-    //    interfacing with EEPROM
     mode = 2;
     INT2IE = 0;
     stopMoving(0);
@@ -246,10 +243,10 @@ void interrupt intrpt(void) {
 //}
 
 void testAD() {
-    //    int sorted[] = {0, 0, 0, 0};
+    unsigned char sorted[] = {0, 0, 0, 0};
     line0();
-    printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
-    __delay_ms(500);
+    printf("A %d,C %d,9 %d   ", checkAA(sorted), checkC(sorted), check9(sorted));
+    __delay_ms(100);
 }
 
 int main() {

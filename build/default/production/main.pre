@@ -3964,10 +3964,7 @@ lcdInst(0b11000000);
 if (period > 60) {
 
 }
-
-
 }
-
 mode = 2;
 INT2IE = 0;
 stopMoving(0);
@@ -4048,12 +4045,12 @@ while (PORTBbits.RB2);
 (INTCONbits.GIE = 1);
 }
 
-# 248
+# 245
 void testAD() {
-
+unsigned char sorted[] = {0, 0, 0, 0};
 lcdInst(0b10000000);
-printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
-_delay((unsigned long)((500)*(8000000/4000.0)));
+printf("A %d,C %d,9 %d   ", checkAA(sorted), checkC(sorted), check9(sorted));
+_delay((unsigned long)((100)*(8000000/4000.0)));
 }
 
 int main() {
