@@ -346,6 +346,11 @@ switch(c = *f++) {
 case 0:
 goto alldone;
 
+# 697
+case 'd':
+case 'i':
+break;
+
 # 718
 case 'x':
 
@@ -389,7 +394,26 @@ break;
 
 }
 
-# 1273
+# 1251
+if((flag & (0xC0)) == 0x00)
+
+{
+
+# 1259
+val = (int)(*(int *)__va_arg((*(int **)ap), (int)0));
+
+if((int)val < 0) {
+flag |= 0x03;
+val = -val;
+}
+
+}
+
+else
+
+
+
+
 {
 
 # 1286
@@ -399,7 +423,12 @@ val = (*(unsigned *)__va_arg((*(unsigned **)ap), (unsigned)0));
 # 1294
 switch((unsigned char)(flag & (0xC0))) {
 
-# 1302
+
+
+
+case 0x00:
+
+
 case 0xC0:
 
 
@@ -423,6 +452,10 @@ break;
 # 1336
 }
 
+# 1345
+if(width && flag & 0x03)
+width--;
+
 # 1381
 if(width > c)
 width -= c;
@@ -431,6 +464,12 @@ width = 0;
 
 
 if(flag & 0x04) {
+
+
+
+
+if(flag & 0x03)
+(putch('-') );
 
 # 1415
 if(width)
@@ -450,6 +489,10 @@ do
 (putch(' ') );
 while(--width);
 
+# 1438
+if(flag & 0x03)
+(putch('-') );
+
 # 1469
 }
 
@@ -462,7 +505,12 @@ switch((unsigned char)(flag & (0xC0)))
 
 {
 
-# 1486
+
+
+
+case 0x00:
+
+
 case 0xC0:
 
 

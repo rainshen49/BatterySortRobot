@@ -3795,12 +3795,9 @@ void initLCD(void);
 
 # 1 "sensors.h"
 int AD(char channel);
-int checkV(int channel, float max);
 int checkAA(unsigned char* sorted);
 int checkC(unsigned char *sorted);
 int check9(unsigned char *sorted);
-
-unsigned char fluctuate(int a, int b);
 
 # 4 "sensors.c"
 int AD(char channel) {
@@ -3812,99 +3809,92 @@ while (ADCON0bits.GO_NOT_DONE);
 return (ADRESH << 8) | ADRESL;
 }
 
-unsigned char fluctuate(int a, int b) {
-
-int i = a - b;
-if (a < b)i = -i;
-return i > 200;
-}
-
-int checkV(int channel, float max) {
-
+int checkV(char channel, int threshhold) {
 
 
 int voltage = AD(channel);
+
 int voltage2 = AD(channel);
+
 int voltage3 = AD(channel);
-if (voltage > 800 || voltage2 > 800 || voltage3 > 800)return 0;
-if (fluctuate(voltage, voltage2) || fluctuate(voltage2, voltage3) || fluctuate(voltage, voltage3))return 0;
-if (voltage < 50) {
-return 0;
-} else if (voltage > 0.85 * 1023 * max / 4.1) {
+
+# 27
+if (voltage == voltage2 && voltage2 == voltage3) {
+
+if (voltage > 1.1 * threshhold) {
+
+} else if (voltage > 0.85 * threshhold) {
+
 return 1;
+} else if (voltage < 10) {
+
 } else {
+
+return 0;
+}
+} else {
+
+}
 return -1;
+}
+
+void printV(int charged) {
+
+
+if (charged < 0) {
+printf("-1 ");
+} else {
+printf(" %d ", charged);
+
 }
 }
 
 int checkAA(unsigned char *sorted) {
-
-
 printf("AA:");
-switch (checkV(2, 1.5)) {
+
+int V = checkV(2, 1.5 / 5 * 1023);
+printV(V);
+switch (V) {
 case 1:
 
-printf(" 1 ");
 sorted[0]++;
-return 1;
-case -1:
-
-printf(" 0 ");
-sorted[3]++;
-return 0;
 case 0:
 
-printf("-1 ");
-return -1;
-default:
-return 0;
+sorted[3]++;
 }
+return V;
 }
 
 int checkC(unsigned char *sorted) {
 
 
 printf("C:");
-switch (checkV(0, 1.5)) {
+int V = checkV(0, 1.5 / 5 * 1023);
+printV(V);
+switch (V) {
 case 1:
 
-printf(" 1 ");
 sorted[1]++;
-return 1;
-case -1:
-
-printf(" 0 ");
-sorted[3]++;
-return 0;
 case 0:
 
-printf("-1 ");
-return -1;
-default:
-return 0;
+sorted[3]++;
 }
+return V;
 }
 
 int check9(unsigned char *sorted) {
 
 
 printf("9V:");
-switch (checkV(5, 4)) {
+int V = checkV(5, 3.65 / 5 * 1023);
+printV(V);
+switch (V) {
 case 1:
 
-printf(" 1 ");
 sorted[2]++;
-return 1;
-case -1:
-
-printf(" 0 ");
-sorted[3]++;
-return 0;
 case 0:
 
-printf("-1 ");
-return -1;
-default:
-return 0;
+sorted[3]++;
 }
+return V;
 }

@@ -4,7 +4,7 @@
  *
  * Created on February 3, 2017, 12:23 AM
  */
-//#include <stdio.h>
+
 #include "common.h"
 #include "modules.h"
 #include "sensors.h"
@@ -12,6 +12,11 @@
 #include "eeprom.h"
 #include "I2C.h"
 
+// interface: 
+// standby: ABC: adjust servo #: Permlog, D: Start
+// permlog: 1234: runs, into log: 123456: info, * back
+// running: not touchable
+// show result: 123456: info, * back
 int mode = 0; // 0 standby 1 running 2 result 3 emergency
 unsigned char time[7];
 
@@ -22,6 +27,8 @@ void initialize() {
     TRISD = 0x00;
     TRISE = 0x0F;
     //    config all ports input or output
+    initLCD();
+
     LATA = 0x00;
     LATB = 0x00;
     LATC = 0x00;
@@ -33,12 +40,11 @@ void initialize() {
     CVRCON = 0x00; // Disable CCP reference voltage output
     ADFM = 1;
     //    set digital and analog
-    initLCD();
     __lcd_clear();
-    __delay_ms(50);
+    //    __delay_ms(100);
     I2C_Master_Init(10000); //Initialize I2C Master with 100KHz clock
     //    __lcd_home();
-    __delay_ms(50);
+    //    __delay_ms(50);
     initLatest();
 }
 
@@ -61,27 +67,30 @@ void simulate() {
     INT2IE = 1; // enable the emergency stop
     INT2IF = 0;
     while (!stop) {
-        //        captureKeypad();
         line0();
         V9 = check9(sorted);
-        //        captureKeypad();
         C = checkC(sorted);
-        //        captureKeypad();
         AA = checkAA(sorted);
         printf("    ");
 
-        //        captureKeypad();
         int portCW[] = {0, 0, 0};
         int portCCW[] = {0, 0, 0};
 
+        //        1 charged 0 uncharged -1 DNE
         line1();
         printf("9V:");
         if (!V9) {
             portCCW[0] = 1;
             printf(" -");
-        } else if (AA == 1) {
+
+            captureKeypad();
+
+        } else if (V9 == 1) {
             portCW[0] = 1;
             printf(" +");
+
+            captureKeypad();
+
         } else {
             printf(" 0");
         }
@@ -91,9 +100,15 @@ void simulate() {
         if (!C) {
             portCCW[1] = 1;
             printf(" -");
+
+            captureKeypad();
+
         } else if (C == 1) {
             portCW[1] = 1;
             printf(" +");
+
+            captureKeypad();
+
         } else {
             printf(" 0");
         }
@@ -104,9 +119,14 @@ void simulate() {
             portCCW[2] = 1;
             printf(" -");
 
-        } else if (V9 == 1) {
+            captureKeypad();
+
+        } else if (AA == 1) {
             portCW[2] = 1;
             printf(" +");
+
+            captureKeypad();
+
         } else {
             printf(" 0");
         }
@@ -126,13 +146,14 @@ void simulate() {
         now[0] = time[0]; //0 is seconds, 1 is hour
         now[1] = time[1];
         line0();
-        printf("%02x:%02x to %02x:%02x  ", start[1], start[0], now[1], now[0]);
+        //        printf("%02x:%02x to %02x:%02x  ", start[1], start[0], now[1], now[0]);
         period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
         line1();
-        printf("Period: %u        ", period);
-        if (period > 20) {
+        //        printf("Period: %u        ", period);
+        if (period > 60) {
             //            stop = 1;
         }
+        //        __delay_ms(500);
         //        captureKeypad();
     }
     //    interfacing with EEPROM
@@ -153,11 +174,10 @@ void showRTC() {
     printf("    %02x/%02x/%02x      ", time[6], time[5], time[4]); //Print date in YY/MM/DD
     line1();
     printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]); //HH:MM:SS
-    __delay_ms(200);
+    __delay_ms(250);
 }
 
 void interrupt intrpt(void) {
-    //    *: Back, #: Permlog, D: Start
     di();
     if (INT1IF) {
         int portCW[] = {0, 0, 0};
@@ -225,13 +245,21 @@ void interrupt intrpt(void) {
 //    }
 //}
 
+void testAD() {
+    //    int sorted[] = {0, 0, 0, 0};
+    line0();
+    printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
+    __delay_ms(500);
+}
+
 int main() {
     initialize(); //Initialize LCD and PORTs
     // Enter Standby mode
     line0();
     printf("Welcome!          ");
-    //        pause();
+    //    pause();
     __delay_ms(500);
+    while (1)testAD();
     //    testPWM();
     INT1IE = 1;
     INT1IF = 0;

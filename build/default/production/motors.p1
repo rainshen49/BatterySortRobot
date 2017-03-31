@@ -2918,57 +2918,69 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _CW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 21: PWMC(3000, 96, port);
+[; ;motors.c: 21: if (port[0] + port[1] + port[2] == 0)return;
 "21
-[e ( _PWMC (3 , , -> 3000 `i -> 96 `i _port ]
-[; ;motors.c: 22: }
+[e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 274  ]
+[e $UE 273  ]
+[e :U 274 ]
+[; ;motors.c: 22: PWMC(3000, 96, port);
 "22
+[e ( _PWMC (3 , , -> 3000 `i -> 96 `i _port ]
+[; ;motors.c: 23: }
+"23
 [e :UE 273 ]
 }
-"24
+"25
 [v _CCW90 `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 24: void CCW90(int * port) {
+[; ;motors.c: 25: void CCW90(int * port) {
 [e :U _CCW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 26: PWMC(300, 1400, port);
-"26
-[e ( _PWMC (3 , , -> 300 `i -> 1400 `i _port ]
-[; ;motors.c: 27: }
+[; ;motors.c: 27: if (port[0] + port[1] + port[2] == 0)return;
 "27
-[e :UE 274 ]
-}
+[e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 276  ]
+[e $UE 275  ]
+[e :U 276 ]
+[; ;motors.c: 28: PWMC(300, 1400, port);
+"28
+[e ( _PWMC (3 , , -> 300 `i -> 1400 `i _port ]
+[; ;motors.c: 29: }
 "29
+[e :UE 275 ]
+}
+"31
 [v _stopMoving `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;motors.c: 29: void stopMoving(char em) {
+[; ;motors.c: 31: void stopMoving(char em) {
 [e :U _stopMoving ]
 [v _em `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 30: (INTCONbits.GIE = 0);
-"30
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 31: LATC = 0;
-"31
-[e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 32: lcdInst(0b10000000);printf(em ? "Emergency          " : "Stopped          ");
+[; ;motors.c: 32: (INTCONbits.GIE = 0);
 "32
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
-[; ;motors.c: 33: if (em)
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;motors.c: 33: LATC = 0;
 "33
-[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 276  ]
-[; ;motors.c: 34: while(1);
+[e = _LATC -> -> 0 `i `uc ]
+[; ;motors.c: 34: lcdInst(0b10000000);
 "34
-[e :U 278 ]
-[e :U 277 ]
-[e $U 278  ]
-[e :U 279 ]
-[e :U 276 ]
-[; ;motors.c: 35: }
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 35: printf(em ? "Emergency          " : "Stopped          ");
 "35
-[e :UE 275 ]
+[e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
+[; ;motors.c: 36: if (em)
+"36
+[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 278  ]
+[; ;motors.c: 37: while(1);
+"37
+[e :U 280 ]
+[e :U 279 ]
+[e $U 280  ]
+[e :U 281 ]
+[e :U 278 ]
+[; ;motors.c: 38: }
+"38
+[e :UE 277 ]
 }
 [p f _printf 9437696 ]
 [a 1C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]

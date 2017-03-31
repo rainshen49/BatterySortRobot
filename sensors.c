@@ -10,99 +10,96 @@ int AD(char channel) {
     return (ADRESH << 8) | ADRESL;
 }
 
-unsigned char fluctuate(int a, int b) {
-    //    return 1 if bigger difference than 200
-    int i = a - b;
-    if (a < b)i = -i;
-    return i > 200;
+int checkV(char channel, int threshhold) {
+    //    gives -1 if DNE, 0 if uncharged, 1 if charged
+    //    captureKeypad();
+    int voltage = AD(channel);
+//    __delay_ms(5);
+    int voltage2 = AD(channel);
+//    __delay_ms(5);
+    int voltage3 = AD(channel);
+    //    __delay_ms(5);
+    //    int voltage4 = AD(channel);
+
+//    printf("%d,%d,%d      ", voltage, voltage2, voltage3);
+//    line1();
+    
+    if (voltage == voltage2 && voltage2 == voltage3) {
+        //        detect on stable reading:
+        if (voltage > 1.1 * threshhold) {
+//            printf("over");
+        } else if (voltage > 0.85 * threshhold) {
+//            printf("charged");
+            return 1;
+        } else if (voltage < 10) {
+//            printf("below");
+        } else {
+//            printf("uncharged");
+            return 0;
+        }
+    } else {
+//        printf("fluctuate");
+    }
+    return -1;
 }
 
-int checkV(int channel, float max) {
-    //    return 0 if not exist, 1 if exist and over 85 charged, -1 if exist but uncharged
-    //    line1();
-    //    printf("%f02 V      ", (float) voltage / 1024 * MAXV);
-    int voltage = AD(channel);
-    int voltage2 = AD(channel);
-    int voltage3 = AD(channel);
-    if (voltage > 800 || voltage2 > 800 || voltage3 > 800)return 0;
-    if (fluctuate(voltage, voltage2) || fluctuate(voltage2, voltage3) || fluctuate(voltage, voltage3))return 0;
-    if (voltage < 50) {
-        return 0;
-    } else if (voltage > 0.85 * 1023 * max / MAXV) {
-        return 1;
+void printV(int charged) {
+    //    line0();
+    //    captureKeypad();
+    if (charged < 0) {
+        printf("-1 ");
     } else {
-        return -1;
+        printf(" %d ", charged);
+//        captureKeypad();
     }
 }
 
 int checkAA(unsigned char *sorted) {
-    //    input RA0(AN0)
-    //    line0();
     printf("AA:");
-    switch (checkV(2, 1.5)) {
+    //    check voltage
+    int V = checkV(2, 1.5 / MAXV * 1023);
+    printV(V);
+    switch (V) {
         case 1:
             //            line0();
-            printf(" 1 ");
             sorted[0]++;
-            return 1;
-        case -1:
-            //            line0();
-            printf(" 0 ");
-            sorted[3]++;
-            return 0;
         case 0:
             //            line0();
-            printf("-1 ");
-            return -1;
-        default:
-            return 0;
+            sorted[3]++;
     }
+    return V;
 }
 
 int checkC(unsigned char *sorted) {
     //    input RA1(AN1)
     //    line0();
     printf("C:");
-    switch (checkV(0, 1.5)) {
+    int V = checkV(0, 1.5 / MAXV * 1023);
+    printV(V);
+    switch (V) {
         case 1:
             //            line0();
-            printf(" 1 ");
             sorted[1]++;
-            return 1;
-        case -1:
-            //            line0();
-            printf(" 0 ");
-            sorted[3]++;
-            return 0;
         case 0:
             //            line0();
-            printf("-1 ");
-            return -1;
-        default:
-            return 0;
+            sorted[3]++;
     }
+    return V;
 }
 
 int check9(unsigned char *sorted) {
     //    input RA2(AN2)
     //    line0();
     printf("9V:");
-    switch (checkV(5, 4)) {
+    int V = checkV(5, 3.65 / MAXV * 1023);
+    printV(V);
+    switch (V) {
         case 1:
             //            line0();
-            printf(" 1 ");
             sorted[2]++;
-            return 1;
-        case -1:
-            //            line0();
-            printf(" 0 ");
-            sorted[3]++;
-            return 0;
         case 0:
             //            line0();
-            printf("-1 ");
-            return -1;
-        default:
-            return 0;
+            sorted[3]++;
     }
+    return V;
 }
