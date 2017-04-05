@@ -2839,6 +2839,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.h: 2: void CW90(int * port);
 [; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
+[; ;motors.h: 5: void shake(int * port);
 "4 motors.c
 [v _PWMC `(v ~T0 @X0 1 ef3`i`i`*i ]
 {
@@ -2923,9 +2924,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 274  ]
 [e $UE 273  ]
 [e :U 274 ]
-[; ;motors.c: 22: PWMC(3000, 96, port);
+[; ;motors.c: 22: PWMC(3000, 120, port);
 "22
-[e ( _PWMC (3 , , -> 3000 `i -> 96 `i _port ]
+[e ( _PWMC (3 , , -> 3000 `i -> 120 `i _port ]
 [; ;motors.c: 23: }
 "23
 [e :UE 273 ]
@@ -2942,45 +2943,79 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 276  ]
 [e $UE 275  ]
 [e :U 276 ]
-[; ;motors.c: 28: PWMC(300, 1400, port);
+[; ;motors.c: 28: PWMC(400, 1000, port);
 "28
-[e ( _PWMC (3 , , -> 300 `i -> 1400 `i _port ]
+[e ( _PWMC (3 , , -> 400 `i -> 1000 `i _port ]
 [; ;motors.c: 29: }
 "29
 [e :UE 275 ]
 }
 "31
+[v _shake `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;motors.c: 31: void shake(int * port) {
+[e :U _shake ]
+[v _port `*i ~T0 @X0 1 r1 ]
+[f ]
+[; ;motors.c: 32: if (port[0] + port[1] + port[2] == 0)return;
+"32
+[e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 278  ]
+[e $UE 277  ]
+[e :U 278 ]
+[; ;motors.c: 33: PWMC(450, 160, port);
+"33
+[e ( _PWMC (3 , , -> 450 `i -> 160 `i _port ]
+[; ;motors.c: 34: PWMC(5000, 2, port);
+"34
+[e ( _PWMC (3 , , -> 5000 `i -> 2 `i _port ]
+[; ;motors.c: 35: _delay((unsigned long)((400)*(8000000/4000.0)));
+"35
+[e ( __delay (1 -> * -> -> 400 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 36: PWMC(5000, 20, port);
+"36
+[e ( _PWMC (3 , , -> 5000 `i -> 20 `i _port ]
+[; ;motors.c: 37: PWMC(450, 2, port);
+"37
+[e ( _PWMC (3 , , -> 450 `i -> 2 `i _port ]
+[; ;motors.c: 38: _delay((unsigned long)((390)*(8000000/4000.0)));
+"38
+[e ( __delay (1 -> * -> -> 390 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 40: }
+"40
+[e :UE 277 ]
+}
+"42
 [v _stopMoving `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;motors.c: 31: void stopMoving(char em) {
+[; ;motors.c: 42: void stopMoving(char em) {
 [e :U _stopMoving ]
 [v _em `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 32: (INTCONbits.GIE = 0);
-"32
+[; ;motors.c: 43: (INTCONbits.GIE = 0);
+"43
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 33: LATC = 0;
-"33
+[; ;motors.c: 44: LATC = 0;
+"44
 [e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 34: lcdInst(0b10000000);
-"34
+[; ;motors.c: 45: lcdInst(0b10000000);
+"45
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 35: printf(em ? "Emergency          " : "Stopped          ");
-"35
+[; ;motors.c: 46: printf(em ? "Emergency          " : "Stopped          ");
+"46
 [e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
-[; ;motors.c: 36: if (em)
-"36
-[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 278  ]
-[; ;motors.c: 37: while(1);
-"37
-[e :U 280 ]
-[e :U 279 ]
-[e $U 280  ]
+[; ;motors.c: 47: if (em)
+"47
+[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 280  ]
+[; ;motors.c: 48: while(1);
+"48
+[e :U 282 ]
 [e :U 281 ]
-[e :U 278 ]
-[; ;motors.c: 38: }
-"38
-[e :UE 277 ]
+[e $U 282  ]
+[e :U 283 ]
+[e :U 280 ]
+[; ;motors.c: 49: }
+"49
+[e :UE 279 ]
 }
 [p f _printf 9437696 ]
 [a 1C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]

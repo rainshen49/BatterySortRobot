@@ -46,6 +46,7 @@ void initialize() {
     //    __lcd_home();
     //    __delay_ms(50);
     initLatest();
+    INTEDG2 = 0;
 }
 
 void mainloop() {
@@ -57,8 +58,8 @@ void simulate() {
     unsigned int now[] = {0, 0}, start[] = {0, 0};
     unsigned char sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
     unsigned int period = 0;
-    int stop = 0;
     int AA, C, V9;
+    unsigned char countDC = 0;
     line0();
     printf("Simulating...          ");
     start[0] = time[0]; //0 is seconds, 1 is hour
@@ -66,8 +67,14 @@ void simulate() {
     LATC6 = 1; // start DC
     INT2IE = 1; // enable the emergency stop
     INT2IF = 0;
-    while (!stop) {
+    while (mode == 1) {
+        if (countDC++ > 50) {
+            LATC6 = 0;
+            countDC = 0;
+        }
+        unsigned char DCmoving = LATC6;
         line0();
+        LATC6 = 0;
         V9 = check9(sorted);
         C = checkC(sorted);
         AA = checkAA(sorted);
@@ -131,16 +138,21 @@ void simulate() {
             printf(" 0");
         }
         //        captureKeypad();
-
         CCW90(portCCW);
         CW90(portCW);
+        LATC6 = DCmoving;
+        int portShake[];
+        portShake[0] = portCCW[0] == portCW[0];
+        portShake[1] = portCCW[1] == portCW[1];
+        portShake[2] = portCCW[2] == portCW[2];
+        shake(portShake);
         LATC0 = 0;
         LATC1 = 0;
         LATC2 = 0;
         //        captureKeypad();
 
         if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
-            //            stop = 1;
+            //            mode = 2;
         }
         getTime(time);
         now[0] = time[0]; //0 is seconds, 1 is hour
@@ -151,10 +163,12 @@ void simulate() {
         line1();
         //        printf("Period: %u        ", period);
         if (period > 60) {
-            //            stop = 1;
+            //            mode = 2;
+        }
+        if (countDC == 25) {
+            LATC6 = 1;
         }
     }
-    mode = 2;
     INT2IE = 0;
     stopMoving(0);
     line1();
@@ -177,13 +191,34 @@ void showRTC() {
 void interrupt intrpt(void) {
     di();
     if (INT1IF) {
-        int portCW[] = {0, 0, 0};
+        int port[] = {0, 0, 0};
         unsigned char keypress = (PORTB & 0xF0) >> 4; // Read the 4 bit character code
         INT1IF = 0; //Clear flag bit
         while (PORTBbits.RB1); //wait for release
         switch (mode) {
             case 0:
                 switch (keypress) {
+                    case 3:
+                        //                        move 9V servo a bit
+                        port[2] = 1;
+                        PWMC(400, 6, port);
+                        break;
+                    case 7:
+                        //                        move C servo a bit
+                        port[1] = 1;
+                        PWMC(400, 6, port);
+                        break;
+                    case 8:
+                        LATC6 = ~LATC6;
+                        break;
+                    case 11:
+                        //                        move AA servo a bit
+                        port[0] = 1;
+                        line1();
+                        PWMC(400, 6, port);
+                        break;
+                    case 12:
+                        return;
                     case 14:
                         mode = 2;
                         PermLog();
@@ -195,26 +230,13 @@ void interrupt intrpt(void) {
                         simulate();
                         di();
                         break;
-                    case 11:
-                        //                        move AA servo a bit
-                        portCW[0] = 1;
-                        PWMC(3000, 10, portCW);
-                        break;
-                    case 7:
-                        //                        move C servo a bit
-                        portCW[1] = 1;
-                        PWMC(3000, 10, portCW);
-                        break;
-
-                    case 3:
-                        //                        move 9V servo a bit
-                        portCW[2] = 1;
-                        PWMC(3000, 10, portCW);
-                        break;
-                    case 12:
-                        return;
                 }
                 break;
+            case 1:
+                if (keypress == 13) {
+                    mode = 2;
+                    return;
+                }
             default:
                 break;
         }
@@ -229,25 +251,27 @@ void interrupt intrpt(void) {
             default:
                 break;
         }
-        while (PORTBbits.RB2); //wait for release
+        while (!PORTBbits.RB2); //wait for release
     }
     ei();
 }
 
-//void testPWM() {
+//void testServo() {
 //    while (1) {
-//        int portCW[] = {1, 0, 0};
-//        CCW90(portCW);
-//        captureKeypad();
+//        int port[] = {1, 1, 1};
+//        CCW90(port);
+//        __delay_ms(500);
+//        CW90(port);
+//        __delay_ms(500);
 //    }
 //}
 
-void testAD() {
-    unsigned char sorted[] = {0, 0, 0, 0};
-    line0();
-    printf("A %d,C %d,9 %d   ", checkAA(sorted), checkC(sorted), check9(sorted));
-    __delay_ms(100);
-}
+//void testAD() {
+//    unsigned char sorted[] = {0, 0, 0, 0};
+//    line0();
+//    printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
+//    __delay_ms(100);
+//}
 
 int main() {
     initialize(); //Initialize LCD and PORTs
@@ -256,7 +280,7 @@ int main() {
     printf("Welcome!          ");
     //    pause();
     __delay_ms(500);
-    while (1)testAD();
+    //    while (1)testServo();
     //    testPWM();
     INT1IE = 1;
     INT1IF = 0;

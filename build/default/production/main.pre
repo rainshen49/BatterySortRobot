@@ -3810,6 +3810,7 @@ void PWMC(int widthus, int cycles, int * port);
 void CW90(int * port);
 void CCW90(int * port);
 void stopMoving(char em);
+void shake(int * port);
 
 # 11 "eeprom.h"
 unsigned char ReadEE(unsigned int address);
@@ -3857,6 +3858,7 @@ I2C_Master_Init(10000);
 
 
 initLatest();
+INTEDG2 = 0;
 }
 
 void mainloop() {
@@ -3868,8 +3870,8 @@ void simulate() {
 unsigned int now[] = {0, 0}, start[] = {0, 0};
 unsigned char sorted[] = {0, 0, 0, 0};
 unsigned int period = 0;
-int stop = 0;
 int AA, C, V9;
+unsigned char countDC = 0;
 lcdInst(0b10000000);
 printf("Simulating...          ");
 start[0] = time[0];
@@ -3877,8 +3879,14 @@ start[1] = time[1];
 LATC6 = 1;
 INT2IE = 1;
 INT2IF = 0;
-while (!stop) {
+while (mode == 1) {
+if (countDC++ > 50) {
+LATC6 = 0;
+countDC = 0;
+}
+unsigned char DCmoving = LATC6;
 lcdInst(0b10000000);
+LATC6 = 0;
 V9 = check9(sorted);
 C = checkC(sorted);
 AA = checkAA(sorted);
@@ -3942,9 +3950,14 @@ captureKeypad();
 printf(" 0");
 }
 
-
 CCW90(portCCW);
 CW90(portCW);
+LATC6 = DCmoving;
+int portShake[];
+portShake[0] = portCCW[0] == portCW[0];
+portShake[1] = portCCW[1] == portCW[1];
+portShake[2] = portCCW[2] == portCW[2];
+shake(portShake);
 LATC0 = 0;
 LATC1 = 0;
 LATC2 = 0;
@@ -3964,8 +3977,10 @@ lcdInst(0b11000000);
 if (period > 60) {
 
 }
+if (countDC == 25) {
+LATC6 = 1;
 }
-mode = 2;
+}
 INT2IE = 0;
 stopMoving(0);
 lcdInst(0b11000000);
@@ -3988,13 +4003,34 @@ _delay((unsigned long)((250)*(8000000/4000.0)));
 void interrupt intrpt(void) {
 (INTCONbits.GIE = 0);
 if (INT1IF) {
-int portCW[] = {0, 0, 0};
+int port[] = {0, 0, 0};
 unsigned char keypress = (PORTB & 0xF0) >> 4;
 INT1IF = 0;
 while (PORTBbits.RB1);
 switch (mode) {
 case 0:
 switch (keypress) {
+case 3:
+
+port[2] = 1;
+PWMC(400, 6, port);
+break;
+case 7:
+
+port[1] = 1;
+PWMC(400, 6, port);
+break;
+case 8:
+LATC6 = ~LATC6;
+break;
+case 11:
+
+port[0] = 1;
+lcdInst(0b11000000);
+PWMC(400, 6, port);
+break;
+case 12:
+return;
 case 14:
 mode = 2;
 PermLog();
@@ -4006,26 +4042,13 @@ mode = 1;
 simulate();
 (INTCONbits.GIE = 0);
 break;
-case 11:
-
-portCW[0] = 1;
-PWMC(3000, 10, portCW);
-break;
-case 7:
-
-portCW[1] = 1;
-PWMC(3000, 10, portCW);
-break;
-
-case 3:
-
-portCW[2] = 1;
-PWMC(3000, 10, portCW);
-break;
-case 12:
-return;
 }
 break;
+case 1:
+if (keypress == 13) {
+mode = 2;
+return;
+}
 default:
 break;
 }
@@ -4040,19 +4063,12 @@ break;
 default:
 break;
 }
-while (PORTBbits.RB2);
+while (!PORTBbits.RB2);
 }
 (INTCONbits.GIE = 1);
 }
 
-# 245
-void testAD() {
-unsigned char sorted[] = {0, 0, 0, 0};
-lcdInst(0b10000000);
-printf("A %d,C %d,9 %d   ", checkAA(sorted), checkC(sorted), check9(sorted));
-_delay((unsigned long)((100)*(8000000/4000.0)));
-}
-
+# 276
 int main() {
 initialize();
 
@@ -4060,7 +4076,7 @@ lcdInst(0b10000000);
 printf("Welcome!          ");
 
 _delay((unsigned long)((500)*(8000000/4000.0)));
-while (1)testAD();
+
 
 INT1IE = 1;
 INT1IF = 0;

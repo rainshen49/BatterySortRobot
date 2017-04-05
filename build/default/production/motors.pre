@@ -3798,6 +3798,7 @@ void PWMC(int widthus, int cycles, int * port);
 void CW90(int * port);
 void CCW90(int * port);
 void stopMoving(char em);
+void shake(int * port);
 
 # 4 "motors.c"
 void PWMC(int widthus, int cycles, int * port) {
@@ -3818,13 +3819,24 @@ _delay((unsigned long)((5)*(8000000/4000000.0)));
 void CW90(int * port) {
 
 if (port[0] + port[1] + port[2] == 0)return;
-PWMC(3000, 96, port);
+PWMC(3000, 120, port);
 }
 
 void CCW90(int * port) {
 
 if (port[0] + port[1] + port[2] == 0)return;
-PWMC(300, 1400, port);
+PWMC(400, 1000, port);
+}
+
+void shake(int * port) {
+if (port[0] + port[1] + port[2] == 0)return;
+PWMC(450, 160, port);
+PWMC(5000, 2, port);
+_delay((unsigned long)((400)*(8000000/4000.0)));
+PWMC(5000, 20, port);
+PWMC(450, 2, port);
+_delay((unsigned long)((390)*(8000000/4000.0)));
+
 }
 
 void stopMoving(char em) {

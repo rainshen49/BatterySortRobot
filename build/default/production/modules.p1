@@ -2860,6 +2860,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.h: 2: void CW90(int * port);
 [; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
+[; ;motors.h: 5: void shake(int * port);
 [; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
 [; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
 [; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);
