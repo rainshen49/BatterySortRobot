@@ -3,7 +3,7 @@ void PWMC(int widthus, int cycles, int * port);
 //void CCW90(int * port);
 void stopMoving(char em);
 //void shake(int * port);
-#define GATETIME 180
+#define GATETIME 160
 void openGate();
 void closeGate();
 void V9Spin(char mode);

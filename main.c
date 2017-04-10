@@ -49,34 +49,98 @@ void initialize() {
 }
 
 void mainloop() {
-    unsigned char sorted[] = {2, 2, 2, 6}; // [AA,C,9V,uncharged]
-    unsigned int period = 30;
+    unsigned int now[] = {0, 0}, start[] = {0, 0};
+    unsigned char sorted[] = {0, 0, 0, 0}; // [AA,C,9V,uncharged]
+    unsigned int period = 0;
+    unsigned char shakeCW = 0;
+    int AA, C, V9;
+    //    unsigned char countDC = 0;
     line0();
-    printf("Dumming...          ");
+    printf("Sorting...          ");
+    start[0] = time[0]; //0 is seconds, 1 is hour
+    start[1] = time[1];
     //    gate is initially closed
     LATC6 = 1; // start DC
     INT2IE = 1; // enable the emergency stop
     INT2IF = 0;
-    __delay_ms(20000);
+    //    __delay_ms(20000);
     openGate();
-    LATC6 = 0;
-    __delay_ms(2000);
-    int portCW[] = {1, 1, 1};
-    CCW90(portCW);
+    char notyet = 0;
+    while (mode == 1) {
+        line0();
+        V9 = check9(sorted);
+        C = checkC(sorted);
+        AA = checkAA(sorted);
+        printf("    ");
+        if (V9 != -1 || C != -1 || AA != -1) {
+            notyet = 0;
+        }
+        //        1 charged 0 uncharged -1 DNE
+        line1();
+        printf("9V:");
+        if (!V9) {
+            printf(" +");
+            AA = -1;
+            V9Spin(V9);
 
-    for (int i = 0; i < 8; i++) {
-        LATC6 = 1;
-        __delay_ms(500);
-        LATC6 = 0;
-        __delay_ms(2000);
-        CW90(portCW);
-        LATC6 = 1;
-        __delay_ms(500);
-        LATC6 = 0;
-        __delay_ms(2000);
-        CCW90(portCW);
+            debug;
+        } else if (V9 == 1) {
+            printf(" -");
+            AA = -1;
+            V9Spin(V9);
+
+            debug;
+        } else {
+            printf(" 0");
+        }
+        //        debug;
+        printf(" C:");
+
+        if (!C) {
+            printf(" +");
+            CSpin(C);
+
+            debug;
+        } else if (C == 1) {
+            printf(" -");
+            CSpin(C);
+
+            debug;
+        } else {
+            printf(" 0");
+        }
+        //        debug;
+        printf(" AA:");
+
+        if (!AA) {
+            printf(" -");
+            debug;
+            AASpin(AA);
+
+        } else if (AA == 1) {
+            printf(" +");
+            AASpin(AA);
+
+            debug;
+        } else {
+            printf(" 0");
+        }
+        //        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
+        if (sorted[0] > 0 && sorted[1] > 0 && sorted[2] > 0 && sorted[3] > 0) {
+            mode = 2;
+        }
+        getTime(time);
+        now[0] = time[0]; //0 is seconds, 1 is hour
+        now[1] = time[1];
+        period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
+        if (period > 150) {
+            mode = 2;
+        }
+        notyet++;
+        if (notyet > 200) {
+//            mode = 2;
+        }
     }
-
     INT2IE = 0;
     stopMoving(0);
     closeGate();
@@ -108,7 +172,7 @@ void simulate() {
     char notyet = 0;
     while (mode == 1) {
         //        9V affect AA empty
-//        LATC6 = 0;
+        LATC6 = 0;
         line0();
         V9 = check9(sorted);
         C = checkC(sorted);
@@ -117,96 +181,57 @@ void simulate() {
         if (V9 != -1 || C != -1 || AA != -1) {
             notyet = 0;
         }
-        int portCW[] = {0, 0, 0};
-        int portCCW[] = {0, 0, 0};
 
         //        1 charged 0 uncharged -1 DNE
         line1();
         printf("9V:");
         if (!V9) {
-            portCW[0] = 1;
             printf(" +");
             AA = -1;
             debug;
-
         } else if (V9 == 1) {
-            portCCW[0] = 1;
             printf(" -");
             AA = -1;
             debug;
-
         } else {
             printf(" 0");
         }
+        V9Spin(V9);
         //        debug;
         printf(" C:");
 
         if (!C) {
-            portCW[1] = 1;
             printf(" +");
-
             debug;
-
         } else if (C == 1) {
-            portCCW[1] = 1;
             printf(" -");
-
             debug;
-
         } else {
             printf(" 0");
         }
+        CSpin(C);
         //        debug;
         printf(" AA:");
 
         if (!AA) {
-            portCCW[2] = 1;
             printf(" -");
-
             debug;
-
         } else if (AA == 1) {
-            portCW[2] = 1;
             printf(" +");
-
             debug;
-
         } else {
             printf(" 0");
         }
-        //        debug;
-//        LATC6 = 1;
-
-        CCW90(portCCW);
-        CW90(portCW);
-        LATC6 = 0;
-        int portShake[]={0,0,0};
-//        portShake[0] = portCCW[0] == portCW[0];
-//        portShake[1] = portCCW[1] == portCW[1];
-//        portShake[2] = portCCW[2] == portCW[2];
-        if (shakeCW) {
-            PWMC(450, 160, portShake); // ccw
-            PWMC(5000, 2, portShake); //cw
-            __delay_ms(100);
-        } else {
-            PWMC(5000, 20, portShake); //cw
-            PWMC(450, 2, portShake); // ccw
-            __delay_ms(100);
-        }
-        shakeCW = ~shakeCW;
+        AASpin(AA);
         LATC6 = 1;
         //        if (sorted[0] + sorted[1] + sorted[2] + sorted[3] >= 15) {
-        if (sorted[0] & sorted[1] & sorted[2] & sorted[3]) {
+        if (sorted[0] > 0 && sorted[1] > 0 && sorted[2] > 0 && sorted[3] > 0) {
             mode = 2;
         }
         getTime(time);
         now[0] = time[0]; //0 is seconds, 1 is hour
         now[1] = time[1];
-        //        line0();
-        //        printf("%02x:%02x to %02x:%02x  ", start[1], start[0], now[1], now[0]);
         period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
-        //        line1();
-        //        printf("Period: %u        ", period);
         if (period > 150) {
             mode = 2;
         }
@@ -236,6 +261,18 @@ void showRTC() {
     __delay_ms(250);
 }
 
+void testServo() {
+    while (1) {
+        V9Spin(1);
+        AASpin(1);
+        CSpin(1);
+        __delay_ms(200);
+        //        V9Spin(0);
+        //        AASpin(0);
+        //        CSpin(0);
+    }
+}
+
 void interrupt intrpt(void) {
     di();
     if (INT1IF) {
@@ -246,6 +283,11 @@ void interrupt intrpt(void) {
         switch (mode) {
             case 0:
                 switch (keypress) {
+                    case 0:
+                    {
+                        testServo();
+                        break;
+                    }
                     case 3:
                         //                        move 9V servo a bit
                         port[2] = 1;
@@ -281,16 +323,16 @@ void interrupt intrpt(void) {
                         break;
                     case 12:
                         return;
-                    case 14:
-                        mode = 2;
-                        PermLog();
-                        mode = 0;
-                        break;
                     case 13:
                         mode = 1;
                         ei();
                         mainloop();
                         di();
+                        break;
+                    case 14:
+                        mode = 2;
+                        PermLog();
+                        mode = 0;
                         break;
                     case 15:
                         mode = 1;
@@ -319,24 +361,6 @@ void interrupt intrpt(void) {
         }
     }
     ei();
-}
-
-//void testServo() {
-//    while (1) {
-//        int port[] = {1, 1, 1};
-//        CCW90(port);
-//        __delay_ms(500);
-//        CW90(port);
-//        __delay_ms(500);
-//    }
-//}
-
-void testAD() {
-
-    unsigned char sorted[] = {0, 0, 0, 0};
-    line0();
-    printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
-    __delay_ms(100);
 }
 
 int main() {

@@ -3795,15 +3795,20 @@ void initLCD(void);
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
-void CW90(int * port);
-void CCW90(int * port);
+
+
 void stopMoving(char em);
-void shake(int * port);
 
-void openGate() ;
+
+void openGate();
 void closeGate();
+void V9Spin(char mode);
+void CSpin(char mode);
+void AASpin(char mode);
 
-# 4 "motors.c"
+# 3 "motors.c"
+char shake[] = {0, 0, 0};
+
 void PWMC(int widthus, int cycles, int * port) {
 widthus /= 10;
 widthus -= 1;
@@ -3819,31 +3824,71 @@ _delay((unsigned long)((5)*(8000000/4000000.0)));
 }
 }
 
-void CW90(int * port) {
+void V9Spin(char mode) {
 
-if (port[0] + port[1] + port[2] == 0)return;
-PWMC(3000, 120, port);
-PWMC(400, 2, port);
-}
-
-void CCW90(int * port) {
-
-if (port[0] + port[1] + port[2] == 0)return;
+int port[] = {0, 0, 1};
+LATC = 0;
+switch (mode) {
+case 1:
 PWMC(400, 1000, port);
-PWMC(3000, 2, port);
+break;
+case 0:
+PWMC(3000, 180, port);
+break;
 }
-
-void shake(int * port) {
-if (port[0] + port[1] + port[2] == 0)return;
-PWMC(450, 160, port);
-PWMC(5000, 2, port);
-_delay((unsigned long)((400)*(8000000/4000.0)));
+_delay((unsigned long)((20)*(8000000/4000.0)));
+if (shake[2]) {
+PWMC(450, 20, port);
+} else {
 PWMC(5000, 20, port);
-PWMC(450, 2, port);
-_delay((unsigned long)((390)*(8000000/4000.0)));
-
+}
 }
 
+void CSpin(char mode) {
+
+int port[] = {0, 1, 0};
+LATC = 0;
+
+switch (mode) {
+case 1:
+PWMC(400, 800, port);
+break;
+case 0:
+PWMC(3000, 180, port);
+break;
+}
+_delay((unsigned long)((20)*(8000000/4000.0)));
+
+if (shake[1]) {
+PWMC(450, 20, port);
+} else {
+PWMC(5000, 20, port);
+}
+}
+
+void AASpin(char mode) {
+
+int port[] = {1, 0, 0};
+LATC = 0;
+
+switch (mode) {
+case 1:
+PWMC(3000, 180, port);
+break;
+case 0:
+PWMC(400, 800, port);
+break;
+}
+_delay((unsigned long)((20)*(8000000/4000.0)));
+
+if (shake[0]) {
+PWMC(450, 20, port);
+} else {
+PWMC(5000, 20, port);
+}
+}
+
+# 109
 void stopMoving(char em) {
 (INTCONbits.GIE = 0);
 LATC = 0;
@@ -3855,13 +3900,13 @@ if (em) while(1);
 void openGate() {
 LATC7 = 0;
 LATC5 = 1;
-_delay((unsigned long)((180)*(8000000/4000.0)));
+_delay((unsigned long)((160)*(8000000/4000.0)));
 LATC5 = 0;
 }
 
 void closeGate() {
 LATC5 = 0;
 LATC7 = 1;
-_delay((unsigned long)((180)*(8000000/4000.0)));
+_delay((unsigned long)((160)*(8000000/4000.0)));
 LATC7 = 0;
 }

@@ -3807,13 +3807,16 @@ int check9(unsigned char *sorted);
 
 # 1 "motors.h"
 void PWMC(int widthus, int cycles, int * port);
-void CW90(int * port);
-void CCW90(int * port);
-void stopMoving(char em);
-void shake(int * port);
 
-void openGate() ;
+
+void stopMoving(char em);
+
+
+void openGate();
 void closeGate();
+void V9Spin(char mode);
+void CSpin(char mode);
+void AASpin(char mode);
 
 # 11 "eeprom.h"
 unsigned char ReadEE(unsigned int address);
@@ -3866,34 +3869,98 @@ INTEDG2 = 0;
 }
 
 void mainloop() {
-unsigned char sorted[] = {2, 2, 2, 6};
-unsigned int period = 30;
+unsigned int now[] = {0, 0}, start[] = {0, 0};
+unsigned char sorted[] = {0, 0, 0, 0};
+unsigned int period = 0;
+unsigned char shakeCW = 0;
+int AA, C, V9;
+
 lcdInst(0b10000000);
-printf("Dumming...          ");
+printf("Sorting...          ");
+start[0] = time[0];
+start[1] = time[1];
 
 LATC6 = 1;
 INT2IE = 1;
 INT2IF = 0;
-_delay((unsigned long)((20000)*(8000000/4000.0)));
-openGate();
-LATC6 = 0;
-_delay((unsigned long)((2000)*(8000000/4000.0)));
-int portCW[] = {1, 1, 1};
-CCW90(portCW);
 
-for (int i = 0; i < 8; i++) {
-LATC6 = 1;
-_delay((unsigned long)((500)*(8000000/4000.0)));
-LATC6 = 0;
-_delay((unsigned long)((2000)*(8000000/4000.0)));
-CW90(portCW);
-LATC6 = 1;
-_delay((unsigned long)((500)*(8000000/4000.0)));
-LATC6 = 0;
-_delay((unsigned long)((2000)*(8000000/4000.0)));
-CCW90(portCW);
+openGate();
+char notyet = 0;
+while (mode == 1) {
+lcdInst(0b10000000);
+V9 = check9(sorted);
+C = checkC(sorted);
+AA = checkAA(sorted);
+printf("    ");
+if (V9 != -1 || C != -1 || AA != -1) {
+notyet = 0;
 }
 
+lcdInst(0b11000000);
+printf("9V:");
+if (!V9) {
+printf(" +");
+AA = -1;
+V9Spin(V9);
+
+0;;
+} else if (V9 == 1) {
+printf(" -");
+AA = -1;
+V9Spin(V9);
+
+0;;
+} else {
+printf(" 0");
+}
+
+printf(" C:");
+
+if (!C) {
+printf(" +");
+CSpin(C);
+
+0;;
+} else if (C == 1) {
+printf(" -");
+CSpin(C);
+
+0;;
+} else {
+printf(" 0");
+}
+
+printf(" AA:");
+
+if (!AA) {
+printf(" -");
+0;;
+AASpin(AA);
+
+} else if (AA == 1) {
+printf(" +");
+AASpin(AA);
+
+0;;
+} else {
+printf(" 0");
+}
+
+if (sorted[0] > 0 && sorted[1] > 0 && sorted[2] > 0 && sorted[3] > 0) {
+mode = 2;
+}
+getTime(time);
+now[0] = time[0];
+now[1] = time[1];
+period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
+if (period > 150) {
+mode = 2;
+}
+notyet++;
+if (notyet > 200) {
+
+}
+}
 INT2IE = 0;
 stopMoving(0);
 closeGate();
@@ -3925,7 +3992,7 @@ openGate();
 char notyet = 0;
 while (mode == 1) {
 
-
+LATC6 = 0;
 lcdInst(0b10000000);
 V9 = check9(sorted);
 C = checkC(sorted);
@@ -3934,96 +4001,57 @@ printf("    ");
 if (V9 != -1 || C != -1 || AA != -1) {
 notyet = 0;
 }
-int portCW[] = {0, 0, 0};
-int portCCW[] = {0, 0, 0};
 
 
 lcdInst(0b11000000);
 printf("9V:");
 if (!V9) {
-portCW[0] = 1;
 printf(" +");
 AA = -1;
 0;;
-
 } else if (V9 == 1) {
-portCCW[0] = 1;
 printf(" -");
 AA = -1;
 0;;
-
 } else {
 printf(" 0");
 }
+V9Spin(V9);
 
 printf(" C:");
 
 if (!C) {
-portCW[1] = 1;
 printf(" +");
-
 0;;
-
 } else if (C == 1) {
-portCCW[1] = 1;
 printf(" -");
-
 0;;
-
 } else {
 printf(" 0");
 }
+CSpin(C);
 
 printf(" AA:");
 
 if (!AA) {
-portCCW[2] = 1;
 printf(" -");
-
 0;;
-
 } else if (AA == 1) {
-portCW[2] = 1;
 printf(" +");
-
 0;;
-
 } else {
 printf(" 0");
 }
-
-
-
-CCW90(portCCW);
-CW90(portCW);
-LATC6 = 0;
-int portShake[]={0,0,0};
-
-
-
-if (shakeCW) {
-PWMC(450, 160, portShake);
-PWMC(5000, 2, portShake);
-_delay((unsigned long)((100)*(8000000/4000.0)));
-} else {
-PWMC(5000, 20, portShake);
-PWMC(450, 2, portShake);
-_delay((unsigned long)((100)*(8000000/4000.0)));
-}
-shakeCW = ~shakeCW;
+AASpin(AA);
 LATC6 = 1;
 
-if (sorted[0] & sorted[1] & sorted[2] & sorted[3]) {
+if (sorted[0] > 0 && sorted[1] > 0 && sorted[2] > 0 && sorted[3] > 0) {
 mode = 2;
 }
 getTime(time);
 now[0] = time[0];
 now[1] = time[1];
-
-
 period = (HexDecToDec2(now[1]) - HexDecToDec2(start[1]))*60 + HexDecToDec2(now[0]) - HexDecToDec2(start[0]);
-
-
 if (period > 150) {
 mode = 2;
 }
@@ -4053,6 +4081,18 @@ printf("    %02x:%02x:%02x      ", time[2], time[1], time[0]);
 _delay((unsigned long)((250)*(8000000/4000.0)));
 }
 
+void testServo() {
+while (1) {
+V9Spin(1);
+AASpin(1);
+CSpin(1);
+_delay((unsigned long)((200)*(8000000/4000.0)));
+
+
+
+}
+}
+
 void interrupt intrpt(void) {
 (INTCONbits.GIE = 0);
 if (INT1IF) {
@@ -4063,6 +4103,11 @@ while (PORTBbits.RB1);
 switch (mode) {
 case 0:
 switch (keypress) {
+case 0:
+{
+testServo();
+break;
+}
 case 3:
 
 port[2] = 1;
@@ -4098,16 +4143,16 @@ PWMC(400, 2, port);
 break;
 case 12:
 return;
-case 14:
-mode = 2;
-PermLog();
-mode = 0;
-break;
 case 13:
 mode = 1;
 (INTCONbits.GIE = 1);
 mainloop();
 (INTCONbits.GIE = 0);
+break;
+case 14:
+mode = 2;
+PermLog();
+mode = 0;
 break;
 case 15:
 mode = 1;
@@ -4136,15 +4181,6 @@ break;
 }
 }
 (INTCONbits.GIE = 1);
-}
-
-# 334
-void testAD() {
-
-unsigned char sorted[] = {0, 0, 0, 0};
-lcdInst(0b10000000);
-printf("A %d,C %d,9 %d   ", AD(2), AD(0), AD(5));
-_delay((unsigned long)((100)*(8000000/4000.0)));
 }
 
 int main() {
