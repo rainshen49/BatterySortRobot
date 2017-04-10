@@ -89,15 +89,17 @@
 "30
 [v _lcdNibble lcdNibble `(v  1 e 1 0 ]
 [v i2_lcdNibble lcdNibble `(v  1 e 1 0 ]
-"23 E:\MPLAB\BatterySortRobot\main.c
+"21 E:\MPLAB\BatterySortRobot\main.c
 [v _initialize initialize `(v  1 e 1 0 ]
-"57
+"51
+[v _mainloop mainloop `(v  1 e 1 0 ]
+"91
 [v _simulate simulate `(v  1 e 1 0 ]
-"182
+"229
 [v _showRTC showRTC `(v  1 e 1 0 ]
-"191
+"239
 [v _intrpt intrpt `II(v  1 e 1 0 ]
-"276
+"342
 [v _main main `(i  1 e 2 0 ]
 "6 E:\MPLAB\BatterySortRobot\modules.c
 [v _HexDecToDec2 HexDecToDec2 `(ui  1 e 2 0 ]
@@ -112,27 +114,29 @@
 [v _PWMC PWMC `(v  1 e 1 0 ]
 "19
 [v _CW90 CW90 `(v  1 e 1 0 ]
-"25
+"26
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
-"31
-[v _shake shake `(v  1 e 1 0 ]
-"42
+"44
 [v _stopMoving stopMoving `(v  1 e 1 0 ]
+"52
+[v _openGate openGate `(v  1 e 1 0 ]
+"59
+[v _closeGate closeGate `(v  1 e 1 0 ]
 "4 E:\MPLAB\BatterySortRobot\sensors.c
 [v _AD AD `(i  1 e 2 0 ]
 "13
 [v _checkV checkV `(i  1 e 2 0 ]
-"21
+"28
 [v _printV printV `(v  1 e 1 0 ]
-"32
+"39
 [v _checkAA checkAA `(i  1 e 2 0 ]
-"46
+"53
 [v _checkC checkC `(i  1 e 2 0 ]
-"61
+"68
 [v _check9 check9 `(i  1 e 2 0 ]
 "185 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S183 . 1 `uc 1 RB0 1 0 :1:0 
+[s S187 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -142,7 +146,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "226
-[s S192 . 1 `uc 1 INT0 1 0 :1:0 
+[s S196 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CCP2 1 0 :1:3 
@@ -151,7 +155,7 @@
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S201 . 1 `uc 1 AN12 1 0 :1:0 
+[s S205 . 1 `uc 1 AN12 1 0 :1:0 
 `uc 1 AN10 1 0 :1:1 
 `uc 1 AN8 1 0 :1:2 
 `uc 1 AN9 1 0 :1:3 
@@ -160,11 +164,11 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S210 . 1 `uc 1 . 1 0 :3:0 
+[s S214 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S213 . 1 `S183 1 . 1 0 `S192 1 . 1 0 `S201 1 . 1 0 `S210 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES213  1 e 1 @3969 ]
+[u S217 . 1 `S187 1 . 1 0 `S196 1 . 1 0 `S205 1 . 1 0 `S214 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES217  1 e 1 @3969 ]
 "872
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "983
@@ -173,7 +177,7 @@
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
 "1205
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
-[s S331 . 1 `uc 1 LATD0 1 0 :1:0 
+[s S348 . 1 `uc 1 LATD0 1 0 :1:0 
 `uc 1 LATD1 1 0 :1:1 
 `uc 1 LATD2 1 0 :1:2 
 `uc 1 LATD3 1 0 :1:3 
@@ -183,7 +187,7 @@
 `uc 1 LATD7 1 0 :1:7 
 ]
 "1232
-[s S340 . 1 `uc 1 LD0 1 0 :1:0 
+[s S357 . 1 `uc 1 LD0 1 0 :1:0 
 `uc 1 LD1 1 0 :1:1 
 `uc 1 LD2 1 0 :1:2 
 `uc 1 LD3 1 0 :1:3 
@@ -192,8 +196,8 @@
 `uc 1 LD6 1 0 :1:6 
 `uc 1 LD7 1 0 :1:7 
 ]
-[u S349 . 1 `S331 1 . 1 0 `S340 1 . 1 0 ]
-[v _LATDbits LATDbits `VES349  1 e 1 @3980 ]
+[u S366 . 1 `S348 1 . 1 0 `S357 1 . 1 0 ]
+[v _LATDbits LATDbits `VES366  1 e 1 @3980 ]
 "1316
 [v _LATE LATE `VEuc  1 e 1 @3981 ]
 "1367
@@ -206,7 +210,7 @@
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
 "2251
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
-[s S724 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[s S748 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -216,12 +220,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "2792
-[s S733 . 1 `uc 1 . 1 0 :2:0 
+[s S757 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S736 . 1 `S724 1 . 1 0 `S733 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES736  1 e 1 @4001 ]
-[s S694 . 1 `uc 1 RD 1 0 :1:0 
+[u S760 . 1 `S748 1 . 1 0 `S757 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES760  1 e 1 @4001 ]
+[s S718 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -231,11 +235,11 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "2922
-[s S703 . 1 `uc 1 . 1 0 :6:0 
+[s S727 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S706 . 1 `S694 1 . 1 0 `S703 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES706  1 e 1 @4006 ]
+[u S730 . 1 `S718 1 . 1 0 `S727 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES730  1 e 1 @4006 ]
 "2966
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "2972
@@ -250,38 +254,38 @@
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "4474
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
-[s S560 . 1 `uc 1 . 1 0 :1:0 
+[s S582 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_NOT_DONE 1 0 :1:1 
 ]
 "4518
-[s S563 . 1 `uc 1 ADON 1 0 :1:0 
+[s S585 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 ]
-[s S567 . 1 `uc 1 . 1 0 :1:0 
+[s S589 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
 `uc 1 CHS2 1 0 :1:4 
 `uc 1 CHS3 1 0 :1:5 
 ]
-[s S574 . 1 `uc 1 . 1 0 :1:0 
+[s S596 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 DONE 1 0 :1:1 
 ]
-[s S577 . 1 `uc 1 . 1 0 :1:0 
+[s S599 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_DONE 1 0 :1:1 
 ]
-[s S580 . 1 `uc 1 . 1 0 :1:0 
+[s S602 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S583 . 1 `uc 1 . 1 0 :1:0 
+[s S605 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[s S586 . 1 `uc 1 . 1 0 :1:0 
+[s S608 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GODONE 1 0 :1:1 
 ]
-[u S589 . 1 `S560 1 . 1 0 `S563 1 . 1 0 `S567 1 . 1 0 `S574 1 . 1 0 `S577 1 . 1 0 `S580 1 . 1 0 `S583 1 . 1 0 `S586 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES589  1 e 1 @4034 ]
+[u S611 . 1 `S582 1 . 1 0 `S585 1 . 1 0 `S589 1 . 1 0 `S596 1 . 1 0 `S599 1 . 1 0 `S602 1 . 1 0 `S605 1 . 1 0 `S608 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES611  1 e 1 @4034 ]
 "4598
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "4604
@@ -296,7 +300,7 @@
 [v _SSPADD SSPADD `VEuc  1 e 1 @4040 ]
 "4966
 [v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
-[s S132 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S136 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -306,7 +310,7 @@
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "6298
-[s S141 . 1 `uc 1 . 1 0 :1:0 
+[s S145 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -315,12 +319,12 @@
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S150 . 1 `uc 1 . 1 0 :6:0 
+[s S154 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S154 . 1 `S132 1 . 1 0 `S141 1 . 1 0 `S150 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES154  1 e 1 @4082 ]
+[u S158 . 1 `S136 1 . 1 0 `S145 1 . 1 0 `S154 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES158  1 e 1 @4082 ]
 "6604
 [v _ACKDT ACKDT `VEb  1 e 0 @32301 ]
 "6606
@@ -339,14 +343,20 @@
 [v _INT2IF INT2IF `VEb  1 e 0 @32641 ]
 "6922
 [v _INTEDG2 INTEDG2 `VEb  1 e 0 @32652 ]
+"6984
+[v _LATB2 LATB2 `VEb  1 e 0 @31826 ]
 "6996
 [v _LATC0 LATC0 `VEb  1 e 0 @31832 ]
 "6998
 [v _LATC1 LATC1 `VEb  1 e 0 @31833 ]
 "7000
 [v _LATC2 LATC2 `VEb  1 e 0 @31834 ]
+"7006
+[v _LATC5 LATC5 `VEb  1 e 0 @31837 ]
 "7008
 [v _LATC6 LATC6 `VEb  1 e 0 @31838 ]
+"7010
+[v _LATC7 LATC7 `VEb  1 e 0 @31839 ]
 "7220
 [v _PEN PEN `VEb  1 e 0 @32298 ]
 "7336
@@ -363,19 +373,19 @@
 [v _hexpowers hexpowers `C[4]ui  1 s 8 hexpowers ]
 "7 E:\MPLAB\BatterySortRobot\eeprom.c
 [v _Latest Latest `uc  1 e 1 0 ]
-"20 E:\MPLAB\BatterySortRobot\main.c
+"18 E:\MPLAB\BatterySortRobot\main.c
 [v _mode mode `i  1 e 2 0 ]
-"21
+"19
 [v _time time `[7]uc  1 e 7 0 ]
-"276
+"342
 [v _main main `(i  1 e 2 0 ]
 {
-"293
+"359
 } 0
-"182
+"229
 [v _showRTC showRTC `(v  1 e 1 0 ]
 {
-"189
+"237
 } 0
 "464 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
 [v _printf printf `(i  1 e 2 0 ]
@@ -493,10 +503,10 @@
 {
 "25
 } 0
-"23 E:\MPLAB\BatterySortRobot\main.c
+"21 E:\MPLAB\BatterySortRobot\main.c
 [v _initialize initialize `(v  1 e 1 0 ]
 {
-"50
+"49
 } 0
 "9 E:\MPLAB\BatterySortRobot\eeprom.c
 [v _initLatest initLatest `(v  1 e 1 0 ]
@@ -552,51 +562,54 @@
 [v ___lldiv@divisor divisor `ul  1 p 4 4 ]
 "31
 } 0
-"191 E:\MPLAB\BatterySortRobot\main.c
+"239 E:\MPLAB\BatterySortRobot\main.c
 [v _intrpt intrpt `II(v  1 e 1 0 ]
 {
-"194
-[v intrpt@port port `[3]i  1 a 6 101 ]
-"195
-[v intrpt@keypress keypress `uc  1 a 1 107 ]
-"193
-[v intrpt@F3118 F3118 `[3]i  1 s 6 F3118 ]
-"257
+"242
+[v intrpt@port port `[3]i  1 a 6 112 ]
+"243
+[v intrpt@keypress keypress `uc  1 a 1 111 ]
+"241
+[v intrpt@F3137 F3137 `[3]i  1 s 6 F3137 ]
+"322
 } 0
-"57
+"91
 [v _simulate simulate `(v  1 e 1 0 ]
 {
-"84
-[v simulate@portCCW portCCW `[3]i  1 a 6 73 ]
-"83
-[v simulate@portCW portCW `[3]i  1 a 6 67 ]
-"75
-[v simulate@DCmoving DCmoving `uc  1 a 1 51 ]
-"144
-[v simulate@portShake portShake `[0]i  1 a 0 49 ]
-"59
-[v simulate@sorted sorted `[4]uc  1 a 4 81 ]
-"58
-[v simulate@start start `[2]ui  1 a 4 56 ]
-[v simulate@now now `[2]ui  1 a 4 52 ]
-"60
-[v simulate@period period `ui  1 a 2 79 ]
-"61
-[v simulate@V9 V9 `i  1 a 2 64 ]
-[v simulate@C C `i  1 a 2 62 ]
-[v simulate@AA AA `i  1 a 2 60 ]
-"62
-[v simulate@countDC countDC `uc  1 a 1 66 ]
-"57
-[v simulate@F3095 F3095 `[2]ui  1 s 4 F3095 ]
-"58
-[v simulate@F3097 F3097 `[2]ui  1 s 4 F3097 ]
-[v simulate@F3099 F3099 `[4]uc  1 s 4 F3099 ]
-"81
-[v simulate@F3107 F3107 `[3]i  1 s 6 F3107 ]
-"83
-[v simulate@F3109 F3109 `[3]i  1 s 6 F3109 ]
-"180
+"121
+[v simulate@portCCW portCCW `[3]i  1 a 6 67 ]
+"120
+[v simulate@portCW portCW `[3]i  1 a 6 61 ]
+"183
+[v simulate@portShake portShake `[3]i  1 a 6 55 ]
+"93
+[v simulate@sorted sorted `[4]uc  1 a 4 91 ]
+"92
+[v simulate@start start `[2]ui  1 a 4 77 ]
+[v simulate@now now `[2]ui  1 a 4 73 ]
+"96
+[v simulate@AA AA `i  1 a 2 89 ]
+"94
+[v simulate@period period `ui  1 a 2 87 ]
+"96
+[v simulate@V9 V9 `i  1 a 2 85 ]
+[v simulate@C C `i  1 a 2 83 ]
+"95
+[v simulate@shakeCW shakeCW `uc  1 a 1 82 ]
+"108
+[v simulate@notyet notyet `uc  1 a 1 81 ]
+"91
+[v simulate@F3110 F3110 `[2]ui  1 s 4 F3110 ]
+"92
+[v simulate@F3112 F3112 `[2]ui  1 s 4 F3112 ]
+[v simulate@F3114 F3114 `[4]uc  1 s 4 F3114 ]
+"119
+[v simulate@F3123 F3123 `[3]i  1 s 6 F3123 ]
+"120
+[v simulate@F3125 F3125 `[3]i  1 s 6 F3125 ]
+"182
+[v simulate@F3127 F3127 `[3]i  1 s 6 F3127 ]
+"227
 } 0
 "76 E:\MPLAB\BatterySortRobot\modules.c
 [v i2_getTime getTime `(v  1 e 1 0 ]
@@ -636,65 +649,53 @@
 {
 "25
 } 0
-"42 E:\MPLAB\BatterySortRobot\motors.c
-[v _stopMoving stopMoving `(v  1 e 1 0 ]
-{
-[v stopMoving@em em `uc  1 a 1 wreg ]
-[v stopMoving@em em `uc  1 a 1 wreg ]
-[v stopMoving@em em `uc  1 a 1 36 ]
-"49
-} 0
-"31
-[v _shake shake `(v  1 e 1 0 ]
-{
-[v shake@port port `*.39i  1 p 2 21 ]
-"40
-} 0
-"46 E:\MPLAB\BatterySortRobot\sensors.c
+"53 E:\MPLAB\BatterySortRobot\sensors.c
 [v _checkC checkC `(i  1 e 2 0 ]
 {
-"50
-[v checkC@V V `i  1 a 2 45 ]
-"46
-[v checkC@sorted sorted `*.39uc  1 p 2 41 ]
-"59
+"57
+[v checkC@V V `i  1 a 2 49 ]
+"53
+[v checkC@sorted sorted `*.39uc  1 p 2 45 ]
+"66
 } 0
-"32
+"39
 [v _checkAA checkAA `(i  1 e 2 0 ]
 {
-"35
-[v checkAA@V V `i  1 a 2 45 ]
-"32
-[v checkAA@sorted sorted `*.39uc  1 p 2 41 ]
-"44
+"42
+[v checkAA@V V `i  1 a 2 49 ]
+"39
+[v checkAA@sorted sorted `*.39uc  1 p 2 45 ]
+"51
 } 0
-"61
+"68
 [v _check9 check9 `(i  1 e 2 0 ]
 {
-"65
-[v check9@V V `i  1 a 2 45 ]
-"61
-[v check9@sorted sorted `*.39uc  1 p 2 41 ]
-"74
+"72
+[v check9@V V `i  1 a 2 49 ]
+"68
+[v check9@sorted sorted `*.39uc  1 p 2 45 ]
+"81
 } 0
-"21
+"28
 [v _printV printV `(v  1 e 1 0 ]
 {
 [v printV@charged charged `i  1 p 2 34 ]
-"30
+"37
 } 0
 "13
 [v _checkV checkV `(i  1 e 2 0 ]
 {
 [v checkV@channel channel `uc  1 a 1 wreg ]
 "15
-[v checkV@voltage voltage `i  1 a 2 39 ]
+[v checkV@voltage voltage `i  1 a 2 43 ]
+"18
+[v checkV@tmp tmp `i  1 a 2 40 ]
 "13
 [v checkV@channel channel `uc  1 a 1 wreg ]
 [v checkV@threshhold threshhold `i  1 p 2 36 ]
 "15
-[v checkV@channel channel `uc  1 a 1 38 ]
-"19
+[v checkV@channel channel `uc  1 a 1 42 ]
+"26
 } 0
 "62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 3 0 ]
@@ -743,6 +744,52 @@
 [v AD@channel channel `uc  1 a 1 4 ]
 "11
 } 0
+"6 E:\MPLAB\BatterySortRobot\modules.c
+[v _HexDecToDec2 HexDecToDec2 `(ui  1 e 2 0 ]
+{
+"9
+[v HexDecToDec2@digit digit `ui  1 a 2 13 ]
+"8
+[v HexDecToDec2@tenth tenth `ui  1 a 2 11 ]
+"6
+[v HexDecToDec2@hex hex `ui  1 p 2 6 ]
+"11
+} 0
+"51 E:\MPLAB\BatterySortRobot\main.c
+[v _mainloop mainloop `(v  1 e 1 0 ]
+{
+"67
+[v mainloop@i i `i  1 a 2 61 ]
+"64
+[v mainloop@portCW portCW `[3]i  1 a 6 53 ]
+"52
+[v mainloop@sorted sorted `[4]uc  1 a 4 49 ]
+"53
+[v mainloop@period period `ui  1 a 2 59 ]
+"51
+[v mainloop@F3096 F3096 `[4]uc  1 s 4 F3096 ]
+"63
+[v mainloop@F3101 F3101 `[3]i  1 s 6 F3101 ]
+"89
+} 0
+"44 E:\MPLAB\BatterySortRobot\motors.c
+[v _stopMoving stopMoving `(v  1 e 1 0 ]
+{
+[v stopMoving@em em `uc  1 a 1 wreg ]
+[v stopMoving@em em `uc  1 a 1 wreg ]
+[v stopMoving@em em `uc  1 a 1 36 ]
+"50
+} 0
+"52
+[v _openGate openGate `(v  1 e 1 0 ]
+{
+"57
+} 0
+"59
+[v _closeGate closeGate `(v  1 e 1 0 ]
+{
+"64
+} 0
 "75 E:\MPLAB\BatterySortRobot\eeprom.c
 [v _WriteRun WriteRun `(v  1 e 1 0 ]
 {
@@ -760,28 +807,17 @@
 [v WriteEE@data data `uc  1 p 1 2 ]
 "55
 } 0
-"6 E:\MPLAB\BatterySortRobot\modules.c
-[v _HexDecToDec2 HexDecToDec2 `(ui  1 e 2 0 ]
-{
-"9
-[v HexDecToDec2@digit digit `ui  1 a 2 13 ]
-"8
-[v HexDecToDec2@tenth tenth `ui  1 a 2 11 ]
-"6
-[v HexDecToDec2@hex hex `ui  1 p 2 6 ]
-"11
-} 0
 "19 E:\MPLAB\BatterySortRobot\motors.c
 [v _CW90 CW90 `(v  1 e 1 0 ]
 {
 [v CW90@port port `*.39i  1 p 2 21 ]
-"23
+"24
 } 0
-"25
+"26
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
 {
 [v CCW90@port port `*.39i  1 p 2 21 ]
-"29
+"31
 } 0
 "4
 [v _PWMC PWMC `(v  1 e 1 0 ]
@@ -810,17 +846,17 @@
 "90 E:\MPLAB\BatterySortRobot\eeprom.c
 [v _PermLog PermLog `(v  1 e 1 0 ]
 {
-"102
+"100
 [v PermLog@sorted sorted `[4]uc  1 a 4 49 ]
-"101
+"99
 [v PermLog@time time `ui  1 a 2 54 ]
 "97
-[v PermLog@backruns backruns `uc  1 a 1 56 ]
+[v PermLog@backruns backruns `i  1 a 2 56 ]
 "91
 [v PermLog@goback goback `uc  1 a 1 53 ]
-"101
+"99
 [v PermLog@F3082 F3082 `[4]uc  1 s 4 F3082 ]
-"112
+"110
 } 0
 "23 E:\MPLAB\BatterySortRobot\modules.c
 [v _showInfo showInfo `(v  1 e 1 0 ]

@@ -3120,29 +3120,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 "96
 [e ( _printf :s 2C ]
 "97
-[v _backruns `uc ~T0 @X0 1 a ]
-[; ;eeprom.c: 97: unsigned char backruns = captureKeypad();
-[e = _backruns -> ( _captureKeypad ..  `uc ]
-[; ;eeprom.c: 98: if (backruns == 3)backruns = 2;
+[v _backruns `i ~T0 @X0 1 a ]
+[; ;eeprom.c: 97: int backruns = captureKeypad() - 8;
+[e = _backruns -> - ( _captureKeypad ..  -> -> 8 `i `ui `i ]
+[; ;eeprom.c: 98: if (backruns>=0 && backruns < 4){
 "98
-[e $ ! == -> _backruns `i -> 3 `i 285  ]
-[e = _backruns -> -> 2 `i `uc ]
-[e :U 285 ]
-[; ;eeprom.c: 99: if (backruns == 4)backruns = 3;
-"99
-[e $ ! == -> _backruns `i -> 4 `i 286  ]
-[e = _backruns -> -> 3 `i `uc ]
-[e :U 286 ]
-[; ;eeprom.c: 100: if (backruns < 4) {
-"100
-[e $ ! < -> _backruns `i -> 4 `i 287  ]
+[e $ ! && >= _backruns -> 0 `i < _backruns -> 4 `i 285  ]
 {
-"101
+"99
 [v _time `ui ~T0 @X0 1 a ]
 [v F3082 `uc ~T0 @X0 -> 0 `x s ]
 [i F3082
 :U ..
-"102
+"100
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 0 `i `uc
@@ -3150,46 +3140,46 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _sorted `uc ~T0 @X0 4  a ]
-[; ;eeprom.c: 101: unsigned int time;
-[; ;eeprom.c: 102: unsigned char sorted[] = {0, 0, 0, 0};
+[; ;eeprom.c: 99: unsigned int time;
+[; ;eeprom.c: 100: unsigned char sorted[] = {0, 0, 0, 0};
 [e = _sorted F3082 ]
-[; ;eeprom.c: 103: ReadRun(backruns, sorted, &time);
-"103
-[e ( _ReadRun (3 , , _backruns &U _sorted &U _time ]
-[; ;eeprom.c: 104: lcdInst(0b10000000);
-"104
+[; ;eeprom.c: 101: ReadRun(backruns, sorted, &time);
+"101
+[e ( _ReadRun (3 , , -> _backruns `uc &U _sorted &U _time ]
+[; ;eeprom.c: 102: lcdInst(0b10000000);
+"102
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;eeprom.c: 105: printf("showing %u      ", backruns);
-"105
-[e ( _printf , (. :s 3C -> _backruns `i ]
-[; ;eeprom.c: 106: lcdInst(0b11000000);
-"106
+[; ;eeprom.c: 103: printf("showing %u      ", backruns+1);
+"103
+[e ( _printf , (. :s 3C + _backruns -> 1 `i ]
+[; ;eeprom.c: 104: lcdInst(0b11000000);
+"104
 [e ( _lcdInst (1 -> -> 192 `i `uc ]
-[; ;eeprom.c: 107: printf("runs before     ");
-"107
+[; ;eeprom.c: 105: printf("runs before     ");
+"105
 [e ( _printf :s 4C ]
-[; ;eeprom.c: 108: _delay((unsigned long)((700)*(8000000/4000.0)));
-"108
+[; ;eeprom.c: 106: _delay((unsigned long)((700)*(8000000/4000.0)));
+"106
 [e ( __delay (1 -> * -> -> 700 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;eeprom.c: 109: showInfo(time, sorted);
-"109
+[; ;eeprom.c: 107: showInfo(time, sorted);
+"107
 [e ( _showInfo (2 , _time &U _sorted ]
-"110
+"108
 }
-[; ;eeprom.c: 110: } else goback = 1;
-[e $U 288  ]
-[e :U 287 ]
+[; ;eeprom.c: 108: } else goback = 1;
+[e $U 286  ]
+[e :U 285 ]
 [e = _goback -> -> 1 `i `uc ]
-[e :U 288 ]
-"111
+[e :U 286 ]
+"109
 }
 [e :U 282 ]
 "92
 [e $ ! != -> _goback `i -> -> -> 0 `i `uc `i 283  ]
 [e :U 284 ]
-[; ;eeprom.c: 111: }
-[; ;eeprom.c: 112: }
-"112
+[; ;eeprom.c: 109: }
+[; ;eeprom.c: 110: }
+"110
 [e :UE 281 ]
 }
 [p f _printf 8389632 ]

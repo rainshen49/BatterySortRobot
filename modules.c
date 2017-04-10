@@ -22,7 +22,7 @@ unsigned int captureKeypad() {
 
 void showInfo(unsigned int time, unsigned char *sorted) {
     line0();
-    printf("Press a number          ");
+    printf("Press a key          ");
     line1();
     printf("For more info          ");
     int type = 0;
@@ -45,19 +45,19 @@ void showInfo(unsigned int time, unsigned char *sorted) {
                 break;
             case (2):
                 line0();
-                printf("AA Sorted:          ");
+                printf("Charged AA:          ");
                 line1();
                 printf("%u             ", sorted[0]);
                 break;
             case (4):
                 line0();
-                printf("C Sorted:          ");
+                printf("Charged C:          ");
                 line1();
                 printf("%u             ", sorted[1]);
                 break;
             case (5):
                 line0();
-                printf("9V Sorted:          ");
+                printf("Charged 9V:          ");
                 line1();
                 printf("%u             ", sorted[2]);
                 break;

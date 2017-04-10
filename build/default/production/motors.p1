@@ -29,6 +29,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _lcdInst `(v ~T0 @X0 0 ef1`uc ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"7010 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4620.h
+[v _LATC7 `Vb ~T0 @X0 0 e@31839 ]
+"7006
+[v _LATC5 `Vb ~T0 @X0 0 e@31837 ]
 "9 configBits.h
 [p x OSC=HS ]
 "10
@@ -2840,6 +2844,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
 [; ;motors.h: 5: void shake(int * port);
+[; ;motors.h: 7: void openGate() ;
+[; ;motors.h: 8: void closeGate();
 "4 motors.c
 [v _PWMC `(v ~T0 @X0 1 ef3`i`i`*i ]
 {
@@ -2927,95 +2933,143 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.c: 22: PWMC(3000, 120, port);
 "22
 [e ( _PWMC (3 , , -> 3000 `i -> 120 `i _port ]
-[; ;motors.c: 23: }
+[; ;motors.c: 23: PWMC(400, 2, port);
 "23
+[e ( _PWMC (3 , , -> 400 `i -> 2 `i _port ]
+[; ;motors.c: 24: }
+"24
 [e :UE 273 ]
 }
-"25
+"26
 [v _CCW90 `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 25: void CCW90(int * port) {
+[; ;motors.c: 26: void CCW90(int * port) {
 [e :U _CCW90 ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 27: if (port[0] + port[1] + port[2] == 0)return;
-"27
+[; ;motors.c: 28: if (port[0] + port[1] + port[2] == 0)return;
+"28
 [e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 276  ]
 [e $UE 275  ]
 [e :U 276 ]
-[; ;motors.c: 28: PWMC(400, 1000, port);
-"28
-[e ( _PWMC (3 , , -> 400 `i -> 1000 `i _port ]
-[; ;motors.c: 29: }
+[; ;motors.c: 29: PWMC(400, 1000, port);
 "29
+[e ( _PWMC (3 , , -> 400 `i -> 1000 `i _port ]
+[; ;motors.c: 30: PWMC(3000, 2, port);
+"30
+[e ( _PWMC (3 , , -> 3000 `i -> 2 `i _port ]
+[; ;motors.c: 31: }
+"31
 [e :UE 275 ]
 }
-"31
+"33
 [v _shake `(v ~T0 @X0 1 ef1`*i ]
 {
-[; ;motors.c: 31: void shake(int * port) {
+[; ;motors.c: 33: void shake(int * port) {
 [e :U _shake ]
 [v _port `*i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 32: if (port[0] + port[1] + port[2] == 0)return;
-"32
+[; ;motors.c: 34: if (port[0] + port[1] + port[2] == 0)return;
+"34
 [e $ ! == + + *U + _port * -> -> 0 `i `x -> -> # *U _port `i `x *U + _port * -> -> 1 `i `x -> -> # *U _port `i `x *U + _port * -> -> 2 `i `x -> -> # *U _port `i `x -> 0 `i 278  ]
 [e $UE 277  ]
 [e :U 278 ]
-[; ;motors.c: 33: PWMC(450, 160, port);
-"33
-[e ( _PWMC (3 , , -> 450 `i -> 160 `i _port ]
-[; ;motors.c: 34: PWMC(5000, 2, port);
-"34
-[e ( _PWMC (3 , , -> 5000 `i -> 2 `i _port ]
-[; ;motors.c: 35: _delay((unsigned long)((400)*(8000000/4000.0)));
+[; ;motors.c: 35: PWMC(450, 160, port);
 "35
-[e ( __delay (1 -> * -> -> 400 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;motors.c: 36: PWMC(5000, 20, port);
+[e ( _PWMC (3 , , -> 450 `i -> 160 `i _port ]
+[; ;motors.c: 36: PWMC(5000, 2, port);
 "36
-[e ( _PWMC (3 , , -> 5000 `i -> 20 `i _port ]
-[; ;motors.c: 37: PWMC(450, 2, port);
+[e ( _PWMC (3 , , -> 5000 `i -> 2 `i _port ]
+[; ;motors.c: 37: _delay((unsigned long)((400)*(8000000/4000.0)));
 "37
-[e ( _PWMC (3 , , -> 450 `i -> 2 `i _port ]
-[; ;motors.c: 38: _delay((unsigned long)((390)*(8000000/4000.0)));
+[e ( __delay (1 -> * -> -> 400 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 38: PWMC(5000, 20, port);
 "38
-[e ( __delay (1 -> * -> -> 390 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;motors.c: 40: }
+[e ( _PWMC (3 , , -> 5000 `i -> 20 `i _port ]
+[; ;motors.c: 39: PWMC(450, 2, port);
+"39
+[e ( _PWMC (3 , , -> 450 `i -> 2 `i _port ]
+[; ;motors.c: 40: _delay((unsigned long)((390)*(8000000/4000.0)));
 "40
+[e ( __delay (1 -> * -> -> 390 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 42: }
+"42
 [e :UE 277 ]
 }
-"42
+"44
 [v _stopMoving `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;motors.c: 42: void stopMoving(char em) {
+[; ;motors.c: 44: void stopMoving(char em) {
 [e :U _stopMoving ]
 [v _em `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 43: (INTCONbits.GIE = 0);
-"43
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;motors.c: 44: LATC = 0;
-"44
-[e = _LATC -> -> 0 `i `uc ]
-[; ;motors.c: 45: lcdInst(0b10000000);
+[; ;motors.c: 45: (INTCONbits.GIE = 0);
 "45
-[e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;motors.c: 46: printf(em ? "Emergency          " : "Stopped          ");
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+[; ;motors.c: 46: LATC = 0;
 "46
-[e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
-[; ;motors.c: 47: if (em)
+[e = _LATC -> -> 0 `i `uc ]
+[; ;motors.c: 47: lcdInst(0b10000000);
 "47
-[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 280  ]
-[; ;motors.c: 48: while(1);
+[e ( _lcdInst (1 -> -> 128 `i `uc ]
+[; ;motors.c: 48: printf(em ? "Emergency          " : "Stopped          ");
 "48
+[e ( _printf ? != -> _em `i -> -> -> 0 `i `uc `i : :s 1C :s 2C ]
+[; ;motors.c: 49: if (em) while(1);
+"49
+[e $ ! != -> _em `i -> -> -> 0 `i `uc `i 280  ]
 [e :U 282 ]
 [e :U 281 ]
 [e $U 282  ]
 [e :U 283 ]
 [e :U 280 ]
-[; ;motors.c: 49: }
-"49
+[; ;motors.c: 50: }
+"50
 [e :UE 279 ]
+}
+"52
+[v _openGate `(v ~T0 @X0 1 ef ]
+{
+[; ;motors.c: 52: void openGate() {
+[e :U _openGate ]
+[f ]
+[; ;motors.c: 53: LATC7 = 0;
+"53
+[e = _LATC7 -> -> 0 `i `b ]
+[; ;motors.c: 54: LATC5 = 1;
+"54
+[e = _LATC5 -> -> 1 `i `b ]
+[; ;motors.c: 55: _delay((unsigned long)((180)*(8000000/4000.0)));
+"55
+[e ( __delay (1 -> * -> -> 180 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 56: LATC5 = 0;
+"56
+[e = _LATC5 -> -> 0 `i `b ]
+[; ;motors.c: 57: }
+"57
+[e :UE 284 ]
+}
+"59
+[v _closeGate `(v ~T0 @X0 1 ef ]
+{
+[; ;motors.c: 59: void closeGate() {
+[e :U _closeGate ]
+[f ]
+[; ;motors.c: 60: LATC5 = 0;
+"60
+[e = _LATC5 -> -> 0 `i `b ]
+[; ;motors.c: 61: LATC7 = 1;
+"61
+[e = _LATC7 -> -> 1 `i `b ]
+[; ;motors.c: 62: _delay((unsigned long)((180)*(8000000/4000.0)));
+"62
+[e ( __delay (1 -> * -> -> 180 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;motors.c: 63: LATC7 = 0;
+"63
+[e = _LATC7 -> -> 0 `i `b ]
+[; ;motors.c: 64: }
+"64
+[e :UE 285 ]
 }
 [p f _printf 9437696 ]
 [a 1C 69 109 101 114 103 101 110 99 121 32 32 32 32 32 32 32 32 32 32 0 ]

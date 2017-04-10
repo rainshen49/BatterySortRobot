@@ -94,15 +94,13 @@ void PermLog() {
         printf("Permanent log:       ");
         line1();
         printf("Which run?       ");
-        unsigned char backruns = captureKeypad();
-        if (backruns == 3)backruns = 2;
-        if (backruns == 4)backruns = 3;
-        if (backruns < 4) {
+        int backruns = captureKeypad() - 8;
+        if (backruns>=0 && backruns < 4){
             unsigned int time;
             unsigned char sorted[] = {0, 0, 0, 0};
             ReadRun(backruns, sorted, &time);
             line0();
-            printf("showing %u      ", backruns);
+            printf("showing %u      ", backruns+1);
             line1();
             printf("runs before     ");
             __delay_ms(700);

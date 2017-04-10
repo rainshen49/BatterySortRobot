@@ -3812,8 +3812,15 @@ return (ADRESH << 8) | ADRESL;
 int checkV(char channel, int threshhold) {
 
 int voltage = AD(channel);
-if (voltage < 50) return -1;
-if (voltage > 0.85 * threshhold) return 1;
+if (voltage < 20) return -1;
+_delay((unsigned long)((1)*(8000000/4000.0)));
+int tmp = AD(channel);
+while (tmp - voltage > 5) {
+voltage = tmp;
+_delay((unsigned long)((1)*(8000000/4000.0)));
+tmp = AD(channel);
+};
+if (voltage > 0.85 * threshhold)return 1;
 return 0;
 }
 

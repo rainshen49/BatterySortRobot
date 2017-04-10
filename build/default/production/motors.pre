@@ -3800,6 +3800,9 @@ void CCW90(int * port);
 void stopMoving(char em);
 void shake(int * port);
 
+void openGate() ;
+void closeGate();
+
 # 4 "motors.c"
 void PWMC(int widthus, int cycles, int * port) {
 widthus /= 10;
@@ -3820,12 +3823,14 @@ void CW90(int * port) {
 
 if (port[0] + port[1] + port[2] == 0)return;
 PWMC(3000, 120, port);
+PWMC(400, 2, port);
 }
 
 void CCW90(int * port) {
 
 if (port[0] + port[1] + port[2] == 0)return;
 PWMC(400, 1000, port);
+PWMC(3000, 2, port);
 }
 
 void shake(int * port) {
@@ -3844,6 +3849,19 @@ void stopMoving(char em) {
 LATC = 0;
 lcdInst(0b10000000);
 printf(em ? "Emergency          " : "Stopped          ");
-if (em)
-while(1);
+if (em) while(1);
+}
+
+void openGate() {
+LATC7 = 0;
+LATC5 = 1;
+_delay((unsigned long)((180)*(8000000/4000.0)));
+LATC5 = 0;
+}
+
+void closeGate() {
+LATC5 = 0;
+LATC7 = 1;
+_delay((unsigned long)((180)*(8000000/4000.0)));
+LATC7 = 0;
 }

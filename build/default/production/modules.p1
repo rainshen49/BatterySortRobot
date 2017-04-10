@@ -2861,6 +2861,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
 [; ;motors.h: 5: void shake(int * port);
+[; ;motors.h: 7: void openGate() ;
+[; ;motors.h: 8: void closeGate();
 [; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
 [; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
 [; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);
@@ -2941,7 +2943,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 24: lcdInst(0b10000000);
 "24
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 25: printf("Press a number          ");
+[; ;modules.c: 25: printf("Press a key          ");
 "25
 [e ( _printf :s 1C ]
 [; ;modules.c: 26: lcdInst(0b11000000);
@@ -3012,7 +3014,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 47: lcdInst(0b10000000);
 "47
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 48: printf("AA Sorted:          ");
+[; ;modules.c: 48: printf("Charged AA:          ");
 "48
 [e ( _printf :s 7C ]
 [; ;modules.c: 49: lcdInst(0b11000000);
@@ -3030,7 +3032,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 53: lcdInst(0b10000000);
 "53
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 54: printf("C Sorted:          ");
+[; ;modules.c: 54: printf("Charged C:          ");
 "54
 [e ( _printf :s 9C ]
 [; ;modules.c: 55: lcdInst(0b11000000);
@@ -3048,7 +3050,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.c: 59: lcdInst(0b10000000);
 "59
 [e ( _lcdInst (1 -> -> 128 `i `uc ]
-[; ;modules.c: 60: printf("9V Sorted:          ");
+[; ;modules.c: 60: printf("Charged 9V:          ");
 "60
 [e ( _printf :s 11C ]
 [; ;modules.c: 61: lcdInst(0b11000000);
@@ -3173,16 +3175,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 287 ]
 }
 [p f _printf 8389632 ]
+[a 1C 80 114 101 115 115 32 97 32 107 101 121 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 6C 37 117 32 98 97 116 116 101 114 105 101 115 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 4C 37 117 32 115 101 99 111 110 100 115 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 1C 80 114 101 115 115 32 97 32 110 117 109 98 101 114 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 2C 70 111 114 32 109 111 114 101 32 105 110 102 111 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 5C 84 111 116 97 108 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 11C 57 86 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 9C 67 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
-[a 7C 65 65 32 83 111 114 116 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 3C 84 105 109 101 32 69 108 97 112 115 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 13C 85 110 99 104 97 114 103 101 100 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 11C 67 104 97 114 103 101 100 32 57 86 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 9C 67 104 97 114 103 101 100 32 67 58 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 7C 67 104 97 114 103 101 100 32 65 65 58 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 8C 37 117 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 10C 37 117 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
 [a 12C 37 117 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]

@@ -13,8 +13,15 @@ int AD(char channel) {
 int checkV(char channel, int threshhold) {
     //    gives -1 if DNE, 0 if uncharged, 1 if charged
     int voltage = AD(channel);
-    if (voltage < 50) return -1;
-    if (voltage > 0.85 * threshhold) return 1;
+    if (voltage < 20) return -1;
+    __delay_ms(1);
+    int tmp = AD(channel);
+    while (tmp - voltage > 5) {
+        voltage = tmp;
+        __delay_ms(1);
+        tmp = AD(channel);
+    };
+    if (voltage > 0.85 * threshhold)return 1;
     return 0;
 }
 
@@ -25,7 +32,7 @@ void printV(int charged) {
         printf("-1 ");
     } else {
         printf(" %d ", charged);
-//        captureKeypad();
+        //        captureKeypad();
     }
 }
 
