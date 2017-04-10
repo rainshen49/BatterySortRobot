@@ -2857,12 +2857,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;modules.h: 10: void getTime(unsigned char * time);
 [; ;modules.h: 11: unsigned int HexDecToDec2(unsigned int hex);
 [; ;motors.h: 1: void PWMC(int widthus, int cycles, int * port);
+[; ;motors.h: 2: void CW90(int * port);
+[; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
-[; ;motors.h: 7: void openGate();
+[; ;motors.h: 5: void shake(int * port);
+[; ;motors.h: 7: void openGate() ;
 [; ;motors.h: 8: void closeGate();
-[; ;motors.h: 9: void V9Spin(char mode);
-[; ;motors.h: 10: void CSpin(char mode);
-[; ;motors.h: 11: void AASpin(char mode);
 [; ;I2C.h: 1: void I2C_Master_Init(const unsigned long c);
 [; ;I2C.h: 2: void I2C_Master_Write(unsigned d);
 [; ;I2C.h: 3: unsigned char I2C_Master_Read(unsigned char a);

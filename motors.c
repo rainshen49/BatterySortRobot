@@ -20,64 +20,66 @@ void PWMC(int widthus, int cycles, int * port) {
 void V9Spin(char mode) {
     //    mode: 1 charged CCW, 0 uncharged CW
     int port[] = {0, 0, 1};
-    LATC = 0;
     switch (mode) {
         case 1:
             PWMC(400, 1000, port);
+            PWMC(3000, 2, port);
             break;
         case 0:
-            PWMC(3000, 180, port);
+            PWMC(3000, 120, port);
+            PWMC(400, 2, port);
             break;
     }
-    __delay_ms(20);
     if (shake[2]) {
-        PWMC(450, 20, port); // ccw
+        PWMC(450, 160, port); // ccw
+        PWMC(5000, 2, port); //cw
     } else {
         PWMC(5000, 20, port); //cw
+        PWMC(450, 2, port); // ccw
     }
 }
 
 void CSpin(char mode) {
     //    mode: 1 charged CCW, 0 uncharged CW
     int port[] = {0, 1, 0};
-    LATC = 0;
-
     switch (mode) {
         case 1:
-            PWMC(400, 800, port);
+            PWMC(400, 1000, port);
+            PWMC(3000, 2, port);
             break;
         case 0:
-            PWMC(3000, 180, port);
+            PWMC(3000, 120, port);
+            PWMC(400, 2, port);
             break;
     }
-    __delay_ms(20);
-
     if (shake[1]) {
-        PWMC(450, 20, port); // ccw
+        PWMC(450, 160, port); // ccw
+        PWMC(5000, 2, port); //cw
     } else {
         PWMC(5000, 20, port); //cw
+        PWMC(450, 2, port); // ccw
     }
 }
 
 void AASpin(char mode) {
-    //    mode: 1 charged CW, 0 uncharged CCW
+    //    mode: 1 charged CCW, 0 uncharged CW
     int port[] = {1, 0, 0};
-    LATC = 0;
-
     switch (mode) {
-        case 1:
-            PWMC(3000, 180, port);
-            break;
         case 0:
-            PWMC(400, 800, port);
+            PWMC(400, 1000, port);
+            PWMC(3000, 2, port);
+            break;
+        case 1:
+            PWMC(3000, 120, port);
+            PWMC(400, 2, port);
             break;
     }
-    __delay_ms(20);
-
     if (shake[0]) {
-        PWMC(450, 20, port); // ccw
+        PWMC(450, 160, port); // ccw
+        PWMC(5000, 2, port); //cw
     } else {
         PWMC(5000, 20, port); //cw
+        PWMC(450, 2, port); // ccw
     }
 }
 
