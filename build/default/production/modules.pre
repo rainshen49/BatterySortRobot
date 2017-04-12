@@ -3806,7 +3806,7 @@ void CCW90(int * port);
 void stopMoving(char em);
 void shake(int * port);
 
-void openGate() ;
+void openGate();
 void closeGate();
 
 # 1 "I2C.h"

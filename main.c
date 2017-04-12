@@ -181,9 +181,9 @@ void simulate() {
         CW90(portCW);
         LATC6 = 0;
         int portShake[]={0,0,0};
-//        portShake[0] = portCCW[0] == portCW[0];
-//        portShake[1] = portCCW[1] == portCW[1];
-//        portShake[2] = portCCW[2] == portCW[2];
+        portShake[0] = portCCW[0] == portCW[0];
+        portShake[1] = portCCW[1] == portCW[1];
+        portShake[2] = portCCW[2] == portCW[2];
         if (shakeCW) {
             PWMC(450, 160, portShake); // ccw
             PWMC(5000, 2, portShake); //cw

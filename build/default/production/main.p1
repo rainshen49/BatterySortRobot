@@ -2942,7 +2942,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.h: 3: void CCW90(int * port);
 [; ;motors.h: 4: void stopMoving(char em);
 [; ;motors.h: 5: void shake(int * port);
-[; ;motors.h: 7: void openGate() ;
+[; ;motors.h: 7: void openGate();
 [; ;motors.h: 8: void closeGate();
 [; ;eeprom.h: 11: unsigned char ReadEE(unsigned int address);
 [; ;eeprom.h: 12: void WriteEE(unsigned int address, unsigned char data);
@@ -3485,6 +3485,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _portShake `i ~T0 @X0 3  a ]
 [; ;main.c: 183: int portShake[]={0,0,0};
 [e = _portShake F3127 ]
+[; ;main.c: 184: portShake[0] = portCCW[0] == portCW[0];
+"184
+[e = *U + &U _portShake * -> -> -> 0 `i `ui `ux -> -> # *U &U _portShake `ui `ux -> == *U + &U _portCCW * -> -> -> 0 `i `ui `ux -> -> # *U &U _portCCW `ui `ux *U + &U _portCW * -> -> -> 0 `i `ui `ux -> -> # *U &U _portCW `ui `ux `i ]
+[; ;main.c: 185: portShake[1] = portCCW[1] == portCW[1];
+"185
+[e = *U + &U _portShake * -> -> -> 1 `i `ui `ux -> -> # *U &U _portShake `ui `ux -> == *U + &U _portCCW * -> -> -> 1 `i `ui `ux -> -> # *U &U _portCCW `ui `ux *U + &U _portCW * -> -> -> 1 `i `ui `ux -> -> # *U &U _portCW `ui `ux `i ]
+[; ;main.c: 186: portShake[2] = portCCW[2] == portCW[2];
+"186
+[e = *U + &U _portShake * -> -> -> 2 `i `ui `ux -> -> # *U &U _portShake `ui `ux -> == *U + &U _portCCW * -> -> -> 2 `i `ui `ux -> -> # *U &U _portCCW `ui `ux *U + &U _portCW * -> -> -> 2 `i `ui `ux -> -> # *U &U _portCW `ui `ux `i ]
 [; ;main.c: 187: if (shakeCW) {
 "187
 [e $ ! != -> _shakeCW `i -> -> -> 0 `i `uc `i 288  ]

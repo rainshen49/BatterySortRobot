@@ -3800,10 +3800,10 @@ void CCW90(int * port);
 void stopMoving(char em);
 void shake(int * port);
 
-void openGate() ;
+void openGate();
 void closeGate();
 
-# 4 "motors.c"
+# 5 "motors.c"
 void PWMC(int widthus, int cycles, int * port) {
 widthus /= 10;
 widthus -= 1;
@@ -3819,6 +3819,7 @@ _delay((unsigned long)((5)*(8000000/4000000.0)));
 }
 }
 
+# 86
 void CW90(int * port) {
 
 if (port[0] + port[1] + port[2] == 0)return;

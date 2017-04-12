@@ -110,17 +110,17 @@
 "76
 [v _getTime getTime `(v  1 e 1 0 ]
 [v i2_getTime getTime `(v  1 e 1 0 ]
-"4 E:\MPLAB\BatterySortRobot\motors.c
+"5 E:\MPLAB\BatterySortRobot\motors.c
 [v _PWMC PWMC `(v  1 e 1 0 ]
-"19
+"86
 [v _CW90 CW90 `(v  1 e 1 0 ]
-"26
+"93
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
-"44
+"111
 [v _stopMoving stopMoving `(v  1 e 1 0 ]
-"52
+"119
 [v _openGate openGate `(v  1 e 1 0 ]
-"59
+"126
 [v _closeGate closeGate `(v  1 e 1 0 ]
 "4 E:\MPLAB\BatterySortRobot\sensors.c
 [v _AD AD `(i  1 e 2 0 ]
@@ -577,16 +577,16 @@
 [v _simulate simulate `(v  1 e 1 0 ]
 {
 "121
-[v simulate@portCCW portCCW `[3]i  1 a 6 67 ]
+[v simulate@portCCW portCCW `[3]i  1 a 6 77 ]
 "120
-[v simulate@portCW portCW `[3]i  1 a 6 61 ]
+[v simulate@portCW portCW `[3]i  1 a 6 71 ]
 "183
-[v simulate@portShake portShake `[3]i  1 a 6 55 ]
+[v simulate@portShake portShake `[3]i  1 a 6 64 ]
 "93
 [v simulate@sorted sorted `[4]uc  1 a 4 91 ]
 "92
-[v simulate@start start `[2]ui  1 a 4 77 ]
-[v simulate@now now `[2]ui  1 a 4 73 ]
+[v simulate@start start `[2]ui  1 a 4 59 ]
+[v simulate@now now `[2]ui  1 a 4 55 ]
 "96
 [v simulate@AA AA `i  1 a 2 89 ]
 "94
@@ -595,9 +595,9 @@
 [v simulate@V9 V9 `i  1 a 2 85 ]
 [v simulate@C C `i  1 a 2 83 ]
 "95
-[v simulate@shakeCW shakeCW `uc  1 a 1 82 ]
+[v simulate@shakeCW shakeCW `uc  1 a 1 70 ]
 "108
-[v simulate@notyet notyet `uc  1 a 1 81 ]
+[v simulate@notyet notyet `uc  1 a 1 63 ]
 "91
 [v simulate@F3110 F3110 `[2]ui  1 s 4 F3110 ]
 "92
@@ -772,23 +772,23 @@
 [v mainloop@F3101 F3101 `[3]i  1 s 6 F3101 ]
 "89
 } 0
-"44 E:\MPLAB\BatterySortRobot\motors.c
+"111 E:\MPLAB\BatterySortRobot\motors.c
 [v _stopMoving stopMoving `(v  1 e 1 0 ]
 {
 [v stopMoving@em em `uc  1 a 1 wreg ]
 [v stopMoving@em em `uc  1 a 1 wreg ]
 [v stopMoving@em em `uc  1 a 1 36 ]
-"50
+"117
 } 0
-"52
+"119
 [v _openGate openGate `(v  1 e 1 0 ]
 {
-"57
+"124
 } 0
-"59
+"126
 [v _closeGate closeGate `(v  1 e 1 0 ]
 {
-"64
+"131
 } 0
 "75 E:\MPLAB\BatterySortRobot\eeprom.c
 [v _WriteRun WriteRun `(v  1 e 1 0 ]
@@ -807,28 +807,28 @@
 [v WriteEE@data data `uc  1 p 1 2 ]
 "55
 } 0
-"19 E:\MPLAB\BatterySortRobot\motors.c
+"86 E:\MPLAB\BatterySortRobot\motors.c
 [v _CW90 CW90 `(v  1 e 1 0 ]
 {
 [v CW90@port port `*.39i  1 p 2 21 ]
-"24
+"91
 } 0
-"26
+"93
 [v _CCW90 CCW90 `(v  1 e 1 0 ]
 {
 [v CCW90@port port `*.39i  1 p 2 21 ]
-"31
+"98
 } 0
-"4
+"5
 [v _PWMC PWMC `(v  1 e 1 0 ]
 {
-"7
+"8
 [v PWMC@countdown countdown `i  1 a 2 19 ]
-"4
+"5
 [v PWMC@widthus widthus `i  1 p 2 8 ]
 [v PWMC@cycles cycles `i  1 p 2 10 ]
 [v PWMC@port port `*.39i  1 p 2 12 ]
-"17
+"18
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
